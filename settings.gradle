@@ -1,0 +1,1 @@
+include ':bidmachine-banner', ':bidmachine-interstitial', ':bidmachine', ':bidmachine-rewarded'

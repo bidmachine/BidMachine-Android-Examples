@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".RewardedVideoActivity">
+
+    <Button
+        android:id="@+id/btnShowRewarded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Rewarded Ads"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="32dp"
+        android:text="If you want control when display ad:"
+        android:textStyle="bold|italic"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btnLoadRewarded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Rewarded Ads"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btnShowLoadedRewarded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Loaded Rewarded Ads"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>
