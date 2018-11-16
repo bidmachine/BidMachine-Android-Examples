@@ -6,6 +6,8 @@
 
 #### Rewarded Video examples [Java](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedVideoActivity.java)|[Kotlin](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedVideoKotlinActivity.kt)
 
+#### Native examples [Java](bidmachine-native/src/main/java/io/bidmachine/examples/NativeActivity.java)|[Kotlin](bidmachine-native/src/main/java/io/bidmachine/examples/NativeKotlinActivity.kt)
+
 ---
 
 Copyright 2018 Appodeal Inc.
