@@ -16,18 +16,15 @@ public class InterstitialActivity extends BaseExampleActivity {
     private InterstitialAd interstitialAd;
     private InterstitialAd videoAd;
 
-    private InterstitialAd delayedShowInterstitial;
+    private InterstitialAd delayedShowInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interstitial);
 
-        //Set publisher id, which will be used for every request
-        BidMachine.setPublisherId("1");
-
         //Initialise SDK
-        BidMachine.initialize(this);
+        BidMachine.initialize(this, "1");
 
         findViewById(R.id.btnShowInterstitial).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +60,6 @@ public class InterstitialActivity extends BaseExampleActivity {
 
         //Create new InterstitialRequest
         final InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
-                .setAdSpaceId("29")
                 .build();
 
         //Create new InterstitialAd
@@ -111,7 +107,6 @@ public class InterstitialActivity extends BaseExampleActivity {
 
         //Create new InterstitialRequest for Video
         final InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
-                .setAdSpaceId("29")
                 .build();
 
         //Create new InterstitialAd for Video
@@ -153,14 +148,13 @@ public class InterstitialActivity extends BaseExampleActivity {
 
         //Create new InterstitialRequest
         final InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
-                .setAdSpaceId("29")
                 .build();
 
         //Create new InterstitialAd
-        delayedShowInterstitial = new InterstitialAd(this);
+        delayedShowInterstitialAd = new InterstitialAd(this);
 
         //Set InterstitialAd events listener
-        delayedShowInterstitial.setListener(new SimpleInterstitialListener() {
+        delayedShowInterstitialAd.setListener(new SimpleInterstitialListener() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd ad) {
                 toast("Interstitial Ads Loaded");
@@ -184,16 +178,16 @@ public class InterstitialActivity extends BaseExampleActivity {
         });
 
         //Load InterstitialAd
-        delayedShowInterstitial.load(interstitialRequest);
+        delayedShowInterstitialAd.load(interstitialRequest);
     }
 
     private void showLoadedInterstitial() {
-        if (delayedShowInterstitial == null) {
+        if (delayedShowInterstitialAd == null) {
             toast("Load Interstitial First");
-        } else if (!delayedShowInterstitial.isLoaded()) {
+        } else if (!delayedShowInterstitialAd.isLoaded()) {
             toast("Interstitial not Loaded yet");
         } else {
-            delayedShowInterstitial.show();
+            delayedShowInterstitialAd.show();
         }
     }
 
@@ -220,9 +214,9 @@ public class InterstitialActivity extends BaseExampleActivity {
     }
 
     private void destroyDelayedShowInterstitial() {
-        if (delayedShowInterstitial != null) {
-            delayedShowInterstitial.destroy();
-            delayedShowInterstitial = null;
+        if (delayedShowInterstitialAd != null) {
+            delayedShowInterstitialAd.destroy();
+            delayedShowInterstitialAd = null;
         }
     }
 

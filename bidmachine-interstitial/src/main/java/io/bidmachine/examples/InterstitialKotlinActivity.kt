@@ -15,17 +15,14 @@ class InterstitialKotlinActivity : AppCompatActivity() {
     private var interstitialAd: InterstitialAd? = null
     private var videoAd: InterstitialAd? = null
 
-    private var delayedShowInterstitial: InterstitialAd? = null
+    private var delayedShowInterstitialAd: InterstitialAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_interstitial)
 
-        //Set publisher id, which will be used for every request
-        BidMachine.setPublisherId("1")
-
         //Initialise SDK
-        BidMachine.initialize(this)
+        BidMachine.initialize(this, "1")
 
         btnShowInterstitial.setOnClickListener { showInterstitial() }
         btnShowVideo.setOnClickListener { showVideo() }
@@ -40,7 +37,6 @@ class InterstitialKotlinActivity : AppCompatActivity() {
 
         //Create new InterstitialRequest
         val interstitialRequest = InterstitialRequest.Builder()
-                .setAdSpaceId("29")
                 .build()
 
         //Create new InterstitialAd
@@ -86,7 +82,6 @@ class InterstitialKotlinActivity : AppCompatActivity() {
 
         //Create new InterstitialRequest for Video
         val interstitialRequest = InterstitialRequest.Builder()
-                .setAdSpaceId("29")
                 .build()
 
         //Create new InterstitialAd for Video
@@ -127,11 +122,10 @@ class InterstitialKotlinActivity : AppCompatActivity() {
 
         //Create new InterstitialRequest
         val interstitialRequest = InterstitialRequest.Builder()
-                .setAdSpaceId("29")
                 .build()
 
         //Create new InterstitialAd
-        delayedShowInterstitial = InterstitialAd(this).apply {
+        delayedShowInterstitialAd = InterstitialAd(this).apply {
 
             //Set InterstitialAd events listener
             setListener(object : SimpleInterstitialListener() {
@@ -161,11 +155,11 @@ class InterstitialKotlinActivity : AppCompatActivity() {
 
     private fun showLoadedInterstitial() {
         when {
-            delayedShowInterstitial == null ->
+            delayedShowInterstitialAd == null ->
                 toast(this, "Load Interstitial First")
-            delayedShowInterstitial?.isLoaded == false ->
+            delayedShowInterstitialAd?.isLoaded == false ->
                 toast(this, "Interstitial not Loaded yet")
-            else -> delayedShowInterstitial!!.show()
+            else -> delayedShowInterstitialAd!!.show()
         }
     }
 
@@ -177,15 +171,24 @@ class InterstitialKotlinActivity : AppCompatActivity() {
     }
 
     private fun destroyInterstitialAd() {
-        interstitialAd?.destroy()
+        interstitialAd?.let { ad ->
+            ad.destroy()
+            interstitialAd = null
+        }
     }
 
     private fun destroyVideoAd() {
-        videoAd?.destroy()
+        videoAd?.let { ad ->
+            ad.destroy()
+            videoAd = null
+        }
     }
 
     private fun destroyDelayedShowInterstitial() {
-        delayedShowInterstitial?.destroy()
+        delayedShowInterstitialAd?.let { ad ->
+            ad.destroy()
+            delayedShowInterstitialAd = null
+        }
     }
 
 }

@@ -6,6 +6,7 @@ import android.view.View;
 
 import io.bidmachine.BidMachine;
 import io.bidmachine.banner.BannerRequest;
+import io.bidmachine.banner.BannerSize;
 import io.bidmachine.banner.BannerView;
 import io.bidmachine.banner.SimpleBannerListener;
 import io.bidmachine.examples.base.BaseExampleActivity;
@@ -20,11 +21,8 @@ public class BannerActivity extends BaseExampleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
 
-        //Set publisher id, which will be used for every request
-        BidMachine.setPublisherId("1");
-
         //Initialise SDK
-        BidMachine.initialize(this);
+        BidMachine.initialize(this, "1");
 
         //Find BannerView in hierarchy
         bannerView = findViewById(R.id.bannerView);
@@ -47,7 +45,7 @@ public class BannerActivity extends BaseExampleActivity {
 
         //Create banner request
         BannerRequest request = new BannerRequest.Builder()
-                .setAdSpaceId("29")
+                .setSize(BannerSize.Size_320_50)
                 .build();
 
         //Load Banner Ads
@@ -57,9 +55,11 @@ public class BannerActivity extends BaseExampleActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         //Destroy ads when you finish with it
         if (bannerView != null) {
             bannerView.destroy();
+            bannerView = null;
         }
     }
 

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import io.bidmachine.BidMachine
 import io.bidmachine.banner.BannerRequest
+import io.bidmachine.banner.BannerSize
 import io.bidmachine.banner.BannerView
 import io.bidmachine.banner.SimpleBannerListener
 import io.bidmachine.examples.base.Utils.toast
@@ -18,11 +19,8 @@ class BannerKotlinActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_banner)
 
-        //Set publisher id, which will be used for every request
-        BidMachine.setPublisherId("1")
-
         //Initialise SDK
-        BidMachine.initialize(this)
+        BidMachine.initialize(this, "1")
 
         //Find BannerView in hierarchy
         bannerView = findViewById(R.id.bannerView)
@@ -41,7 +39,7 @@ class BannerKotlinActivity : AppCompatActivity() {
 
         //Create Banner request
         val bannerRequest = BannerRequest.Builder()
-                .setAdSpaceId("29")
+                .setSize(BannerSize.Size_320_50)
                 .build()
 
         //Load Banner Ads
@@ -50,6 +48,7 @@ class BannerKotlinActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+
         //Destroy ads when you finish with it
         if (this::bannerView.isInitialized) {
             bannerView.destroy()
