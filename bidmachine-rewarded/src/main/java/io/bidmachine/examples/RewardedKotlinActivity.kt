@@ -1,33 +1,39 @@
 package io.bidmachine.examples
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.View
 import io.bidmachine.BidMachine
+import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.examples.base.Utils.toast
 import io.bidmachine.rewarded.RewardedAd
 import io.bidmachine.rewarded.RewardedRequest
 import io.bidmachine.rewarded.SimpleRewardedListener
 import io.bidmachine.utils.BMError
+import kotlinx.android.synthetic.main.activity_rewarded.*
 
-class RewardedKotlinActivity : AppCompatActivity() {
+class RewardedKotlinActivity : BaseKotlinExampleActivity() {
 
     private var rewardedAd: RewardedAd? = null
     private var delayedShowRewardedAd: RewardedAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rewarded)
 
         //Initialise SDK
         BidMachine.initialize(this, "1")
 
-        findViewById<View>(R.id.btnShowRewarded).setOnClickListener { showRewarded() }
-        findViewById<View>(R.id.btnLoadRewarded).setOnClickListener { loadRewarded() }
-        findViewById<View>(R.id.btnShowLoadedRewarded).setOnClickListener { showLoadedRewarded() }
+        //Enable logs
+        BidMachine.setLoggingEnabled(true)
+
+        setContentView(R.layout.activity_rewarded)
+
+        btnShowRewarded.setOnClickListener { showRewarded() }
+        btnLoadRewarded.setOnClickListener { loadRewarded() }
+        btnShowLoadedRewarded.setOnClickListener { showLoadedRewarded() }
     }
 
     private fun showRewarded() {
+        setDebugState(Status.Loading)
+
         //Destroy previous loaded RewardedAd
         destroyRewarded()
 
@@ -41,28 +47,28 @@ class RewardedKotlinActivity : AppCompatActivity() {
             //Set RewardedAd events listener
             setListener(object : SimpleRewardedListener() {
                 override fun onAdLoaded(ad: RewardedAd) {
-                    toast(this@RewardedKotlinActivity, "Rewarded Ads Loaded")
+                    setDebugState(Status.Loaded, "Rewarded Ads Loaded")
 
                     //Show RewardedAd
                     ad.show()
                 }
 
                 override fun onAdLoadFailed(ad: RewardedAd, error: BMError) {
-                    toast(this@RewardedKotlinActivity, "Rewarded Ads Load Failed")
+                    setDebugState(Status.LoadFail, "Rewarded Ads Load Failed")
 
                     //Destroy loaded ad since it not required any more
                     destroyRewarded()
                 }
 
                 override fun onAdClosed(ad: RewardedAd, finished: Boolean) {
-                    toast(this@RewardedKotlinActivity, "Rewarded Ads Completed")
+                    setDebugState(Status.Closed, "Rewarded Ads Closed")
 
                     //Destroy loaded ad since it not required any more
                     destroyRewarded()
                 }
 
                 override fun onAdRewarded(ad: RewardedAd) {
-                    toast(this@RewardedKotlinActivity, "Rewarded Ads Completed")
+                    setDebugState(Status.Rewarded, "Rewarded Ads Rewarded")
                     //TODO: add note about reward handle
                 }
             })
@@ -73,38 +79,40 @@ class RewardedKotlinActivity : AppCompatActivity() {
     }
 
     private fun loadRewarded() {
+        setDebugState(Status.Loading)
+
         //Destroy previous loaded RewardedAd
-        destroyRewarded()
+        destroyDelayedShowRewarded()
 
         //Create new RewardedRequest
         val rewardedRequest = RewardedRequest.Builder()
                 .build()
 
         //Create new RewardedAd
-        rewardedAd = RewardedAd(this).apply {
+        delayedShowRewardedAd = RewardedAd(this).apply {
 
             //Set RewardedAd events listener
             setListener(object : SimpleRewardedListener() {
                 override fun onAdLoaded(ad: RewardedAd) {
-                    toast(this@RewardedKotlinActivity, "Rewarded Ads Loaded")
+                    setDebugState(Status.Loaded, "Rewarded Ads Loaded")
                 }
 
                 override fun onAdLoadFailed(ad: RewardedAd, error: BMError) {
-                    toast(this@RewardedKotlinActivity, "Rewarded Ads Load Failed")
+                    setDebugState(Status.LoadFail, "Rewarded Ads Load Failed")
 
                     //Destroy loaded ad since it not required any more
                     destroyDelayedShowRewarded()
                 }
 
                 override fun onAdClosed(ad: RewardedAd, finished: Boolean) {
-                    toast(this@RewardedKotlinActivity, "Rewarded Ads Completed")
+                    setDebugState(Status.Closed, "Rewarded Ads Closed")
 
                     //Destroy loaded ad since it not required any more
                     destroyDelayedShowRewarded()
                 }
 
                 override fun onAdRewarded(ad: RewardedAd) {
-                    toast(this@RewardedKotlinActivity, "Rewarded Ads Completed")
+                    setDebugState(Status.Rewarded, "Rewarded Ads Rewarded")
                     //TODO: add note about reward handle
                 }
             })

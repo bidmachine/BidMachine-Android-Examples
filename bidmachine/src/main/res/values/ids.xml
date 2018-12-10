@@ -2,5 +2,6 @@
 <resources>
 
     <item name="menu_item_kotlin_example" type="id" />
+    <item name="menu_item_java_example" type="id" />
 
 </resources>

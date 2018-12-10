@@ -1,8 +1,8 @@
 package io.bidmachine.examples
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import io.bidmachine.BidMachine
+import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.examples.base.Utils.toast
 import io.bidmachine.interstitial.InterstitialAd
 import io.bidmachine.interstitial.InterstitialRequest
@@ -10,7 +10,7 @@ import io.bidmachine.interstitial.SimpleInterstitialListener
 import io.bidmachine.utils.BMError
 import kotlinx.android.synthetic.main.activity_interstitial.*
 
-class InterstitialKotlinActivity : AppCompatActivity() {
+class InterstitialKotlinActivity : BaseKotlinExampleActivity() {
 
     private var interstitialAd: InterstitialAd? = null
     private var videoAd: InterstitialAd? = null
@@ -19,19 +19,25 @@ class InterstitialKotlinActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_interstitial)
 
         //Initialise SDK
         BidMachine.initialize(this, "1")
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true)
+
+        //Set activity content view
+        setContentView(R.layout.activity_interstitial)
 
         btnShowInterstitial.setOnClickListener { showInterstitial() }
         btnShowVideo.setOnClickListener { showVideo() }
         btnLoadInterstitial.setOnClickListener { loadInterstitial() }
         btnShowLoadedInterstitial.setOnClickListener { showLoadedInterstitial() }
-
     }
 
     private fun showInterstitial() {
+        setDebugState(Status.Loading)
+
         //Destroy previous loaded InterstitialAd
         destroyInterstitialAd()
 
@@ -45,21 +51,21 @@ class InterstitialKotlinActivity : AppCompatActivity() {
             //Set InterstitialAd events listener
             setListener(object : SimpleInterstitialListener() {
                 override fun onAdLoaded(ad: InterstitialAd) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Loaded")
+                    setDebugState(Status.Loaded, "Interstitial Ads Loaded")
 
                     //Show Interstitial Ad
                     ad.show()
                 }
 
                 override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Load Failed")
+                    setDebugState(Status.LoadFail, "Interstitial Ads Load Failed")
 
                     //Destroy loaded ad since it not required any more
                     destroyInterstitialAd()
                 }
 
                 override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Completed")
+                    setDebugState(Status.Closed, "Interstitial Ads Closed")
 
                     //Destroy loaded ad since it not required any more
                     destroyInterstitialAd()
@@ -77,6 +83,7 @@ class InterstitialKotlinActivity : AppCompatActivity() {
      */
 
     private fun showVideo() {
+        setDebugState(Status.Loading)
         //Destroy previous loaded InterstitialAd for Video
         destroyVideoAd()
 
@@ -90,21 +97,21 @@ class InterstitialKotlinActivity : AppCompatActivity() {
             //Set InterstitialAd for Video events listener
             setListener(object : SimpleInterstitialListener() {
                 override fun onAdLoaded(ad: InterstitialAd) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Loaded")
+                    setDebugState(Status.Loaded, "Interstitial Ads Loaded")
 
                     //Show Interstitial Ad for Video
                     ad.show()
                 }
 
                 override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Load Failed")
+                    setDebugState(Status.LoadFail, "Interstitial Ads Load Failed")
 
                     //Destroy loaded ad since it not required any more
                     destroyInterstitialAd()
                 }
 
                 override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Completed")
+                    setDebugState(Status.Closed, "Interstitial Ads Closed")
 
                     //Destroy loaded ad since it not required any more
                     destroyInterstitialAd()
@@ -117,6 +124,8 @@ class InterstitialKotlinActivity : AppCompatActivity() {
     }
 
     private fun loadInterstitial() {
+        setDebugState(Status.Loading)
+
         //Destroy previous loaded Interstitial Ads
         destroyDelayedShowInterstitial()
 
@@ -130,18 +139,18 @@ class InterstitialKotlinActivity : AppCompatActivity() {
             //Set InterstitialAd events listener
             setListener(object : SimpleInterstitialListener() {
                 override fun onAdLoaded(ad: InterstitialAd) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Loaded")
+                    setDebugState(Status.Loaded, "Interstitial Ads Loaded")
                 }
 
                 override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Load Failed")
+                    setDebugState(Status.LoadFail, "Interstitial Ads Load Failed")
 
                     //Destroy loaded ad since it not required any more
                     destroyDelayedShowInterstitial()
                 }
 
                 override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
-                    toast(this@InterstitialKotlinActivity, "Interstitial Ads Completed")
+                    setDebugState(Status.Closed, "Interstitial Ads Closed")
 
                     //Destroy loaded ad since it not required any more
                     destroyDelayedShowInterstitial()

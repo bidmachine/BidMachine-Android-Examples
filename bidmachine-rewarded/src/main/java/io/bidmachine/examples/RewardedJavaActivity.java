@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import io.bidmachine.BidMachine;
-import io.bidmachine.examples.base.BaseExampleActivity;
+import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.rewarded.RewardedAd;
 import io.bidmachine.rewarded.RewardedRequest;
 import io.bidmachine.rewarded.SimpleRewardedListener;
 import io.bidmachine.utils.BMError;
 
-public class RewardedActivity extends BaseExampleActivity {
+public class RewardedJavaActivity extends BaseJavaExampleActivity {
 
     private RewardedAd rewardedAd;
     private RewardedAd delayedShowRewardedAd;
@@ -19,10 +19,14 @@ public class RewardedActivity extends BaseExampleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rewarded);
 
         //Initialise SDK
         BidMachine.initialize(this, "1");
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true);
+
+        setContentView(R.layout.activity_rewarded);
 
         findViewById(R.id.btnShowRewarded).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +49,8 @@ public class RewardedActivity extends BaseExampleActivity {
     }
 
     private void showRewarded() {
+        setDebugState(Status.Loading);
+
         //Destroy previous loaded RewardedAd
         destroyRewarded();
 
@@ -59,7 +65,7 @@ public class RewardedActivity extends BaseExampleActivity {
         rewardedAd.setListener(new SimpleRewardedListener() {
             @Override
             public void onAdLoaded(@NonNull RewardedAd ad) {
-                toast("Rewarded Ads Loaded");
+                setDebugState(Status.Loaded, "Rewarded Ads Loaded");
 
                 //Show RewardedAd
                 ad.show();
@@ -67,7 +73,7 @@ public class RewardedActivity extends BaseExampleActivity {
 
             @Override
             public void onAdLoadFailed(@NonNull RewardedAd ad, @NonNull BMError error) {
-                toast("Rewarded Ads Load Failed");
+                setDebugState(Status.LoadFail, "Rewarded Ads Load Failed");
 
                 //Destroy loaded ad since it not required any more
                 destroyRewarded();
@@ -75,7 +81,7 @@ public class RewardedActivity extends BaseExampleActivity {
 
             @Override
             public void onAdClosed(@NonNull RewardedAd ad, boolean finished) {
-                toast("Rewarded Ads Completed");
+                setDebugState(Status.Closed, "Rewarded Ads Closed");
 
                 //Destroy loaded ad since it not required any more
                 destroyRewarded();
@@ -83,7 +89,7 @@ public class RewardedActivity extends BaseExampleActivity {
 
             @Override
             public void onAdRewarded(@NonNull RewardedAd ad) {
-                toast("Rewarded Ads Completed");
+                setDebugState(Status.Rewarded, "Rewarded Ads Rewarded");
                 //TODO: add note about reward handle
             }
         });
@@ -93,26 +99,28 @@ public class RewardedActivity extends BaseExampleActivity {
     }
 
     private void loadRewarded() {
+        setDebugState(Status.Loading);
+
         //Destroy previous loaded RewardedAd
-        destroyRewarded();
+        destroyDelayedShowRewarded();
 
         //Create new RewardedRequest
         final RewardedRequest rewardedRequest = new RewardedRequest.Builder()
                 .build();
 
         //Create new RewardedAd
-        rewardedAd = new RewardedAd(this);
+        delayedShowRewardedAd = new RewardedAd(this);
 
         //Set RewardedAd events listener
-        rewardedAd.setListener(new SimpleRewardedListener() {
+        delayedShowRewardedAd.setListener(new SimpleRewardedListener() {
             @Override
             public void onAdLoaded(@NonNull RewardedAd ad) {
-                toast("Rewarded Ads Loaded");
+                setDebugState(Status.Loaded, "Rewarded Ads Loaded");
             }
 
             @Override
             public void onAdLoadFailed(@NonNull RewardedAd ad, @NonNull BMError error) {
-                toast("Rewarded Ads Load Failed");
+                setDebugState(Status.LoadFail, "Rewarded Ads Load Failed");
 
                 //Destroy loaded ad since it not required any more
                 destroyDelayedShowRewarded();
@@ -120,7 +128,7 @@ public class RewardedActivity extends BaseExampleActivity {
 
             @Override
             public void onAdClosed(@NonNull RewardedAd ad, boolean finished) {
-                toast("Rewarded Ads Completed");
+                setDebugState(Status.Closed, "Rewarded Ads Closed");
 
                 //Destroy loaded ad since it not required any more
                 destroyDelayedShowRewarded();
@@ -128,13 +136,13 @@ public class RewardedActivity extends BaseExampleActivity {
 
             @Override
             public void onAdRewarded(@NonNull RewardedAd ad) {
-                toast("Rewarded Ads Completed");
+                setDebugState(Status.Rewarded, "Rewarded Ads Rewarded");
                 //TODO: add note about reward handle
             }
         });
 
         //Load Rewarded
-        rewardedAd.load(rewardedRequest);
+        delayedShowRewardedAd.load(rewardedRequest);
     }
 
     private void showLoadedRewarded() {

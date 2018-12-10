@@ -9,20 +9,32 @@ import io.bidmachine.banner.BannerRequest;
 import io.bidmachine.banner.BannerSize;
 import io.bidmachine.banner.BannerView;
 import io.bidmachine.banner.SimpleBannerListener;
-import io.bidmachine.examples.base.BaseExampleActivity;
+import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.utils.BMError;
 
-public class BannerActivity extends BaseExampleActivity {
+public class BannerJavaActivity extends BaseJavaExampleActivity {
 
     private BannerView bannerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_banner);
-
         //Initialise SDK
         BidMachine.initialize(this, "1");
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true);
+
+        //Set activity content view
+        setContentView(R.layout.activity_banner);
+
+        //Helper for load new ad instance
+        findViewById(R.id.btnLoadAd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadAd();
+            }
+        });
 
         //Find BannerView in hierarchy
         bannerView = findViewById(R.id.bannerView);
@@ -31,7 +43,7 @@ public class BannerActivity extends BaseExampleActivity {
         bannerView.setListener(new SimpleBannerListener() {
             @Override
             public void onAdLoaded(@NonNull BannerView ad) {
-                toast("Banner Ads loaded");
+                setDebugState(Status.Loaded, "Banner Ads loaded");
 
                 //make BannerView visible
                 ad.setVisibility(View.VISIBLE);
@@ -39,9 +51,13 @@ public class BannerActivity extends BaseExampleActivity {
 
             @Override
             public void onAdLoadFailed(@NonNull BannerView ad, @NonNull BMError error) {
-                toast("Banner Ads load failed");
+                setDebugState(Status.LoadFail, "Banner Ads load failed");
             }
         });
+    }
+
+    private void loadAd() {
+        setDebugState(Status.Loading);
 
         //Create banner request
         BannerRequest request = new BannerRequest.Builder()
