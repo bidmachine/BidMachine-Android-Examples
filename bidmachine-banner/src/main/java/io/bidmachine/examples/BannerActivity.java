@@ -9,10 +9,10 @@ import io.bidmachine.banner.BannerRequest;
 import io.bidmachine.banner.BannerSize;
 import io.bidmachine.banner.BannerView;
 import io.bidmachine.banner.SimpleBannerListener;
-import io.bidmachine.examples.base.BaseExampleActivity;
+import io.bidmachine.examples.base.BaseAndroidExampleActivity;
 import io.bidmachine.utils.BMError;
 
-public class BannerActivity extends BaseExampleActivity {
+public class BannerActivity extends BaseAndroidExampleActivity {
 
     private BannerView bannerView;
 
@@ -20,6 +20,13 @@ public class BannerActivity extends BaseExampleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
+
+        findViewById(R.id.b_load).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadAd();
+            }
+        });
 
         //Initialise SDK
         BidMachine.initialize(this, "1");
@@ -31,7 +38,7 @@ public class BannerActivity extends BaseExampleActivity {
         bannerView.setListener(new SimpleBannerListener() {
             @Override
             public void onAdLoaded(@NonNull BannerView ad) {
-                toast("Banner Ads loaded");
+                setDebugState(Status.Loaded, "Banner Ads loaded");
 
                 //make BannerView visible
                 ad.setVisibility(View.VISIBLE);
@@ -39,9 +46,15 @@ public class BannerActivity extends BaseExampleActivity {
 
             @Override
             public void onAdLoadFailed(@NonNull BannerView ad, @NonNull BMError error) {
-                toast("Banner Ads load failed");
+                setDebugState(Status.LoadFail, "Banner Ads load failed");
             }
         });
+
+        loadAd();
+    }
+
+    private void loadAd() {
+        setDebugState(Status.Loading);
 
         //Create banner request
         BannerRequest request = new BannerRequest.Builder()

@@ -4,21 +4,57 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import io.bidmachine.BidMachine;
 
 public class BaseExampleActivity extends AppCompatActivity {
 
+    private FrameLayout flContainer;
+    private ProgressBar pbLoading;
+    private TextView tvStatus;
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.clear();
-        MenuItem menuItem = menu.add(0, R.id.menu_item_kotlin_example, 0, "GoKotlin!");
-        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menuItem.setIcon(R.drawable.ic_kotlin);
-        return super.onCreateOptionsMenu(menu);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_base);
+
+        flContainer = findViewById(R.id.fl_container);
+        pbLoading = findViewById(R.id.pb_loading);
+        tvStatus = findViewById(R.id.tv_status);
+
+        ((Switch) findViewById(R.id.s_test_mode)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                BidMachine.setTestMode(isChecked);
+            }
+        });
+
+        BidMachine.setTestMode(true);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        if (flContainer != null) {
+            View view = LayoutInflater
+                    .from(this)
+                    .inflate(layoutResID, flContainer, false);
+            flContainer.addView(view);
+        } else {
+            super.setContentView(layoutResID);
+        }
     }
 
     @Override
@@ -39,12 +75,54 @@ public class BaseExampleActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             return false;
+        } else if (item.getItemId() == R.id.menu_item_java_example) {
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     protected void toast(@NonNull String message) {
         Utils.toast(this, message);
+    }
+
+    protected void setDebugState(Status status) {
+        setDebugState(status, null);
+    }
+
+    protected void setDebugState(Status status, String message) {
+        if (pbLoading != null) {
+            pbLoading.setVisibility(status.isLoading() ? View.VISIBLE : View.INVISIBLE);
+        }
+        if (tvStatus != null) {
+            tvStatus.setText(status.getStatus());
+        }
+        if (TextUtils.isEmpty(message)) {
+            toast("Banner Ads loaded");
+        }
+    }
+
+    protected enum Status {
+        Loading(true, "Loading"),
+        Loaded(false, "Loaded"),
+        LoadFail(false, "Load Fail"),
+        Closed(false, "Closed"),
+        Rewarded(false, "Rewarded");
+
+        private boolean loading;
+        private String status;
+
+        Status(boolean loading, String status) {
+            this.loading = loading;
+            this.status = status;
+        }
+
+        public boolean isLoading() {
+            return loading;
+        }
+
+        public String getStatus() {
+            return status;
+        }
     }
 
 }

@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import io.bidmachine.BidMachine;
-import io.bidmachine.examples.base.BaseExampleActivity;
+import io.bidmachine.examples.base.BaseAndroidExampleActivity;
 import io.bidmachine.interstitial.InterstitialAd;
 import io.bidmachine.interstitial.InterstitialRequest;
 import io.bidmachine.interstitial.SimpleInterstitialListener;
 import io.bidmachine.utils.BMError;
 
-public class InterstitialActivity extends BaseExampleActivity {
+public class InterstitialActivity extends BaseAndroidExampleActivity {
 
     private InterstitialAd interstitialAd;
     private InterstitialAd videoAd;
@@ -55,6 +55,7 @@ public class InterstitialActivity extends BaseExampleActivity {
     }
 
     private void showInterstitial() {
+        setDebugState(Status.Loading);
         //Destroy previous loaded InterstitialAd
         destroyInterstitialAd();
 
@@ -69,7 +70,7 @@ public class InterstitialActivity extends BaseExampleActivity {
         interstitialAd.setListener(new SimpleInterstitialListener() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd ad) {
-                toast("Interstitial Ads Loaded");
+                setDebugState(Status.Loaded, "Interstitial Ads Loaded");
 
                 //Show Interstitial Ad
                 ad.show();
@@ -77,7 +78,7 @@ public class InterstitialActivity extends BaseExampleActivity {
 
             @Override
             public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
-                toast("Interstitial Ads Load Failed");
+                setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
 
                 //Destroy loaded ad since it not required any more
                 destroyInterstitialAd();
@@ -85,7 +86,7 @@ public class InterstitialActivity extends BaseExampleActivity {
 
             @Override
             public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
-                toast("Interstitial Ads Completed");
+                setDebugState(Status.Closed, "Interstitial Ads Closed");
 
                 //Destroy loaded ad since it not required any more
                 destroyInterstitialAd();
@@ -102,6 +103,8 @@ public class InterstitialActivity extends BaseExampleActivity {
      */
 
     private void showVideo() {
+        setDebugState(Status.Loading);
+
         //Destroy previous loaded InterstitialAd for Video
         destroyVideoAd();
 
@@ -116,7 +119,7 @@ public class InterstitialActivity extends BaseExampleActivity {
         videoAd.setListener(new SimpleInterstitialListener() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd ad) {
-                toast("Interstitial Ads Loaded");
+                setDebugState(Status.Loaded, "Interstitial Ads Loaded");
 
                 //Show Interstitial Ad for Video
                 ad.show();
@@ -124,7 +127,7 @@ public class InterstitialActivity extends BaseExampleActivity {
 
             @Override
             public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
-                toast("Interstitial Ads Load Failed");
+                setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
 
                 //Destroy loaded ad since it not required any more
                 destroyVideoAd();
@@ -132,7 +135,7 @@ public class InterstitialActivity extends BaseExampleActivity {
 
             @Override
             public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
-                toast("Interstitial Ads Completed");
+                setDebugState(Status.Closed, "Interstitial Ads Closed");
 
                 //Destroy loaded ad since it not required any more
                 destroyVideoAd();
@@ -143,6 +146,8 @@ public class InterstitialActivity extends BaseExampleActivity {
     }
 
     private void loadInterstitial() {
+        setDebugState(Status.Loading);
+
         //Destroy previous loaded Interstitial Ads
         destroyDelayedShowInterstitial();
 
@@ -157,12 +162,12 @@ public class InterstitialActivity extends BaseExampleActivity {
         delayedShowInterstitialAd.setListener(new SimpleInterstitialListener() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd ad) {
-                toast("Interstitial Ads Loaded");
+                setDebugState(Status.Loaded, "Interstitial Ads Loaded");
             }
 
             @Override
             public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
-                toast("Interstitial Ads Load Failed");
+                setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
 
                 //Destroy loaded ad since it not required any more
                 destroyDelayedShowInterstitial();
@@ -170,7 +175,7 @@ public class InterstitialActivity extends BaseExampleActivity {
 
             @Override
             public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
-                toast("Interstitial Ads Completed");
+                setDebugState(Status.Closed, "Interstitial Ads Closed");
 
                 //Destroy loaded ad since it not required any more
                 destroyDelayedShowInterstitial();

@@ -22,16 +22,6 @@ android {
     }
 }
 
-repositories {
-    //Add BidMachine maven repository
-    mavenLocal()
-}
-
 dependencies {
-    //Add BidMachine SDK dependency
-    implementation "io.bidmachine:bidmachine:$bidmachine_version"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation project(':bidmachine')
 }
