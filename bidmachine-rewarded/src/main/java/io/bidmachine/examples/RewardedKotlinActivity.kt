@@ -69,7 +69,7 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity() {
                 }
             })
 
-            //Load Rewarded
+            //Load Rewarded Ads
             load(rewardedRequest)
         }
     }

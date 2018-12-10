@@ -10,9 +10,7 @@
         android:id="@+id/bannerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray" >
-
-    </io.bidmachine.banner.BannerView>
+        android:background="@android:color/darker_gray" />
 
     <Button
         android:id="@+id/btnLoadAd"
