@@ -96,8 +96,8 @@ public class BaseExampleActivity extends AppCompatActivity {
         if (currentAdStatus != null) {
             currentAdStatus.setText(status.getStatus());
         }
-        if (TextUtils.isEmpty(message)) {
-            toast("Banner Ads loaded");
+        if (!TextUtils.isEmpty(message)) {
+            toast(message);
         }
     }
 
