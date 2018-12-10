@@ -22,6 +22,14 @@ android {
     }
 }
 
+repositories {
+    //Add BidMachine maven repository
+    mavenLocal()
+}
+
 dependencies {
+    //Add BidMachine SDK dependency
+    implementation "io.bidmachine:bidmachine:$bidmachine_version"
+
     implementation project(':bidmachine')
 }

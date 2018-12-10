@@ -9,10 +9,10 @@ import io.bidmachine.banner.BannerRequest;
 import io.bidmachine.banner.BannerSize;
 import io.bidmachine.banner.BannerView;
 import io.bidmachine.banner.SimpleBannerListener;
-import io.bidmachine.examples.base.BaseAndroidExampleActivity;
+import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.utils.BMError;
 
-public class BannerActivity extends BaseAndroidExampleActivity {
+public class BannerActivity extends BaseJavaExampleActivity {
 
     private BannerView bannerView;
 
@@ -21,7 +21,8 @@ public class BannerActivity extends BaseAndroidExampleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
 
-        findViewById(R.id.b_load).setOnClickListener(new View.OnClickListener() {
+        //Helper for load new ad instance
+        findViewById(R.id.btnLoadAd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadAd();

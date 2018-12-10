@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import io.bidmachine.BidMachine;
-import io.bidmachine.examples.base.BaseAndroidExampleActivity;
+import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.rewarded.RewardedAd;
 import io.bidmachine.rewarded.RewardedRequest;
 import io.bidmachine.rewarded.SimpleRewardedListener;
 import io.bidmachine.utils.BMError;
 
-public class RewardedActivity extends BaseAndroidExampleActivity {
+public class RewardedActivity extends BaseJavaExampleActivity {
 
     private RewardedAd rewardedAd;
     private RewardedAd delayedShowRewardedAd;

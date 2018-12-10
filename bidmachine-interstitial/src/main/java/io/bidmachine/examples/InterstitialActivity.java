@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import io.bidmachine.BidMachine;
-import io.bidmachine.examples.base.BaseAndroidExampleActivity;
+import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.interstitial.InterstitialAd;
 import io.bidmachine.interstitial.InterstitialRequest;
 import io.bidmachine.interstitial.SimpleInterstitialListener;
 import io.bidmachine.utils.BMError;
 
-public class InterstitialActivity extends BaseAndroidExampleActivity {
+public class InterstitialActivity extends BaseJavaExampleActivity {
 
     private InterstitialAd interstitialAd;
     private InterstitialAd videoAd;

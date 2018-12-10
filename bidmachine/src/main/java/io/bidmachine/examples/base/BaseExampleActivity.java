@@ -22,20 +22,20 @@ import io.bidmachine.BidMachine;
 
 public class BaseExampleActivity extends AppCompatActivity {
 
-    private FrameLayout flContainer;
-    private ProgressBar pbLoading;
-    private TextView tvStatus;
+    private FrameLayout adTypeContainer;
+    private ProgressBar loadingProgressBar;
+    private TextView currentAdStatus;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        flContainer = findViewById(R.id.fl_container);
-        pbLoading = findViewById(R.id.pb_loading);
-        tvStatus = findViewById(R.id.tv_status);
+        adTypeContainer = findViewById(R.id.adTypecontainer);
+        loadingProgressBar = findViewById(R.id.loadingProgressBar);
+        currentAdStatus = findViewById(R.id.currentAdStatus);
 
-        ((Switch) findViewById(R.id.s_test_mode)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ((Switch) findViewById(R.id.testModeSwitcher)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 BidMachine.setTestMode(isChecked);
@@ -47,11 +47,11 @@ public class BaseExampleActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(int layoutResID) {
-        if (flContainer != null) {
+        if (adTypeContainer != null) {
             View view = LayoutInflater
                     .from(this)
-                    .inflate(layoutResID, flContainer, false);
-            flContainer.addView(view);
+                    .inflate(layoutResID, adTypeContainer, false);
+            adTypeContainer.addView(view);
         } else {
             super.setContentView(layoutResID);
         }
@@ -90,11 +90,11 @@ public class BaseExampleActivity extends AppCompatActivity {
     }
 
     protected void setDebugState(Status status, String message) {
-        if (pbLoading != null) {
-            pbLoading.setVisibility(status.isLoading() ? View.VISIBLE : View.INVISIBLE);
+        if (loadingProgressBar != null) {
+            loadingProgressBar.setVisibility(status.isLoading() ? View.VISIBLE : View.INVISIBLE);
         }
-        if (tvStatus != null) {
-            tvStatus.setText(status.getStatus());
+        if (currentAdStatus != null) {
+            currentAdStatus.setText(status.getStatus());
         }
         if (TextUtils.isEmpty(message)) {
             toast("Banner Ads loaded");

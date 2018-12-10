@@ -3,7 +3,7 @@ package io.bidmachine.examples.base;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class BaseAndroidExampleActivity extends BaseExampleActivity {
+public class BaseJavaExampleActivity extends BaseExampleActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

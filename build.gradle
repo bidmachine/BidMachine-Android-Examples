@@ -15,9 +15,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-
-        //Add BidMachine maven repository
-        mavenLocal()
     }
 }
 

@@ -19,7 +19,8 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_banner)
 
-        b_load.setOnClickListener {
+        //Helper for load new ad instance
+        btnLoadAd.setOnClickListener {
             loadAd()
         }
 
