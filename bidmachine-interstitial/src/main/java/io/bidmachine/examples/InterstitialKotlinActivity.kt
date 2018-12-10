@@ -19,10 +19,15 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_interstitial)
 
         //Initialise SDK
         BidMachine.initialize(this, "1")
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true)
+
+        //Set activity content view
+        setContentView(R.layout.activity_interstitial)
 
         btnShowInterstitial.setOnClickListener { showInterstitial() }
         btnShowVideo.setOnClickListener { showVideo() }

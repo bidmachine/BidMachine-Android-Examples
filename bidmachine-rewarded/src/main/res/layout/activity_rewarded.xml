@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".RewardedActivity">
+    tools:context=".RewardedJavaActivity">
 
     <Button
         android:id="@+id/btnShowRewarded"

@@ -35,21 +35,22 @@ public class BaseExampleActivity extends AppCompatActivity {
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
         currentAdStatus = findViewById(R.id.currentAdStatus);
 
-        ((Switch) findViewById(R.id.testModeSwitcher)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        final Switch testModeSwitcher = findViewById(R.id.testModeSwitcher);
+        testModeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 BidMachine.setTestMode(isChecked);
             }
         });
-
-        BidMachine.setTestMode(true);
+        if (savedInstanceState == null) {
+            BidMachine.setTestMode(true);
+        }
     }
 
     @Override
     public void setContentView(int layoutResID) {
         if (adTypeContainer != null) {
-            View view = LayoutInflater
-                    .from(this)
+            View view = LayoutInflater.from(this)
                     .inflate(layoutResID, adTypeContainer, false);
             adTypeContainer.addView(view);
         } else {

@@ -12,13 +12,20 @@ import io.bidmachine.banner.SimpleBannerListener;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.utils.BMError;
 
-public class BannerActivity extends BaseJavaExampleActivity {
+public class BannerJavaActivity extends BaseJavaExampleActivity {
 
     private BannerView bannerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Initialise SDK
+        BidMachine.initialize(this, "1");
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true);
+
+        //Set activity content view
         setContentView(R.layout.activity_banner);
 
         //Helper for load new ad instance
@@ -28,9 +35,6 @@ public class BannerActivity extends BaseJavaExampleActivity {
                 loadAd();
             }
         });
-
-        //Initialise SDK
-        BidMachine.initialize(this, "1");
 
         //Find BannerView in hierarchy
         bannerView = findViewById(R.id.bannerView);
@@ -50,8 +54,6 @@ public class BannerActivity extends BaseJavaExampleActivity {
                 setDebugState(Status.LoadFail, "Banner Ads load failed");
             }
         });
-
-        loadAd();
     }
 
     private void loadAd() {

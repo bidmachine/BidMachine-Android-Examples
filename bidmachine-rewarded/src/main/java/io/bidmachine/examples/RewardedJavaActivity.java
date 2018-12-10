@@ -11,7 +11,7 @@ import io.bidmachine.rewarded.RewardedRequest;
 import io.bidmachine.rewarded.SimpleRewardedListener;
 import io.bidmachine.utils.BMError;
 
-public class RewardedActivity extends BaseJavaExampleActivity {
+public class RewardedJavaActivity extends BaseJavaExampleActivity {
 
     private RewardedAd rewardedAd;
     private RewardedAd delayedShowRewardedAd;
@@ -19,10 +19,14 @@ public class RewardedActivity extends BaseJavaExampleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rewarded);
 
         //Initialise SDK
         BidMachine.initialize(this, "1");
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true);
+
+        setContentView(R.layout.activity_rewarded);
 
         findViewById(R.id.btnShowRewarded).setOnClickListener(new View.OnClickListener() {
             @Override

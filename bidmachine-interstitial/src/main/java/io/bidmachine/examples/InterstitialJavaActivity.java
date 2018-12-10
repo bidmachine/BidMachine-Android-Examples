@@ -11,7 +11,7 @@ import io.bidmachine.interstitial.InterstitialRequest;
 import io.bidmachine.interstitial.SimpleInterstitialListener;
 import io.bidmachine.utils.BMError;
 
-public class InterstitialActivity extends BaseJavaExampleActivity {
+public class InterstitialJavaActivity extends BaseJavaExampleActivity {
 
     private InterstitialAd interstitialAd;
     private InterstitialAd videoAd;
@@ -21,10 +21,14 @@ public class InterstitialActivity extends BaseJavaExampleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interstitial);
 
         //Initialise SDK
         BidMachine.initialize(this, "1");
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true);
+
+        setContentView(R.layout.activity_interstitial);
 
         findViewById(R.id.btnShowInterstitial).setOnClickListener(new View.OnClickListener() {
             @Override

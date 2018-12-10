@@ -17,10 +17,14 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rewarded)
 
         //Initialise SDK
         BidMachine.initialize(this, "1")
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true)
+
+        setContentView(R.layout.activity_rewarded)
 
         btnShowRewarded.setOnClickListener { showRewarded() }
         btnLoadRewarded.setOnClickListener { loadRewarded() }

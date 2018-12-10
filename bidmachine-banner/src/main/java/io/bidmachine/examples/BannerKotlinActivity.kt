@@ -17,15 +17,20 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Initialise SDK
+        BidMachine.initialize(this, "1")
+
+        //Enable logs
+        BidMachine.setLoggingEnabled(true)
+
+        //set activity content view
         setContentView(R.layout.activity_banner)
 
         //Helper for load new ad instance
         btnLoadAd.setOnClickListener {
             loadAd()
         }
-
-        //Initialise SDK
-        BidMachine.initialize(this, "1")
 
         //Find BannerView in hierarchy
         bannerView = findViewById(R.id.bannerView)
@@ -41,8 +46,6 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
                 setDebugState(Status.LoadFail, "Banner Ads Load Failed")
             }
         })
-
-        loadAd()
     }
 
     private fun loadAd() {
