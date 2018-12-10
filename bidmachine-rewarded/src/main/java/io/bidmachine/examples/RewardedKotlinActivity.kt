@@ -67,7 +67,7 @@ class RewardedKotlinActivity : AppCompatActivity() {
                 }
             })
 
-            //Load Rewarded
+            //Load Rewarded Ads
             load(rewardedRequest)
         }
     }

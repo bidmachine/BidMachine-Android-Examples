@@ -7,8 +7,8 @@
 
     <io.bidmachine.banner.BannerView
         android:id="@+id/bannerView"
-        android:background="@android:color/darker_gray"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray" />
 
 </FrameLayout>
