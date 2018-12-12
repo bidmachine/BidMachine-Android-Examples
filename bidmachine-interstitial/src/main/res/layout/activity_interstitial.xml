@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".InterstitialActivity">
+    tools:context=".InterstitialJavaActivity">
 
     <Button
         android:id="@+id/btnShowInterstitial"
