@@ -6,11 +6,11 @@ Check out our [developer site](https://wiki.appodeal.com/display/BID/BidMachine+
 
 ## Examples:
 
-#### Banner: [Java](bidmachine-banner/src/main/java/io/bidmachine/examples/BannerActivity.java)|[Kotlin](bidmachine-banner/src/main/java/io/bidmachine/examples/BannerKotlinActivity.kt)
+#### Banner: [Java](bidmachine-banner/src/main/java/io/bidmachine/examples/BannerJavaActivity.java)|[Kotlin](bidmachine-banner/src/main/java/io/bidmachine/examples/BannerKotlinActivity.kt)
 
-#### Interstitial: [Java](bidmachine-interstitial/src/main/java/io/bidmachine/examples/InterstitialActivity.java)|[Kotlin](bidmachine-interstitial/src/main/java/io/bidmachine/examples/InterstitialKotlinActivity.kt)
+#### Interstitial: [Java](bidmachine-interstitial/src/main/java/io/bidmachine/examples/InterstitialJavaActivity.java)|[Kotlin](bidmachine-interstitial/src/main/java/io/bidmachine/examples/InterstitialKotlinActivity.kt)
 
-#### Rewarded Video: [Java](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedActivity.java)|[Kotlin](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedKotlinActivity.kt)
+#### Rewarded Video: [Java](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedJavaActivity.java)|[Kotlin](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedKotlinActivity.kt)
 
 ---
 
