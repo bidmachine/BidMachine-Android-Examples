@@ -28,7 +28,7 @@ public class BannerJavaActivity extends BaseJavaExampleActivity {
         //Set activity content view
         setContentView(R.layout.activity_banner);
 
-        //Helper for load new ad instance
+        //Set listener to perform Ads load
         findViewById(R.id.btnLoadAd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +45,7 @@ public class BannerJavaActivity extends BaseJavaExampleActivity {
             public void onAdLoaded(@NonNull BannerView ad) {
                 setDebugState(Status.Loaded, "Banner Ads loaded");
 
-                //make BannerView visible
+                //Make BannerView visible
                 ad.setVisibility(View.VISIBLE);
             }
 
@@ -72,7 +72,7 @@ public class BannerJavaActivity extends BaseJavaExampleActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        //Destroy ads when you finish with it
+        //Destroy Ads when you finish with it
         if (bannerView != null) {
             bannerView.destroy();
             bannerView = null;

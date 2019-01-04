@@ -27,7 +27,7 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
         //set activity content view
         setContentView(R.layout.activity_banner)
 
-        //Helper for load new ad instance
+        //Set listener to perform Ads load
         btnLoadAd.setOnClickListener {
             loadAd()
         }
@@ -38,8 +38,10 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
         //Set Banner Ads events listener
         bannerView.setListener(object : SimpleBannerListener() {
             override fun onAdLoaded(ad: BannerView) {
-                ad.visibility = View.VISIBLE
                 setDebugState(Status.Loaded, "Banner Ads Loaded")
+
+                //Make BannerView visible
+                ad.visibility = View.VISIBLE
             }
 
             override fun onAdLoadFailed(ad: BannerView, error: BMError) {
@@ -51,7 +53,7 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
     private fun loadAd() {
         setDebugState(Status.Loading)
 
-        //Create Banner request
+        //Create Banner Ads request
         val bannerRequest = BannerRequest.Builder()
                 .setSize(BannerSize.Size_320_50)
                 .build()
@@ -63,7 +65,7 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        //Destroy ads when you finish with it
+        //Destroy Ads when you finish with it
         if (this::bannerView.isInitialized) {
             bannerView.destroy()
         }

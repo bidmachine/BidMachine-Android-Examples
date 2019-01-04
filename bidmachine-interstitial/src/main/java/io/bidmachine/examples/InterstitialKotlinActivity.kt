@@ -1,6 +1,7 @@
 package io.bidmachine.examples
 
 import android.os.Bundle
+import io.bidmachine.AdContentType
 import io.bidmachine.BidMachine
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.examples.base.Utils.toast
@@ -29,6 +30,7 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity() {
         //Set activity content view
         setContentView(R.layout.activity_interstitial)
 
+        //Set listeners to perform Ads load
         btnShowInterstitial.setOnClickListener { showInterstitial() }
         btnShowVideo.setOnClickListener { showVideo() }
         btnLoadInterstitial.setOnClickListener { loadInterstitial() }
@@ -79,16 +81,18 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity() {
 
     /**
      * For Interstitial and Interstitial Video we use same class, for define display type you should
-     * set it in ad space settings, see: TODO: add web link
+     * set it in ad space settings, <a href="https://wiki.appodeal.com/display/BID/BidMachine+Android+SDK+Documentation#BidMachineAndroidSDKDocumentation-5.Interstitial">See documentation</a>
      */
 
     private fun showVideo() {
         setDebugState(Status.Loading)
+
         //Destroy previous loaded InterstitialAd for Video
         destroyVideoAd()
 
         //Create new InterstitialRequest for Video
         val interstitialRequest = InterstitialRequest.Builder()
+                .setAdContentType(AdContentType.Video) //Set required Interstitial content type
                 .build()
 
         //Create new InterstitialAd for Video
@@ -162,18 +166,10 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity() {
         }
     }
 
-    private fun showLoadedInterstitial() {
-        when {
-            delayedShowInterstitialAd == null ->
-                toast(this, "Load Interstitial First")
-            delayedShowInterstitialAd?.isLoaded == false ->
-                toast(this, "Interstitial not Loaded yet")
-            else -> delayedShowInterstitialAd!!.show()
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
+
+        //Destroy Ads when you finish with it
         destroyInterstitialAd()
         destroyVideoAd()
         destroyDelayedShowInterstitial()
@@ -200,4 +196,13 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity() {
         }
     }
 
+    private fun showLoadedInterstitial() {
+        when {
+            delayedShowInterstitialAd == null ->
+                toast(this, "Load Interstitial First")
+            delayedShowInterstitialAd?.isLoaded == false ->
+                toast(this, "Interstitial not Loaded yet")
+            else -> delayedShowInterstitialAd!!.show()
+        }
+    }
 }

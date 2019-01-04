@@ -24,8 +24,10 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity() {
         //Enable logs
         BidMachine.setLoggingEnabled(true)
 
+        //Set activity content view
         setContentView(R.layout.activity_rewarded)
 
+        //Set listeners to perform Ads load
         btnShowRewarded.setOnClickListener { showRewarded() }
         btnLoadRewarded.setOnClickListener { loadRewarded() }
         btnShowLoadedRewarded.setOnClickListener { showLoadedRewarded() }
@@ -69,7 +71,8 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity() {
 
                 override fun onAdRewarded(ad: RewardedAd) {
                     setDebugState(Status.Rewarded, "Rewarded Ads Rewarded")
-                    //TODO: add note about reward handle
+
+                    //Here you can start you reward process
                 }
             })
 
@@ -113,7 +116,8 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity() {
 
                 override fun onAdRewarded(ad: RewardedAd) {
                     setDebugState(Status.Rewarded, "Rewarded Ads Rewarded")
-                    //TODO: add note about reward handle
+
+                    //Here you can start you reward process
                 }
             })
 
@@ -122,14 +126,12 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity() {
         }
     }
 
-    private fun showLoadedRewarded() {
-        when {
-            delayedShowRewardedAd == null ->
-                toast(this, "Load Rewarded First")
-            delayedShowRewardedAd?.isLoaded == false ->
-                toast(this, "Rewarded not Loaded yet")
-            else -> delayedShowRewardedAd!!.show()
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+
+        //Destroy Ads when you finish with it
+        destroyRewarded()
+        destroyDelayedShowRewarded()
     }
 
     private fun destroyRewarded() {
@@ -146,4 +148,13 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity() {
         }
     }
 
+    private fun showLoadedRewarded() {
+        when {
+            delayedShowRewardedAd == null ->
+                toast(this, "Load Rewarded First")
+            delayedShowRewardedAd?.isLoaded == false ->
+                toast(this, "Rewarded not Loaded yet")
+            else -> delayedShowRewardedAd!!.show()
+        }
+    }
 }

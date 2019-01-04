@@ -35,7 +35,7 @@
             app:targetCountry="ExampleCountry"
             app:targetGender="male"
             app:targetKeywords="ExampleKeyword1,ExampleKeyword2"
-            app:targetLocation="53.915304, 27.564847"
+            app:deviceLocation="53.915304, 27.564847"
             app:targetPaid="false"
             app:targetStoreUrl="https://example.com"
             app:targetUserId="ExampleUserId"

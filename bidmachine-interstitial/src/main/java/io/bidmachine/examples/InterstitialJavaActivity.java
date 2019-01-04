@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import io.bidmachine.AdContentType;
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.interstitial.InterstitialAd;
@@ -28,15 +29,16 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
         //Enable logs
         BidMachine.setLoggingEnabled(true);
 
+        //Set activity content view
         setContentView(R.layout.activity_interstitial);
 
+        //Set listeners to perform Ads load
         findViewById(R.id.btnShowInterstitial).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showInterstitial();
             }
         });
-
         findViewById(R.id.btnShowVideo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +62,7 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
 
     private void showInterstitial() {
         setDebugState(Status.Loading);
+
         //Destroy previous loaded InterstitialAd
         destroyInterstitialAd();
 
@@ -103,7 +106,7 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
 
     /**
      * For Interstitial and Interstitial Video we use same class, for define display type you should
-     * set it in ad space settings, see: TODO: add web link
+     * set it in ad space settings, <a href="https://wiki.appodeal.com/display/BID/BidMachine+Android+SDK+Documentation#BidMachineAndroidSDKDocumentation-5.Interstitial">See documentation</a>
      */
 
     private void showVideo() {
@@ -114,6 +117,7 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
 
         //Create new InterstitialRequest for Video
         final InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
+                .setAdContentType(AdContentType.Video) //Set required Interstitial content type
                 .build();
 
         //Create new InterstitialAd for Video
@@ -190,19 +194,11 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
         delayedShowInterstitialAd.load(interstitialRequest);
     }
 
-    private void showLoadedInterstitial() {
-        if (delayedShowInterstitialAd == null) {
-            toast("Load Interstitial First");
-        } else if (!delayedShowInterstitialAd.isLoaded()) {
-            toast("Interstitial not Loaded yet");
-        } else {
-            delayedShowInterstitialAd.show();
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        //Destroy Ads when you finish with it
         destroyInterstitialAd();
         destroyVideoAd();
         destroyDelayedShowInterstitial();
@@ -229,4 +225,13 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
         }
     }
 
+    private void showLoadedInterstitial() {
+        if (delayedShowInterstitialAd == null) {
+            toast("Load Interstitial First");
+        } else if (!delayedShowInterstitialAd.isLoaded()) {
+            toast("Interstitial not Loaded yet");
+        } else {
+            delayedShowInterstitialAd.show();
+        }
+    }
 }

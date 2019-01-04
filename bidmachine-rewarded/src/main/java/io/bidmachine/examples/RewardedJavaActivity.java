@@ -26,8 +26,10 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity {
         //Enable logs
         BidMachine.setLoggingEnabled(true);
 
+        //Set activity content view
         setContentView(R.layout.activity_rewarded);
 
+        //Set listeners to perform Ads load
         findViewById(R.id.btnShowRewarded).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +92,8 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity {
             @Override
             public void onAdRewarded(@NonNull RewardedAd ad) {
                 setDebugState(Status.Rewarded, "Rewarded Ads Rewarded");
-                //TODO: add note about reward handle
+
+                //Here you can start you reward process
             }
         });
 
@@ -137,7 +140,8 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity {
             @Override
             public void onAdRewarded(@NonNull RewardedAd ad) {
                 setDebugState(Status.Rewarded, "Rewarded Ads Rewarded");
-                //TODO: add note about reward handle
+
+                //Here you can start you reward process
             }
         });
 
@@ -145,14 +149,13 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity {
         delayedShowRewardedAd.load(rewardedRequest);
     }
 
-    private void showLoadedRewarded() {
-        if (delayedShowRewardedAd == null) {
-            toast("Load Rewarded First");
-        } else if (!delayedShowRewardedAd.isLoaded()) {
-            toast("Rewarded not Loaded yet");
-        } else {
-            delayedShowRewardedAd.show();
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //Destroy Ads when you finish with it
+        destroyRewarded();
+        destroyDelayedShowRewarded();
     }
 
     private void destroyRewarded() {
@@ -169,4 +172,13 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity {
         }
     }
 
+    private void showLoadedRewarded() {
+        if (delayedShowRewardedAd == null) {
+            toast("Load Rewarded First");
+        } else if (!delayedShowRewardedAd.isLoaded()) {
+            toast("Rewarded not Loaded yet");
+        } else {
+            delayedShowRewardedAd.show();
+        }
+    }
 }
