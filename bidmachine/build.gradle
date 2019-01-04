@@ -30,7 +30,7 @@ repositories {
 
 dependencies {
     //Add BidMachine SDK dependency
-    implementation "io.bidmachine:bidmachine:$bidmachine_version"
+    implementation "io.bidmachine:ads:$bidmachine_version"
 
     //Add Play Services Ads Identifier dependency
     implementation 'com.google.android.gms:play-services-ads-identifier:16.0.0'
