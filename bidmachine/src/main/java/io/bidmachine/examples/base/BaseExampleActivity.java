@@ -31,7 +31,7 @@ public class BaseExampleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        adTypeContainer = findViewById(R.id.adTypecontainer);
+        adTypeContainer = findViewById(R.id.adTypeContainer);
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
         currentAdStatus = findViewById(R.id.currentAdStatus);
 
@@ -103,11 +103,15 @@ public class BaseExampleActivity extends AppCompatActivity {
     }
 
     protected enum Status {
+        Requesting(true, "Requesting"),
+        Requested(false, "Requested"),
+        RequestFail(false, "Request Fail"),
         Loading(true, "Loading"),
         Loaded(false, "Loaded"),
         LoadFail(false, "Load Fail"),
         Closed(false, "Closed"),
-        Rewarded(false, "Rewarded");
+        Rewarded(false, "Rewarded"),
+        Expired(false, "Expired");
 
         private boolean loading;
         private String status;

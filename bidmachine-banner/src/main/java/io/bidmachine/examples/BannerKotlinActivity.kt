@@ -24,7 +24,7 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
         //Enable logs
         BidMachine.setLoggingEnabled(true)
 
-        //set activity content view
+        //Set activity content view
         setContentView(R.layout.activity_banner)
 
         //Set listener to perform Ads load
