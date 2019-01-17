@@ -146,6 +146,8 @@ public class RequestsJavaActivity extends BaseJavaExampleActivity {
             toast("Please request banner first");
         } else if (bannerRequest.isExpired()) {
             toast("BannerRequest expired, request new one please");
+        } else if (bannerRequest.getAuctionResult() == null) {
+            toast("BannerRequest not requested or requested unsuccessfully");
         } else if (bannerView != null) {
             //Perform BannerAd load
             bannerView.load(bannerRequest);
@@ -202,6 +204,8 @@ public class RequestsJavaActivity extends BaseJavaExampleActivity {
             toast("Please request Interstitial first");
         } else if (interstitialRequest.isExpired()) {
             toast("InterstitialRequest expired, request new one please");
+        } else if (interstitialRequest.getAuctionResult() == null) {
+            toast("InterstitialRequest not requested or requested unsuccessfully");
         } else {
             //Destroy previous InterstitialAd object
             destroyCurrentInterstitialAd();

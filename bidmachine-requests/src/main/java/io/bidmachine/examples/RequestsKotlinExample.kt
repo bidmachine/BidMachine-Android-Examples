@@ -44,10 +44,10 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
         }
 
         //Set listener to perform Interstitial Ads request
-        btnRequestInterstitial.setOnClickListener({ requestInterstitial() })
+        btnRequestInterstitial.setOnClickListener { requestInterstitial() }
 
         //Set listener to perform Interstitial Ads show
-        btnShowRequestedInterstitial.setOnClickListener({ showRequestedInterstitial() })
+        btnShowRequestedInterstitial.setOnClickListener { showRequestedInterstitial() }
 
         //Set listener ot change BannerView visibility when Ads loaded
         bannerView.setListener(object : SimpleBannerListener() {
@@ -101,8 +101,15 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
 
     private fun showRequestedBanner() {
         when {
-            bannerRequest == null -> toast("Please request Banner first")
-            bannerRequest?.isExpired == true -> toast("BannerRequest expired, request new one please")
+            bannerRequest == null -> {
+                toast("Please request Banner first")
+            }
+            bannerRequest?.isExpired == true -> {
+                toast("BannerRequest expired, request new one please")
+            }
+            bannerRequest?.auctionResult == null -> {
+                toast("BannerRequest not requested or requested unsuccessfully")
+            }
             else -> {
                 //Perform BannerAd load
                 bannerView.load(bannerRequest)
@@ -144,38 +151,45 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
     }
 
     private fun showRequestedInterstitial() {
-        if (interstitialRequest == null) {
-            toast("Please request Interstitial first")
-        } else if (interstitialRequest!!.isExpired) {
-            toast("InterstitialRequest expired, request new one please")
-        } else {
-            //Destroy previous InterstitialAd object
-            destroyCurrentInterstitialAd()
+        when {
+            interstitialRequest == null -> {
+                toast("Please request Interstitial first")
+            }
+            interstitialRequest?.isExpired == true -> {
+                toast("InterstitialRequest expired, request new one please")
+            }
+            interstitialRequest?.auctionResult == null -> {
+                toast("InterstitialRequest not requested or requested unsuccessfully")
+            }
+            else -> {
+                //Destroy previous InterstitialAd object
+                destroyCurrentInterstitialAd()
 
-            //Create new InterstitialAd
-            interstitialAd = InterstitialAd(this).apply {
-                setListener(object : SimpleInterstitialListener() {
-                    override fun onAdLoaded(ad: InterstitialAd) {
-                        setDebugState(Status.Loaded, "Interstitial Ads Loaded")
+                //Create new InterstitialAd
+                interstitialAd = InterstitialAd(this).apply {
+                    setListener(object : SimpleInterstitialListener() {
+                        override fun onAdLoaded(ad: InterstitialAd) {
+                            setDebugState(Status.Loaded, "Interstitial Ads Loaded")
 
-                        //Show interstitial Ads
-                        ad.show()
-                    }
+                            //Show interstitial Ads
+                            ad.show()
+                        }
 
-                    override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                        setDebugState(Status.LoadFail, "Banner Ads load failed: " + error.message)
-                    }
+                        override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
+                            setDebugState(Status.LoadFail, "Banner Ads load failed: " + error.message)
+                        }
 
-                    override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
-                        setDebugState(Status.Closed)
+                        override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
+                            setDebugState(Status.Closed)
 
-                        //Destroy current interstitial ad since we don't need it anymore
-                        destroyCurrentInterstitialAd()
-                    }
-                })
+                            //Destroy current interstitial ad since we don't need it anymore
+                            destroyCurrentInterstitialAd()
+                        }
+                    })
 
-                //Perform InterstitialAd load
-                load(interstitialRequest)
+                    //Perform InterstitialAd load
+                    load(interstitialRequest)
+                }
             }
         }
     }
