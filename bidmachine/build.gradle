@@ -24,7 +24,7 @@ android {
 repositories {
     //Add BidMachine maven repository
     maven {
-        url 'http://23.111.24.233:8081/artifactory/bidmachine/'
+        url 'https://artifactory.appodeal.com/artifactory/bidmachine'
     }
 }
 
