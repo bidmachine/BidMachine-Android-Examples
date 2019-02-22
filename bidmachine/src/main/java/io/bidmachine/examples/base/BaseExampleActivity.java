@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import io.bidmachine.BidMachine;
 
 public class BaseExampleActivity extends AppCompatActivity {
@@ -34,6 +36,9 @@ public class BaseExampleActivity extends AppCompatActivity {
         adTypeContainer = findViewById(R.id.adTypeContainer);
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
         currentAdStatus = findViewById(R.id.currentAdStatus);
+
+        this.<TextView>findViewById(R.id.txtVersion).setText(
+                String.format(Locale.getDefault(), "%s (%d)", BidMachine.VERSION, BidMachine.VERSION_CODE));
 
         final Switch testModeSwitcher = findViewById(R.id.testModeSwitcher);
         testModeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
