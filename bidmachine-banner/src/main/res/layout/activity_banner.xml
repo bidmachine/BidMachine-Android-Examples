@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BannerJavaActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_auto_load_banner"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Auto-load banner example"
+            tools:ignore="HardcodedText" />
+
+        <io.bidmachine.banner.BannerView
+            android:id="@+id/autoLoadBannerView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            app:autoLoad="true"
+            app:bannerSize="size_320_50"
+            app:priceFloors="0.01,ExampleId-10.0"
+            app:targetBirthdayYear="1993"
+            app:targetCity="ExampleCity"
+            app:targetCountry="ExampleCountry"
+            app:targetGender="male"
+            app:targetKeywords="ExampleKeyword1,ExampleKeyword2"
+            app:deviceLocation="53.915304, 27.564847"
+            app:targetPaid="false"
+            app:targetStoreUrl="https://example.com"
+            app:targetUserId="ExampleUserId"
+            app:targetZip="123123" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLoadAd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Load Ads"
+        tools:ignore="HardcodedText" />
+
+    <io.bidmachine.banner.BannerView
+        android:id="@+id/bannerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray" />
+
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+repositories {
+    //Add BidMachine maven repository
+    maven {
+        url 'https://artifactory.bidmachine.io/bidmachine'
+    }
+}
+
+dependencies {
+    //Add BidMachine SDK dependency
+    implementation "io.bidmachine:ads:$bidmachine_version"
+
+    //Add Play Services Ads Identifier dependency
+    implementation 'com.google.android.gms:play-services-ads-identifier:16.0.0'
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.android.support:appcompat-v7:28.0.0'
+}

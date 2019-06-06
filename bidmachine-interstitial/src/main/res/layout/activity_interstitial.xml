@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".InterstitialJavaActivity">
+
+    <Button
+        android:id="@+id/btnShowInterstitial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Interstitial"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btnShowVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Video"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="32dp"
+        android:text="If you want control when display ad:"
+        android:textStyle="bold|italic"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btnLoadInterstitial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Interstitial"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btnShowLoadedInterstitial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Loaded Interstitial"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>

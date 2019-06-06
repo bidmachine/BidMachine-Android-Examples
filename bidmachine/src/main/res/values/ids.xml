@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="menu_item_kotlin_example" type="id" />
+    <item name="menu_item_java_example" type="id" />
+
+</resources>
