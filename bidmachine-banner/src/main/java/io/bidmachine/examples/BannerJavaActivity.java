@@ -1,9 +1,8 @@
 package io.bidmachine.examples;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
-
+import androidx.annotation.NonNull;
 import io.bidmachine.BidMachine;
 import io.bidmachine.banner.BannerRequest;
 import io.bidmachine.banner.BannerSize;
@@ -61,7 +60,7 @@ public class BannerJavaActivity extends BaseJavaExampleActivity {
 
         //Create banner request
         BannerRequest request = new BannerRequest.Builder()
-                .setSize(BannerSize.Size_320_50)
+                .setSize(BannerSize.Size_320x50)
                 .build();
 
         //Load Banner Ads

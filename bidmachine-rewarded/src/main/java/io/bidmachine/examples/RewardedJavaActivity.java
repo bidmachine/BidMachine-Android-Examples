@@ -1,9 +1,9 @@
 package io.bidmachine.examples;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.rewarded.RewardedAd;
