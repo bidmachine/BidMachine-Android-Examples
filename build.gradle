@@ -16,14 +16,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        // Development repository. DO NOT USE IT !!!
-        maven {
-            url 'https://artifactory.bidmachine.io/bidmachine-private/'
-            credentials {
-                username = System.getenv("APD_USERNAME")
-                password = System.getenv("APD_USERPASSWORD")
-            }
-        }
     }
 }
 
