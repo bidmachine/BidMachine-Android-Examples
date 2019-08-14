@@ -97,7 +97,7 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity {
             }
         });
 
-        //Load InterstitialAd
+        //Load RewardedAd
         rewardedAd.load(rewardedRequest);
     }
 

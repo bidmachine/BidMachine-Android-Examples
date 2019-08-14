@@ -1,1 +1,1 @@
-include ':bidmachine-banner', ':bidmachine-interstitial', ':bidmachine', ':bidmachine-rewarded', ':bidmachine-requests'
+include ':bidmachine-banner', ':bidmachine-interstitial', ':bidmachine', ':bidmachine-rewarded', ':bidmachine-requests', ':bidmachine-header-bidding'

@@ -13,3 +13,5 @@ Check out our [developer site](https://wiki.appodeal.com/display/BID/BidMachine+
 #### Rewarded Video: [Java](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedJavaActivity.java)|[Kotlin](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedKotlinActivity.kt)
 
 #### Request Ads without load: [Java](bidmachine-requests/src/main/java/io/bidmachine/examples/RequestsJavaActivity.java)|[Kotlin](bidmachine-requests/src/main/java/io/bidmachine/examples/RequestsKotlinExample.kt)
+
+#### 3rd party networks integration: [Java](bidmachine-header-bidding/src/main/java/io/bidmachine/examples/HeaderBiddingJavaActivity.java)|[Kotlin](bidmachine-requests/src/main/java/io/bidmachine/examples/HeaderBiddingKotlinActivity.kt)
