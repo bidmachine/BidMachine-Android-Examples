@@ -72,7 +72,7 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
 
         //Create new Banner Ads request
         bannerRequest = BannerRequest.Builder()
-                .setSize(BannerSize.Size_320_50)
+                .setSize(BannerSize.Size_320x50)
                 //Set Banner Ads request listener
                 .setListener(object : BannerRequest.AdRequestListener {
                     override fun onRequestSuccess(request: BannerRequest, p1: AuctionResult) {
