@@ -94,10 +94,10 @@ public class HeaderBiddingJavaActivity extends BaseJavaExampleActivity {
                         .withMediationConfig(AdsFormat.Banner_300x250, "1525692904128549_2386746951356469")
                         .withMediationConfig(AdsFormat.InterstitialStatic, "1525692904128549_2386743441356820")
                         .withMediationConfig(AdsFormat.RewardedVideo, "1525692904128549_2386753464689151"),
-                //Configure Mintegral
-                new MintegralConfig("92762", "936dcbdd57fe235fd7cf61c2e93da3c4")
-                        .withMediationConfig(AdsFormat.InterstitialVideo, "21310")
-                        .withMediationConfig(AdsFormat.RewardedVideo, "21310", "12817"));
+                //Configure Mintegral network
+                new MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
+                        .withMediationConfig(AdsFormat.InterstitialVideo, "140146")
+                        .withMediationConfig(AdsFormat.RewardedVideo, "140144", "12817"));
     }
 
     @Override
