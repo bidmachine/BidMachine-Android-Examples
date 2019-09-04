@@ -14,4 +14,4 @@ Check out our [developer site](https://wiki.appodeal.com/display/BID/BidMachine+
 
 #### Request Ads without load: [Java](bidmachine-requests/src/main/java/io/bidmachine/examples/RequestsJavaActivity.java)|[Kotlin](bidmachine-requests/src/main/java/io/bidmachine/examples/RequestsKotlinExample.kt)
 
-#### 3rd party networks integration: [Java](bidmachine-header-bidding/src/main/java/io/bidmachine/examples/HeaderBiddingJavaActivity.java)|[Kotlin](bidmachine-requests/src/main/java/io/bidmachine/examples/HeaderBiddingKotlinActivity.kt)
+#### 3rd party networks integration: [Java](bidmachine-header-bidding/src/main/java/io/bidmachine/examples/HeaderBiddingJavaActivity.java)|[Kotlin](bidmachine-header-bidding/src/main/java/io/bidmachine/examples/HeaderBiddingKotlinActivity.kt)
