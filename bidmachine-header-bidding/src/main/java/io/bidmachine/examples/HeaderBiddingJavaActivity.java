@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import io.bidmachine.AdsFormat;
 import io.bidmachine.BidMachine;
+import io.bidmachine.ads.networks.AmazonConfig;
 import io.bidmachine.ads.networks.adcolony.AdColonyConfig;
+import io.bidmachine.ads.networks.criteo.CriteoConfig;
 import io.bidmachine.ads.networks.facebook.FacebookConfig;
 import io.bidmachine.ads.networks.mintegral.MintegralConfig;
 import io.bidmachine.ads.networks.my_target.MyTargetConfig;
@@ -97,7 +99,16 @@ public class HeaderBiddingJavaActivity extends BaseJavaExampleActivity {
                 //Configure Mintegral network
                 new MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
                         .withMediationConfig(AdsFormat.InterstitialVideo, "140146")
-                        .withMediationConfig(AdsFormat.RewardedVideo, "140144", "12817"));
+                        .withMediationConfig(AdsFormat.RewardedVideo, "140144", "12817"),
+                //Configure Amazon network
+                new AmazonConfig("a9_onboarding_app_id")
+                        .withMediationConfig(AdsFormat.Banner_320x50, "5ab6a4ae-4aa5-43f4-9da4-e30755f2b295")
+                        .withMediationConfig(AdsFormat.Banner_300x250, "54fb2d08-c222-40b1-8bbe-4879322dc04b")
+                        .withMediationConfig(AdsFormat.Banner_728x90, "bed17ec3-b185-453e-b2a8-4a3c6bb9234d")
+                        .withMediationConfig(AdsFormat.InterstitialStatic, "4e918ac0-5c68-4fe1-8d26-4e76e8f74831")
+                        .withMediationConfig(AdsFormat.InterstitialVideo, "4acc26e6-3ada-4ee8-bae0-753c1e0ad278"),
+                //Configure Criteo
+                new CriteoConfig("3703"));
     }
 
     @Override
