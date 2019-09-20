@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import io.bidmachine.BidMachine;
 
@@ -39,6 +40,11 @@ public class BaseExampleActivity extends AppCompatActivity {
         });
         if (savedInstanceState == null) {
             BidMachine.setTestMode(true);
+        }
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setSubtitle(String.format("SDK v%s", BidMachine.VERSION));
         }
     }
 
