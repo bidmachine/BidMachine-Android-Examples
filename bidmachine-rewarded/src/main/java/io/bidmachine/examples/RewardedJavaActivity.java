@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.rewarded.RewardedAd;
@@ -21,7 +22,7 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity {
         super.onCreate(savedInstanceState);
 
         //Initialise SDK
-        BidMachine.initialize(this, "1");
+        BidMachine.initialize(this, "5");
 
         //Enable logs
         BidMachine.setLoggingEnabled(true);

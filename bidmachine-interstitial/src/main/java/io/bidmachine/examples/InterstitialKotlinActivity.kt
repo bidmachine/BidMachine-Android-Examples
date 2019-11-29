@@ -22,7 +22,7 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity() {
         super.onCreate(savedInstanceState)
 
         //Initialise SDK
-        BidMachine.initialize(this, "1")
+        BidMachine.initialize(this, "5")
 
         //Enable logs
         BidMachine.setLoggingEnabled(true)
