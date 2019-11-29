@@ -13,13 +13,11 @@ import kotlinx.android.synthetic.main.activity_banner.*
 
 class BannerKotlinActivity : BaseKotlinExampleActivity() {
 
-    private lateinit var bannerView: BannerView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //Initialise SDK
-        BidMachine.initialize(this, "1")
+        BidMachine.initialize(this, "5")
 
         //Enable logs
         BidMachine.setLoggingEnabled(true)
@@ -31,9 +29,6 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
         btnLoadAd.setOnClickListener {
             loadAd()
         }
-
-        //Find BannerView in hierarchy
-        bannerView = findViewById(R.id.bannerView)
 
         //Set Banner Ads events listener
         bannerView.setListener(object : SimpleBannerListener() {
@@ -66,9 +61,7 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
         super.onDestroy()
 
         //Destroy Ads when you finish with it
-        if (this::bannerView.isInitialized) {
-            bannerView.destroy()
-        }
+        bannerView.destroy()
     }
 
 }

@@ -1,6 +1,7 @@
 package io.bidmachine.examples
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import io.bidmachine.AdsFormat
 import io.bidmachine.BidMachine
@@ -19,6 +20,10 @@ import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.interstitial.InterstitialAd
 import io.bidmachine.interstitial.InterstitialRequest
 import io.bidmachine.interstitial.SimpleInterstitialListener
+import io.bidmachine.nativead.NativeAd
+import io.bidmachine.nativead.NativeRequest
+import io.bidmachine.nativead.SimpleNativeListener
+import io.bidmachine.nativead.view.NativeAdContentLayout
 import io.bidmachine.rewarded.RewardedAd
 import io.bidmachine.rewarded.RewardedRequest
 import io.bidmachine.rewarded.SimpleRewardedListener
@@ -30,6 +35,7 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
     private var bannerView: BannerView? = null
     private var interstitialAd: InterstitialAd? = null
     private var rewardedAd: RewardedAd? = null
+    private var nativeAd: NativeAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +44,7 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
         configureHeaderBiddingNetworks()
 
         //Initialise SDK
-        BidMachine.initialize(this, "1")
+        BidMachine.initialize(this, "5")
 
         //Enable logs
         BidMachine.setLoggingEnabled(true)
@@ -50,89 +56,113 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
         btnShowBanner.setOnClickListener { showBanner() }
         btnShowInterstitial.setOnClickListener { showInterstitial() }
         btnShowRewarded.setOnClickListener { showRewarded() }
+        btnShowNative.setOnClickListener { showNative() }
     }
 
     private fun configureHeaderBiddingNetworks() {
         BidMachine.registerNetworks(
-            //Configure AdColony network
-            AdColonyConfig("app185a7e71e1714831a49ec7")
-                .withMediationConfig(AdsFormat.InterstitialVideo, "vz06e8c32a037749699e7050")
-                .withMediationConfig(AdsFormat.RewardedVideo, "vz1fd5a8b2bf6841a0a4b826"),
-            //Configure myTarget network
-            MyTargetConfig()
-                .withMediationConfig(AdsFormat.Banner, "437933")
-                .withMediationConfig(AdsFormat.Banner_320x50, "437933")
-                .withMediationConfig(AdsFormat.Banner_300x250, "64526")
-                .withMediationConfig(AdsFormat.Banner_728x90, "81620")
-                .withMediationConfig(AdsFormat.InterstitialStatic, "365991")
-                .withMediationConfig(AdsFormat.RewardedVideo, "482205"),
-            //Configure Tapjoy network
-            TapjoyConfig("tmyN5ZcXTMyjeJNJmUD5ggECAbnEGtJREmLDd0fvqKBXcIr7e1dvboNKZI4y")
-                .withMediationConfig(AdsFormat.InterstitialVideo, "video_without_cap_pb")
-                .withMediationConfig(AdsFormat.RewardedVideo, "rewarded_video_without_cap_pb"),
-            //Configure Facebook network
-            FacebookConfig("1525692904128549")
-                .withMediationConfig(AdsFormat.Banner, "1525692904128549_2386746951356469")
-                .withMediationConfig(AdsFormat.Banner_300x250, "1525692904128549_2386746951356469")
-                .withMediationConfig(AdsFormat.InterstitialStatic, "1525692904128549_2386743441356820")
-                .withMediationConfig(AdsFormat.RewardedVideo, "1525692904128549_2386753464689151"),
-            //Configure Mintegral network
-            MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
-                .withMediationConfig(AdsFormat.InterstitialVideo, "140146")
-                .withMediationConfig(AdsFormat.RewardedVideo, "140144", "12817"),
-            //Configure Amazon network
-            AmazonConfig("a9_onboarding_app_id")
-                    .withMediationConfig(AdsFormat.Banner_320x50, "5ab6a4ae-4aa5-43f4-9da4-e30755f2b295")
-                    .withMediationConfig(AdsFormat.Banner_300x250, "54fb2d08-c222-40b1-8bbe-4879322dc04b")
-                    .withMediationConfig(AdsFormat.Banner_728x90, "bed17ec3-b185-453e-b2a8-4a3c6bb9234d")
-                    .withMediationConfig(AdsFormat.InterstitialStatic, "4e918ac0-5c68-4fe1-8d26-4e76e8f74831")
-                    .withMediationConfig(AdsFormat.InterstitialVideo, "4acc26e6-3ada-4ee8-bae0-753c1e0ad278"),
-            //Configure Criteo
-            CriteoConfig("3703")
+                //Configure AdColony network
+                AdColonyConfig("app185a7e71e1714831a49ec7")
+                        .withMediationConfig(AdsFormat.InterstitialVideo,
+                                             "vz06e8c32a037749699e7050")
+                        .withMediationConfig(AdsFormat.RewardedVideo, "vz1fd5a8b2bf6841a0a4b826"),
+                //Configure myTarget network
+                MyTargetConfig()
+                        .withMediationConfig(AdsFormat.Banner, "437933")
+                        .withMediationConfig(AdsFormat.Banner_320x50, "437933")
+                        .withMediationConfig(AdsFormat.Banner_300x250, "64526")
+                        .withMediationConfig(AdsFormat.Banner_728x90, "81620")
+                        .withMediationConfig(AdsFormat.InterstitialStatic, "365991")
+                        .withMediationConfig(AdsFormat.RewardedVideo, "482205"),
+                //Configure Tapjoy network
+                TapjoyConfig("tmyN5ZcXTMyjeJNJmUD5ggECAbnEGtJREmLDd0fvqKBXcIr7e1dvboNKZI4y")
+                        .withMediationConfig(AdsFormat.InterstitialVideo, "video_without_cap_pb")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "rewarded_video_without_cap_pb"),
+                //Configure Facebook network
+                FacebookConfig("1525692904128549")
+                        .withMediationConfig(AdsFormat.Banner, "1525692904128549_2386746951356469")
+                        .withMediationConfig(AdsFormat.Banner_300x250,
+                                             "1525692904128549_2386746951356469")
+                        .withMediationConfig(AdsFormat.InterstitialStatic,
+                                             "1525692904128549_2386743441356820")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "1525692904128549_2386753464689151"),
+                //Configure Mintegral network
+                MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
+                        .withMediationConfig(AdsFormat.InterstitialVideo, "140146")
+                        .withMediationConfig(AdsFormat.RewardedVideo, "140144", "12817"),
+                //Configure Amazon network
+                AmazonConfig("a9_onboarding_app_id")
+                        .withMediationConfig(AdsFormat.Banner_320x50,
+                                             "5ab6a4ae-4aa5-43f4-9da4-e30755f2b295")
+                        .withMediationConfig(AdsFormat.Banner_300x250,
+                                             "54fb2d08-c222-40b1-8bbe-4879322dc04b")
+                        .withMediationConfig(AdsFormat.Banner_728x90,
+                                             "bed17ec3-b185-453e-b2a8-4a3c6bb9234d")
+                        .withMediationConfig(AdsFormat.InterstitialStatic,
+                                             "4e918ac0-5c68-4fe1-8d26-4e76e8f74831")
+                        .withMediationConfig(AdsFormat.InterstitialVideo,
+                                             "4acc26e6-3ada-4ee8-bae0-753c1e0ad278"),
+                //Configure Criteo
+                CriteoConfig("3703")
         )
     }
 
     override fun onDestroy() {
         super.onDestroy()
         //Destroy Ads when you finish with it
-        if (bannerView != null) {
-            bannerView!!.destroy()
-        }
+        destroyCurrentBannerView()
         destroyCurrentInterstitialAd()
         destroyCurrentRewardedAd()
+        destroyCurrentNativeAd()
+    }
+
+    private fun showAdView(view: View) {
+        adContainer.removeAllViews()
+        adContainer.addView(view)
     }
 
     private fun showBanner() {
-        if (bannerView == null) {
-            bannerView = findViewById<BannerView>(R.id.bannerView).apply {
-                //Set Banner Ads events listener
-                setListener(object : SimpleBannerListener() {
-                    override fun onAdLoaded(ad: BannerView) {
-                        setDebugState(Status.Loaded, "Banner Ads loaded")
-
-                        //Make BannerView visible
-                        ad.visibility = View.VISIBLE
-                    }
-
-                    override fun onAdLoadFailed(ad: BannerView, error: BMError) {
-                        setDebugState(Status.LoadFail, "Banner Ads load failed")
-                    }
-                })
-            }
-        }
-        if (bannerView == null) {
-            setDebugState(Status.LoadFail, "BannerView not found")
-            return
-        }
         setDebugState(Status.Loading)
+
+        //Destroy previous loaded Banner Ads
+        destroyCurrentBannerView()
 
         //Create banner request
         val request = BannerRequest.Builder()
-            .setSize(BannerSize.Size_320x50)
-            .build()
+                .setSize(BannerSize.Size_320x50)
+                .build()
 
-        //Load Banner Ads
-        bannerView!!.load(request)
+        bannerView = BannerView(this).apply {
+
+            //Set Banner Ads events listener
+            setListener(object : SimpleBannerListener() {
+                override fun onAdLoaded(ad: BannerView) {
+                    setDebugState(Status.Loaded, "Banner Ads loaded")
+
+                    //Show Banner Ad
+                    showAdView(ad)
+                }
+
+                override fun onAdLoadFailed(ad: BannerView, error: BMError) {
+                    setDebugState(Status.LoadFail, "Banner Ads load failed")
+
+                    //Destroy loaded ad since it not required any more
+                    destroyCurrentBannerView()
+                }
+            })
+
+            //Load Banner Ads
+            load(request)
+        }
+    }
+
+    private fun destroyCurrentBannerView() {
+        bannerView?.apply {
+            destroy()
+            bannerView = null
+        }
     }
 
     private fun showInterstitial() {
@@ -143,7 +173,7 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
 
         //Create new InterstitialRequest
         val interstitialRequest = InterstitialRequest.Builder()
-            .build()
+                .build()
 
         //Create new InterstitialAd
         interstitialAd = InterstitialAd(this).apply {
@@ -151,7 +181,6 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
             //Set InterstitialAd events listener
             setListener(object : SimpleInterstitialListener() {
                 override fun onAdLoaded(ad: InterstitialAd) {
-                    super.onAdLoaded(ad)
                     setDebugState(Status.Loaded, "Interstitial Ads Loaded")
 
                     //Show Interstitial Ad
@@ -159,7 +188,6 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
                 }
 
                 override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                    super.onAdLoadFailed(ad, error)
                     setDebugState(Status.LoadFail, "Interstitial Ads Load Failed")
 
                     //Destroy loaded ad since it not required any more
@@ -167,7 +195,6 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
                 }
 
                 override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
-                    super.onAdClosed(ad, finished)
                     setDebugState(Status.Closed, "Interstitial Ads Closed")
 
                     //Destroy loaded ad since it not required any more
@@ -195,7 +222,7 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
 
         //Create new RewardedRequest
         val rewardedRequest = RewardedRequest.Builder()
-            .build()
+                .build()
 
         //Create new RewardedAd
         rewardedAd = RewardedAd(this).apply {
@@ -241,4 +268,57 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
             rewardedAd = null
         }
     }
+
+    private fun showNative() {
+        setDebugState(Status.Loading)
+
+        //Destroy previous loaded NativeAd
+        destroyCurrentNativeAd()
+
+        //Create new NativeRequest
+        val nativeRequest = NativeRequest.Builder()
+                .build()
+
+        //Create new NativeAd
+        nativeAd = NativeAd(this).apply {
+
+            //Set NativeAd events listener
+            setListener(object : SimpleNativeListener() {
+                override fun onAdLoaded(ad: NativeAd) {
+                    setDebugState(Status.Loaded, "NativeAd Loaded")
+
+                    //Show native Ads
+                    val nativeView = createNativeAdView(ad)
+                    showAdView(nativeView)
+                }
+
+                override fun onAdLoadFailed(ad: NativeAd, error: BMError) {
+                    setDebugState(Status.LoadFail, "NativeAd Load Failed")
+
+                    //Destroy loaded ad since it not required any more
+                    destroyCurrentNativeAd()
+                }
+            })
+
+            //Load NativeAd
+            load(nativeRequest)
+        }
+    }
+
+    private fun createNativeAdView(nativeAd: NativeAd): View {
+        val nativeView = LayoutInflater.from(this)
+                .inflate(R.layout.native_ad, adContainer, false) as NativeAdContentLayout
+        nativeView.bind(nativeAd)
+        nativeView.registerViewForInteraction(nativeAd)
+        nativeView.visibility = View.VISIBLE
+        return nativeView
+    }
+
+    private fun destroyCurrentNativeAd() {
+        nativeAd?.apply {
+            destroy()
+            nativeAd = null
+        }
+    }
+
 }

@@ -19,7 +19,7 @@ public class BannerJavaActivity extends BaseJavaExampleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Initialise SDK
-        BidMachine.initialize(this, "1");
+        BidMachine.initialize(this, "5");
 
         //Enable logs
         BidMachine.setLoggingEnabled(true);

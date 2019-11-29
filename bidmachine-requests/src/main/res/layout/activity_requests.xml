@@ -6,38 +6,90 @@
     android:orientation="vertical"
     tools:context=".RequestsKotlinExample">
 
-    <Button
-        android:id="@+id/btnRequestBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Request Banner"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/btnShowRequestedBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show requested Banner"
-        tools:ignore="HardcodedText" />
-
-    <io.bidmachine.banner.BannerView
-        android:id="@+id/bannerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnRequestInterstitial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Request Interstitial"
-        tools:ignore="HardcodedText" />
+        <Button
+            android:id="@+id/btnRequestBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Request Banner"
+            tools:ignore="HardcodedText" />
 
-    <Button
-        android:id="@+id/btnShowRequestedInterstitial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show requested Interstitial"
-        tools:ignore="HardcodedText" />
+        <Button
+            android:id="@+id/btnShowRequestedBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Banner"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnRequestInterstitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Request Interstitial"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btnShowRequestedInterstitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Interstitial"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnRequestRewarded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Request Rewarded"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btnShowRequestedRewarded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Rewarded"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnRequestNative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Request Native"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btnShowRequestedNative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Native"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/adContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

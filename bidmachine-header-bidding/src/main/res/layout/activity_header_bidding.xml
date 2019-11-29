@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
-            android:id="@+id/btnShowBanner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show Banner"
-            tools:ignore="HardcodedText"/>
+        android:id="@+id/btnShowBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Banner"
+        tools:ignore="HardcodedText" />
 
     <Button
-            android:id="@+id/btnShowInterstitial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show Interstitial"
-            tools:ignore="HardcodedText"/>
+        android:id="@+id/btnShowInterstitial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Interstitial"
+        tools:ignore="HardcodedText" />
 
     <Button
-            android:id="@+id/btnShowRewarded"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show Rewarded"
-            tools:ignore="HardcodedText"/>
+        android:id="@+id/btnShowRewarded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Rewarded"
+        tools:ignore="HardcodedText" />
 
-    <io.bidmachine.banner.BannerView
-            android:id="@+id/bannerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+    <Button
+        android:id="@+id/btnShowNative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Native"
+        tools:ignore="HardcodedText" />
+
+    <FrameLayout
+        android:id="@+id/adContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
