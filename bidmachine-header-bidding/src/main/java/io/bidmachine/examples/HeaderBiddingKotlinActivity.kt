@@ -65,33 +65,8 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
                 AdColonyConfig("app185a7e71e1714831a49ec7")
                         .withMediationConfig(AdsFormat.InterstitialVideo,
                                              "vz06e8c32a037749699e7050")
-                        .withMediationConfig(AdsFormat.RewardedVideo, "vz1fd5a8b2bf6841a0a4b826"),
-                //Configure myTarget network
-                MyTargetConfig()
-                        .withMediationConfig(AdsFormat.Banner, "437933")
-                        .withMediationConfig(AdsFormat.Banner_320x50, "437933")
-                        .withMediationConfig(AdsFormat.Banner_300x250, "64526")
-                        .withMediationConfig(AdsFormat.Banner_728x90, "81620")
-                        .withMediationConfig(AdsFormat.InterstitialStatic, "365991")
-                        .withMediationConfig(AdsFormat.RewardedVideo, "482205"),
-                //Configure Tapjoy network
-                TapjoyConfig("tmyN5ZcXTMyjeJNJmUD5ggECAbnEGtJREmLDd0fvqKBXcIr7e1dvboNKZI4y")
-                        .withMediationConfig(AdsFormat.InterstitialVideo, "video_without_cap_pb")
                         .withMediationConfig(AdsFormat.RewardedVideo,
-                                             "rewarded_video_without_cap_pb"),
-                //Configure Facebook network
-                FacebookConfig("1525692904128549")
-                        .withMediationConfig(AdsFormat.Banner, "1525692904128549_2386746951356469")
-                        .withMediationConfig(AdsFormat.Banner_300x250,
-                                             "1525692904128549_2386746951356469")
-                        .withMediationConfig(AdsFormat.InterstitialStatic,
-                                             "1525692904128549_2386743441356820")
-                        .withMediationConfig(AdsFormat.RewardedVideo,
-                                             "1525692904128549_2386753464689151"),
-                //Configure Mintegral network
-                MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
-                        .withMediationConfig(AdsFormat.InterstitialVideo, "140146")
-                        .withMediationConfig(AdsFormat.RewardedVideo, "140144", "12817"),
+                                             "vz1fd5a8b2bf6841a0a4b826"),
                 //Configure Amazon network
                 AmazonConfig("a9_onboarding_app_id")
                         .withMediationConfig(AdsFormat.Banner_320x50,
@@ -105,7 +80,47 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
                         .withMediationConfig(AdsFormat.InterstitialVideo,
                                              "4acc26e6-3ada-4ee8-bae0-753c1e0ad278"),
                 //Configure Criteo
-                CriteoConfig("3703")
+                CriteoConfig("B-057601")
+                        .withMediationConfig(AdsFormat.Banner_320x50,
+                                             "30s6zt3ayypfyemwjvmp")
+                        .withMediationConfig(AdsFormat.Interstitial,
+                                             "6yws53jyfjgoq1ghnuqb"),
+                //Configure Facebook network
+                FacebookConfig("1525692904128549")
+                        .withMediationConfig(AdsFormat.Banner,
+                                             "1525692904128549_2386746951356469")
+                        .withMediationConfig(AdsFormat.Banner_300x250,
+                                             "1525692904128549_2386746951356469")
+                        .withMediationConfig(AdsFormat.InterstitialStatic,
+                                             "1525692904128549_2386743441356820")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "1525692904128549_2386753464689151"),
+                //Configure Mintegral network
+                MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
+                        .withMediationConfig(AdsFormat.InterstitialVideo,
+                                             "140146")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "140144"),
+                //Configure myTarget network
+                MyTargetConfig()
+                        .withMediationConfig(AdsFormat.Banner,
+                                             "437933")
+                        .withMediationConfig(AdsFormat.Banner_320x50,
+                                             "437933")
+                        .withMediationConfig(AdsFormat.Banner_300x250,
+                                             "64526")
+                        .withMediationConfig(AdsFormat.Banner_728x90,
+                                             "81620")
+                        .withMediationConfig(AdsFormat.InterstitialStatic,
+                                             "365991")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "482205"),
+                //Configure Tapjoy network
+                TapjoyConfig("tmyN5ZcXTMyjeJNJmUD5ggECAbnEGtJREmLDd0fvqKBXcIr7e1dvboNKZI4y")
+                        .withMediationConfig(AdsFormat.InterstitialVideo,
+                                             "video_without_cap_pb")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "rewarded_video_without_cap_pb")
         )
     }
 

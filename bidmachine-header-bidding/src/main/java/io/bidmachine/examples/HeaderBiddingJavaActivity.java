@@ -65,30 +65,10 @@ public class HeaderBiddingJavaActivity extends BaseJavaExampleActivity {
         adContainer = findViewById(R.id.adContainer);
 
         //Set listeners to perform Ads load
-        findViewById(R.id.btnShowBanner).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBanner();
-            }
-        });
-        findViewById(R.id.btnShowInterstitial).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showInterstitial();
-            }
-        });
-        findViewById(R.id.btnShowRewarded).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showRewarded();
-            }
-        });
-        findViewById(R.id.btnShowNative).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showNative();
-            }
-        });
+        findViewById(R.id.btnShowBanner).setOnClickListener(view -> showBanner());
+        findViewById(R.id.btnShowInterstitial).setOnClickListener(view -> showInterstitial());
+        findViewById(R.id.btnShowRewarded).setOnClickListener(view -> showRewarded());
+        findViewById(R.id.btnShowNative).setOnClickListener(view -> showNative());
     }
 
     private void configureHeaderBiddingNetworks() {
@@ -97,33 +77,8 @@ public class HeaderBiddingJavaActivity extends BaseJavaExampleActivity {
                 new AdColonyConfig("app185a7e71e1714831a49ec7")
                         .withMediationConfig(AdsFormat.InterstitialVideo,
                                              "vz06e8c32a037749699e7050")
-                        .withMediationConfig(AdsFormat.RewardedVideo, "vz1fd5a8b2bf6841a0a4b826"),
-                //Configure myTarget network
-                new MyTargetConfig()
-                        .withMediationConfig(AdsFormat.Banner, "437933")
-                        .withMediationConfig(AdsFormat.Banner_320x50, "437933")
-                        .withMediationConfig(AdsFormat.Banner_300x250, "64526")
-                        .withMediationConfig(AdsFormat.Banner_728x90, "81620")
-                        .withMediationConfig(AdsFormat.InterstitialStatic, "365991")
-                        .withMediationConfig(AdsFormat.RewardedVideo, "482205"),
-                //Configure Tapjoy network
-                new TapjoyConfig("tmyN5ZcXTMyjeJNJmUD5ggECAbnEGtJREmLDd0fvqKBXcIr7e1dvboNKZI4y")
-                        .withMediationConfig(AdsFormat.InterstitialVideo, "video_without_cap_pb")
                         .withMediationConfig(AdsFormat.RewardedVideo,
-                                             "rewarded_video_without_cap_pb"),
-                //Configure Facebook network
-                new FacebookConfig("1525692904128549")
-                        .withMediationConfig(AdsFormat.Banner, "1525692904128549_2386746951356469")
-                        .withMediationConfig(AdsFormat.Banner_300x250,
-                                             "1525692904128549_2386746951356469")
-                        .withMediationConfig(AdsFormat.InterstitialStatic,
-                                             "1525692904128549_2386743441356820")
-                        .withMediationConfig(AdsFormat.RewardedVideo,
-                                             "1525692904128549_2386753464689151"),
-                //Configure Mintegral network
-                new MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
-                        .withMediationConfig(AdsFormat.InterstitialVideo, "140146")
-                        .withMediationConfig(AdsFormat.RewardedVideo, "140144", "12817"),
+                                             "vz1fd5a8b2bf6841a0a4b826"),
                 //Configure Amazon network
                 new AmazonConfig("a9_onboarding_app_id")
                         .withMediationConfig(AdsFormat.Banner_320x50,
@@ -137,7 +92,48 @@ public class HeaderBiddingJavaActivity extends BaseJavaExampleActivity {
                         .withMediationConfig(AdsFormat.InterstitialVideo,
                                              "4acc26e6-3ada-4ee8-bae0-753c1e0ad278"),
                 //Configure Criteo
-                new CriteoConfig("3703"));
+                new CriteoConfig("B-057601")
+                        .withMediationConfig(AdsFormat.Banner_320x50,
+                                             "30s6zt3ayypfyemwjvmp")
+                        .withMediationConfig(AdsFormat.Interstitial,
+                                             "6yws53jyfjgoq1ghnuqb"),
+                //Configure Facebook network
+                new FacebookConfig("1525692904128549")
+                        .withMediationConfig(AdsFormat.Banner,
+                                             "1525692904128549_2386746951356469")
+                        .withMediationConfig(AdsFormat.Banner_300x250,
+                                             "1525692904128549_2386746951356469")
+                        .withMediationConfig(AdsFormat.InterstitialStatic,
+                                             "1525692904128549_2386743441356820")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "1525692904128549_2386753464689151"),
+                //Configure Mintegral network
+                new MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
+                        .withMediationConfig(AdsFormat.InterstitialVideo,
+                                             "140146")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "140144"),
+                //Configure myTarget network
+                new MyTargetConfig()
+                        .withMediationConfig(AdsFormat.Banner,
+                                             "437933")
+                        .withMediationConfig(AdsFormat.Banner_320x50,
+                                             "437933")
+                        .withMediationConfig(AdsFormat.Banner_300x250,
+                                             "64526")
+                        .withMediationConfig(AdsFormat.Banner_728x90,
+                                             "81620")
+                        .withMediationConfig(AdsFormat.InterstitialStatic,
+                                             "365991")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "482205"),
+                //Configure Tapjoy network
+                new TapjoyConfig("tmyN5ZcXTMyjeJNJmUD5ggECAbnEGtJREmLDd0fvqKBXcIr7e1dvboNKZI4y")
+                        .withMediationConfig(AdsFormat.InterstitialVideo,
+                                             "video_without_cap_pb")
+                        .withMediationConfig(AdsFormat.RewardedVideo,
+                                             "rewarded_video_without_cap_pb")
+        );
     }
 
     @Override
