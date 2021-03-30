@@ -1,19 +1,16 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "io.bidmachine.examples"
         minSdkVersion 15
-        targetSdkVersion 29
-        versionCode 5
-        versionName "1.1.1"
+        targetSdkVersion 30
+        versionCode 6
+        versionName "1.1.2"
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -33,10 +30,6 @@ repositories {
         name 'BidMachine Ads maven repository'
         url 'https://artifactory.bidmachine.io/bidmachine'
     }
-    // Add Criteo maven repository for Criteo adapter
-    maven {
-        url "https://pubsdk-bin.criteo.com/publishersdk/android"
-    }
 }
 
 dependencies {
@@ -44,23 +37,20 @@ dependencies {
     implementation "io.bidmachine:ads:$bidmachine_version"
 
     //BidMachine AdColony network adapter
-    implementation 'io.bidmachine:ads.networks.adcolony:1.5.2.4'
+    implementation 'io.bidmachine:ads.networks.adcolony:1.7.1.8'
     //BidMachine myTarget network adapter
-    implementation 'io.bidmachine:ads.networks.my_target:1.5.2.2'
+    implementation 'io.bidmachine:ads.networks.my_target:1.7.1.5'
     //BidMachine Tapjoy network adapter
-    implementation 'io.bidmachine:ads.networks.tapjoy:1.5.2.3'
+    implementation 'io.bidmachine:ads.networks.tapjoy:1.7.1.5'
     //BidMachine Facebook network adapter
-    implementation 'io.bidmachine:ads.networks.facebook:1.5.2.3'
-    //BidMachine Mintegral network adapter
-    implementation 'io.bidmachine:ads.networks.mintegral:1.5.2.2'
+    implementation 'io.bidmachine:ads.networks.facebook:1.7.1.5'
     //BidMachine Amazon network adapter
-    implementation 'io.bidmachine:ads.networks.amazon:1.5.2.2'
+    implementation 'io.bidmachine:ads.networks.amazon:1.7.1.5'
     //BidMachine Criteo network adapter
-    implementation 'io.bidmachine:ads.networks.criteo:1.5.2.4'
+    implementation 'io.bidmachine:ads.networks.criteo:1.7.1.8'
 
     //Add Play Services Ads Identifier dependency
     implementation "com.google.android.gms:play-services-ads-identifier:$play_services_ads_identifier_version"
-    implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation project(':bidmachine')
 }

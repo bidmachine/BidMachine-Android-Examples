@@ -50,8 +50,8 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
 
         //Create Banner Ads request
         val bannerRequest = BannerRequest.Builder()
-            .setSize(BannerSize.Size_320x50)
-            .build()
+                .setSize(BannerSize.Size_320x50)
+                .build()
 
         //Load Banner Ads
         bannerView.load(bannerRequest)

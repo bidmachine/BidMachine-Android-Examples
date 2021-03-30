@@ -2,7 +2,9 @@ package io.bidmachine.examples;
 
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.annotation.NonNull;
+
 import io.bidmachine.BidMachine;
 import io.bidmachine.banner.BannerRequest;
 import io.bidmachine.banner.BannerSize;

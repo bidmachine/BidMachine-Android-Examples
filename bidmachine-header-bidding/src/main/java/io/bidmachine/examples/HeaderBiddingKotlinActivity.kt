@@ -9,7 +9,6 @@ import io.bidmachine.ads.networks.AmazonConfig
 import io.bidmachine.ads.networks.adcolony.AdColonyConfig
 import io.bidmachine.ads.networks.criteo.CriteoConfig
 import io.bidmachine.ads.networks.facebook.FacebookConfig
-import io.bidmachine.ads.networks.mintegral.MintegralConfig
 import io.bidmachine.ads.networks.my_target.MyTargetConfig
 import io.bidmachine.ads.networks.tapjoy.TapjoyConfig
 import io.bidmachine.banner.BannerRequest
@@ -95,12 +94,6 @@ class HeaderBiddingKotlinActivity : BaseKotlinExampleActivity() {
                                              "1525692904128549_2386743441356820")
                         .withMediationConfig(AdsFormat.RewardedVideo,
                                              "1525692904128549_2386753464689151"),
-                //Configure Mintegral network
-                MintegralConfig("117852", "936dcbdd57fe235fd7cf61c2e93da3c4")
-                        .withMediationConfig(AdsFormat.InterstitialVideo,
-                                             "140146")
-                        .withMediationConfig(AdsFormat.RewardedVideo,
-                                             "140144"),
                 //Configure myTarget network
                 MyTargetConfig()
                         .withMediationConfig(AdsFormat.Banner,

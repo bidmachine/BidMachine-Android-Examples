@@ -1,15 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 29
-        versionCode 3
-        versionName "1.0.2"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        targetSdkVersion 30
+        versionCode 4
+        versionName "1.0.3"
     }
 
     buildTypes {
@@ -36,5 +34,5 @@ dependencies {
     implementation "com.google.android.gms:play-services-ads-identifier:$play_services_ads_identifier_version"
 
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.appcompat:appcompat:1.2.0'
 }

@@ -1,18 +1,15 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "io.bidmachine.examples"
         minSdkVersion 15
-        targetSdkVersion 29
-        versionCode 5
-        versionName "1.1.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        targetSdkVersion 30
+        versionCode 6
+        versionName "1.1.2"
         multiDexEnabled true
     }
     buildTypes {
@@ -37,7 +34,6 @@ dependencies {
 
     //Add Play Services Ads Identifier dependency
     implementation "com.google.android.gms:play-services-ads-identifier:$play_services_ads_identifier_version"
-    implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation project(':bidmachine')
 }
