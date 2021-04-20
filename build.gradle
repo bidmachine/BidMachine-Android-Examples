@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlin_version = '1.3.61'
-    ext.bidmachine_version = '1.7.1'
+    ext.bidmachine_version = '1.7.2'
     ext.play_services_ads_identifier_version = '17.0.0'
     repositories {
         google()

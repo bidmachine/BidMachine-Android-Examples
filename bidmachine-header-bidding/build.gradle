@@ -30,6 +30,11 @@ repositories {
         name 'BidMachine Ads maven repository'
         url 'https://artifactory.bidmachine.io/bidmachine'
     }
+    mavenCentral()
+    maven {
+        name "Tapjoy's maven repo"
+        url "https://sdk.tapjoy.com/"
+    }
 }
 
 dependencies {
@@ -37,17 +42,17 @@ dependencies {
     implementation "io.bidmachine:ads:$bidmachine_version"
 
     //BidMachine AdColony network adapter
-    implementation 'io.bidmachine:ads.networks.adcolony:1.7.1.8'
-    //BidMachine myTarget network adapter
-    implementation 'io.bidmachine:ads.networks.my_target:1.7.1.5'
-    //BidMachine Tapjoy network adapter
-    implementation 'io.bidmachine:ads.networks.tapjoy:1.7.1.5'
-    //BidMachine Facebook network adapter
-    implementation 'io.bidmachine:ads.networks.facebook:1.7.1.5'
+    implementation 'io.bidmachine:ads.networks.adcolony:1.7.2.9'
     //BidMachine Amazon network adapter
-    implementation 'io.bidmachine:ads.networks.amazon:1.7.1.5'
+    implementation 'io.bidmachine:ads.networks.amazon:1.7.2.5'
     //BidMachine Criteo network adapter
-    implementation 'io.bidmachine:ads.networks.criteo:1.7.1.8'
+    implementation 'io.bidmachine:ads.networks.criteo:1.7.2.8'
+    //BidMachine Facebook network adapter
+    implementation 'io.bidmachine:ads.networks.facebook:1.7.2.6'
+    //BidMachine myTarget network adapter
+    implementation 'io.bidmachine:ads.networks.my_target:1.7.2.6'
+    //BidMachine Tapjoy network adapter
+    implementation 'io.bidmachine:ads.networks.tapjoy:1.7.2.6'
 
     //Add Play Services Ads Identifier dependency
     implementation "com.google.android.gms:play-services-ads-identifier:$play_services_ads_identifier_version"
