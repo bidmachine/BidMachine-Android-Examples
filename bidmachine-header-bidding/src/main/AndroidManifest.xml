@@ -1,27 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="io.bidmachine.examples">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="io.bidmachine.examples">
 
     <application
-            android:name="androidx.multidex.MultiDexApplication"
-            android:allowBackup="true"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".HeaderBiddingJavaActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        android:name="androidx.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+        <activity
+            android:name=".HeaderBiddingJavaActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".HeaderBiddingKotlinActivity">
             <meta-data
-                    android:name="bm-example-kotlin"
-                    android:value="true"/>
+                android:name="bm-example-kotlin"
+                android:value="true" />
         </activity>
+
     </application>
 
 </manifest>

@@ -13,16 +13,15 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".BannerJavaActivity"
+            android:name=".RichMediaJavaActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".BannerKotlinActivity">
+        <activity android:name=".RichMediaKotlinActivity">
             <meta-data
                 android:name="bm-example-kotlin"
                 android:value="true" />

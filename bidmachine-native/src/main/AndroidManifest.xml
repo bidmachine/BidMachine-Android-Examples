@@ -11,17 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".NativeJavaActivity">
+
+        <activity
+            android:name=".NativeJavaActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".NativeKotlinActivity">
             <meta-data
                 android:name="bm-example-kotlin"
                 android:value="true" />
         </activity>
+
     </application>
 
 </manifest>
