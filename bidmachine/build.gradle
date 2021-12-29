@@ -19,18 +19,18 @@ android {
 }
 
 repositories {
-    //Add BidMachine maven repository
+    // Add BidMachine maven repository
     maven {
-        name 'BidMachine Ads maven repository'
-        url 'https://artifactory.bidmachine.io/bidmachine'
+        name "BidMachine Ads maven repository"
+        url "https://artifactory.bidmachine.io/bidmachine"
     }
 }
 
 dependencies {
-    //Add BidMachine SDK dependency
+    // Add BidMachine SDK dependency
     implementation "io.bidmachine:ads:$bidmachine_version"
 
-    //Add Play Services Ads Identifier dependency
+    // Add Play Services Ads Identifier dependency
     implementation "com.google.android.gms:play-services-ads-identifier:$play_services_ads_identifier_version"
 
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

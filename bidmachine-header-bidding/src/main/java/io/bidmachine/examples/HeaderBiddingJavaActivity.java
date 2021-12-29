@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import io.bidmachine.AdsFormat;
 import io.bidmachine.BidMachine;
-import io.bidmachine.ads.networks.AmazonConfig;
+import io.bidmachine.ads.networks.amazon.AmazonConfig;
 import io.bidmachine.ads.networks.adcolony.AdColonyConfig;
 import io.bidmachine.ads.networks.criteo.CriteoConfig;
 import io.bidmachine.ads.networks.facebook.FacebookConfig;
