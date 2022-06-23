@@ -9,6 +9,7 @@ import io.bidmachine.banner.BannerSize
 import io.bidmachine.banner.BannerView
 import io.bidmachine.banner.SimpleBannerListener
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
+import io.bidmachine.examples.databinding.ActivityRequestsBinding
 import io.bidmachine.interstitial.InterstitialAd
 import io.bidmachine.interstitial.InterstitialRequest
 import io.bidmachine.interstitial.SimpleInterstitialListener
@@ -21,9 +22,8 @@ import io.bidmachine.rewarded.RewardedAd
 import io.bidmachine.rewarded.RewardedRequest
 import io.bidmachine.rewarded.SimpleRewardedListener
 import io.bidmachine.utils.BMError
-import kotlinx.android.synthetic.main.activity_requests.*
 
-class RequestsKotlinExample : BaseKotlinExampleActivity() {
+class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>() {
 
     private var bannerView: BannerView? = null
     private var bannerRequest: BannerRequest? = null
@@ -34,47 +34,62 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
     private var nativeAd: NativeAd? = null
     private var nativeRequest: NativeRequest? = null
 
+    override fun inflate(inflater: LayoutInflater) = ActivityRequestsBinding.inflate(inflater)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //Initialise SDK
+        // Initialise SDK
         BidMachine.initialize(this, "5")
 
-        //Enable logs
+        // Enable logs
         BidMachine.setLoggingEnabled(true)
 
-        //Set activity content view
-        setContentView(R.layout.activity_requests)
+        // Set listener to perform Ads request
+        binding.bRequestBanner.setOnClickListener {
+            requestBanner()
+        }
 
-        //Set listener to perform Ads request
-        btnRequestBanner.setOnClickListener { requestBanner() }
+        // Set listener to perform Ads show
+        binding.bShowRequestedBanner.setOnClickListener {
+            showRequestedBanner()
+        }
 
-        //Set listener to perform Ads show
-        btnShowRequestedBanner.setOnClickListener { showRequestedBanner() }
+        // Set listener to perform Interstitial Ads request
+        binding.bRequestInterstitial.setOnClickListener {
+            requestInterstitial()
+        }
 
-        //Set listener to perform Interstitial Ads request
-        btnRequestInterstitial.setOnClickListener { requestInterstitial() }
+        // Set listener to perform Interstitial Ads show
+        binding.bShowRequestedInterstitial.setOnClickListener {
+            showRequestedInterstitial()
+        }
 
-        //Set listener to perform Interstitial Ads show
-        btnShowRequestedInterstitial.setOnClickListener { showRequestedInterstitial() }
+        // Set listener to perform Rewarded Ads request
+        binding.bRequestRewarded.setOnClickListener {
+            requestRewarded()
+        }
 
-        //Set listener to perform Rewarded Ads request
-        btnRequestRewarded.setOnClickListener { requestRewarded() }
+        // Set listener to perform Rewarded Ads show
+        binding.bShowRequestedRewarded.setOnClickListener {
+            showRequestedRewarded()
+        }
 
-        //Set listener to perform Rewarded Ads show
-        btnShowRequestedRewarded.setOnClickListener { showRequestedRewarded() }
+        // Set listener to perform Native Ads request
+        binding.bRequestNative.setOnClickListener {
+            requestNative()
+        }
 
-        //Set listener to perform Native Ads request
-        btnRequestNative.setOnClickListener { requestNative() }
-
-        //Set listener to perform Native Ads show
-        btnShowRequestedNative.setOnClickListener { showRequestedNative() }
+        // Set listener to perform Native Ads show
+        binding.bShowRequestedNative.setOnClickListener {
+            showRequestedNative()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        //Destroy Ads when you finish with it
+        // Destroy Ads when you finish with it
         destroyCurrentBannerView()
         destroyCurrentInterstitialAd()
         destroyCurrentRewardedAd()
@@ -82,8 +97,8 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
     }
 
     private fun showAdView(view: View) {
-        adContainer.removeAllViews()
-        adContainer.addView(view)
+        binding.adContainer.removeAllViews()
+        binding.adContainer.addView(view)
     }
 
     /**
@@ -92,12 +107,12 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
     private fun requestBanner() {
         setDebugState(Status.Requesting)
 
-        //Create new Banner Ads request
+        // Create new Banner Ads request
         bannerRequest = BannerRequest.Builder()
                 .setSize(BannerSize.Size_320x50)
-                //Set Banner Ads request listener
+                // Set Banner Ads request listener
                 .setListener(object : BannerRequest.AdRequestListener {
-                    override fun onRequestSuccess(request: BannerRequest, p1: AuctionResult) {
+                    override fun onRequestSuccess(request: BannerRequest, auctionResult: AuctionResult) {
                         runOnUiThread {
                             setDebugState(Status.Requested, "Banner Ad Requested")
                         }
@@ -105,8 +120,7 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
 
                     override fun onRequestFailed(request: BannerRequest, error: BMError) {
                         runOnUiThread {
-                            setDebugState(Status.RequestFail,
-                                          "Banner Request Failed: ${error.message}")
+                            setDebugState(Status.RequestFail, "Banner Request Failed: ${error.message}")
                         }
                     }
 
@@ -115,10 +129,11 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
                             setDebugState(Status.Expired, "Banner Request Expired")
                         }
                     }
-                }).build()
-
-        //Perform Banner Ads request
-        bannerRequest?.request(this)
+                })
+                .build().apply {
+                    // Perform Banner Ads request
+                    request(this@RequestsKotlinExample)
+                }
     }
 
     private fun showRequestedBanner() {
@@ -133,27 +148,28 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
                 toast("BannerRequest not requested or requested unsuccessfully")
             }
             else -> {
-                bannerView = BannerView(this).apply {
+                // Destroy previous BannerView object
+                destroyCurrentBannerView()
 
-                    //Set listener ot change BannerView visibility when Ads loaded
+                bannerView = BannerView(this).apply {
+                    // Set listener ot change BannerView visibility when Ads loaded
                     setListener(object : SimpleBannerListener() {
                         override fun onAdLoaded(ad: BannerView) {
                             setDebugState(Status.Loaded, "Banner Ads Loaded")
 
-                            //Show Banner Ad
+                            // Show Banner Ad
                             showAdView(ad)
                         }
 
                         override fun onAdLoadFailed(ad: BannerView, error: BMError) {
-                            setDebugState(Status.LoadFail,
-                                          "Banner Ads load failed: ${error.message}")
+                            setDebugState(Status.LoadFail, "Banner Ads load failed: ${error.message}")
 
-                            //Destroy loaded ad since it not required any more
+                            // Destroy loaded ad since it not required any more
                             destroyCurrentBannerView()
                         }
                     })
 
-                    //Perform BannerAd load
+                    // Perform BannerAd load
                     load(bannerRequest)
                 }
             }
@@ -161,43 +177,39 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
     }
 
     private fun destroyCurrentBannerView() {
-        bannerView?.apply {
-            destroy()
-            bannerView = null
-        }
+        bannerView?.destroy()
+        bannerView = null
     }
 
     private fun requestInterstitial() {
         setDebugState(Status.Requesting)
 
-        //Create new Interstitial Ads request
+        // Create new Interstitial Ads request
         interstitialRequest = InterstitialRequest.Builder()
-                //Set Interstitial Ads request listener
+                // Set Interstitial Ads request listener
                 .setListener(object : InterstitialRequest.AdRequestListener {
-                    override fun onRequestSuccess(interstitialRequest: InterstitialRequest,
-                                                  auctionResult: AuctionResult) {
+                    override fun onRequestSuccess(request: InterstitialRequest, auctionResult: AuctionResult) {
                         runOnUiThread {
                             setDebugState(Status.Requested, "Interstitial Ad Requested")
                         }
                     }
 
-                    override fun onRequestFailed(interstitialRequest: InterstitialRequest,
-                                                 bmError: BMError) {
+                    override fun onRequestFailed(request: InterstitialRequest, bmError: BMError) {
                         runOnUiThread {
-                            setDebugState(Status.RequestFail,
-                                          "Interstitial Request Failed: " + bmError.message)
+                            setDebugState(Status.RequestFail, "Interstitial Request Failed: ${bmError.message}")
                         }
                     }
 
-                    override fun onRequestExpired(interstitialRequest: InterstitialRequest) {
+                    override fun onRequestExpired(request: InterstitialRequest) {
                         runOnUiThread {
                             setDebugState(Status.Expired, "Interstitial Request Expired")
                         }
                     }
-                }).build()
-
-        //Perform Interstitial Ads request
-        interstitialRequest!!.request(this)
+                })
+                .build().apply {
+                    // Perform Interstitial Ads request
+                    request(this@RequestsKotlinExample)
+                }
     }
 
     private fun showRequestedInterstitial() {
@@ -212,36 +224,35 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
                 toast("InterstitialRequest not requested or requested unsuccessfully")
             }
             else -> {
-                //Destroy previous InterstitialAd object
+                // Destroy previous InterstitialAd object
                 destroyCurrentInterstitialAd()
 
-                //Create new InterstitialAd
+                // Create new InterstitialAd
                 interstitialAd = InterstitialAd(this).apply {
                     setListener(object : SimpleInterstitialListener() {
                         override fun onAdLoaded(ad: InterstitialAd) {
                             setDebugState(Status.Loaded, "Interstitial Ads Loaded")
 
-                            //Show Interstitial Ads
+                            // Show Interstitial Ads
                             ad.show()
                         }
 
                         override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                            setDebugState(Status.LoadFail,
-                                          "Interstitial Ads load failed: " + error.message)
+                            setDebugState(Status.LoadFail, "Interstitial Ads load failed: ${error.message}")
 
-                            //Destroy current Interstitial ad since we don't need it anymore
+                            // Destroy current Interstitial ad since we don't need it anymore
                             destroyCurrentInterstitialAd()
                         }
 
                         override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
                             setDebugState(Status.Closed)
 
-                            //Destroy current Interstitial ad since we don't need it anymore
+                            // Destroy current Interstitial ad since we don't need it anymore
                             destroyCurrentInterstitialAd()
                         }
                     })
 
-                    //Perform InterstitialAd load
+                    // Perform InterstitialAd load
                     load(interstitialRequest)
                 }
             }
@@ -249,43 +260,39 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
     }
 
     private fun destroyCurrentInterstitialAd() {
-        interstitialAd?.apply {
-            destroy()
-            interstitialAd = null
-        }
+        interstitialAd?.destroy()
+        interstitialAd = null
     }
 
     private fun requestRewarded() {
         setDebugState(Status.Requesting)
 
-        //Create new Rewarded Ads request
+        // Create new Rewarded Ads request
         rewardedRequest = RewardedRequest.Builder()
-                //Set Rewarded Ads request listener
+                // Set Rewarded Ads request listener
                 .setListener(object : RewardedRequest.AdRequestListener {
-                    override fun onRequestSuccess(rewardedRequest: RewardedRequest,
-                                                  auctionResult: AuctionResult) {
+                    override fun onRequestSuccess(request: RewardedRequest, auctionResult: AuctionResult) {
                         runOnUiThread {
                             setDebugState(Status.Requested, "Rewarded Ad Requested")
                         }
                     }
 
-                    override fun onRequestFailed(rewardedRequest: RewardedRequest,
-                                                 bmError: BMError) {
+                    override fun onRequestFailed(request: RewardedRequest, bmError: BMError) {
                         runOnUiThread {
-                            setDebugState(Status.RequestFail,
-                                          "Rewarded Request Failed: " + bmError.message)
+                            setDebugState(Status.RequestFail, "Rewarded Request Failed: ${bmError.message}")
                         }
                     }
 
-                    override fun onRequestExpired(rewardedRequest: RewardedRequest) {
+                    override fun onRequestExpired(request: RewardedRequest) {
                         runOnUiThread {
                             setDebugState(Status.Expired, "Rewarded Request Expired")
                         }
                     }
-                }).build()
-
-        //Perform Rewarded Ads request
-        rewardedRequest!!.request(this)
+                })
+                .build().apply {
+                    // Perform Rewarded Ads request
+                    request(this@RequestsKotlinExample)
+                }
     }
 
     private fun showRequestedRewarded() {
@@ -300,36 +307,35 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
                 toast("RewardedRequest not requested or requested unsuccessfully")
             }
             else -> {
-                //Destroy previous RewardedAd object
+                // Destroy previous RewardedAd object
                 destroyCurrentRewardedAd()
 
-                //Create new RewardedAd
+                // Create new RewardedAd
                 rewardedAd = RewardedAd(this).apply {
                     setListener(object : SimpleRewardedListener() {
                         override fun onAdLoaded(ad: RewardedAd) {
                             setDebugState(Status.Loaded, "Rewarded Ads Loaded")
 
-                            //Show Rewarded Ads
+                            // Show Rewarded Ads
                             ad.show()
                         }
 
                         override fun onAdLoadFailed(ad: RewardedAd, error: BMError) {
-                            setDebugState(Status.LoadFail,
-                                          "Rewarded Ads load failed: " + error.message)
+                            setDebugState(Status.LoadFail, "Rewarded Ads load failed: ${error.message}")
 
-                            //Destroy current Rewarded ad since we don't need it anymore
+                            // Destroy current Rewarded ad since we don't need it anymore
                             destroyCurrentRewardedAd()
                         }
 
                         override fun onAdClosed(ad: RewardedAd, finished: Boolean) {
                             setDebugState(Status.Closed)
 
-                            //Destroy current Rewarded ad since we don't need it anymore
+                            // Destroy current Rewarded ad since we don't need it anymore
                             destroyCurrentRewardedAd()
                         }
                     })
 
-                    //Perform RewardedAd load
+                    // Perform RewardedAd load
                     load(rewardedRequest)
                 }
             }
@@ -337,43 +343,39 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
     }
 
     private fun destroyCurrentRewardedAd() {
-        rewardedAd?.apply {
-            destroy()
-            rewardedAd = null
-        }
+        rewardedAd?.destroy()
+        rewardedAd = null
     }
 
     private fun requestNative() {
         setDebugState(Status.Requesting)
 
-        //Create new Native Ads request
+        // Create new Native Ads request
         nativeRequest = NativeRequest.Builder()
-                //Set Native Ads request listener
+                // Set Native Ads request listener
                 .setListener(object : NativeRequest.AdRequestListener {
-                    override fun onRequestSuccess(nativeRequest: NativeRequest,
-                                                  auctionResult: AuctionResult) {
+                    override fun onRequestSuccess(request: NativeRequest, auctionResult: AuctionResult) {
                         runOnUiThread {
                             setDebugState(Status.Requested, "Native Ad Requested")
                         }
                     }
 
-                    override fun onRequestFailed(nativeRequest: NativeRequest,
-                                                 bmError: BMError) {
+                    override fun onRequestFailed(request: NativeRequest, bmError: BMError) {
                         runOnUiThread {
-                            setDebugState(Status.RequestFail,
-                                          "Native Request Failed: " + bmError.message)
+                            setDebugState(Status.RequestFail, "Native Request Failed: ${bmError.message}")
                         }
                     }
 
-                    override fun onRequestExpired(nativeRequest: NativeRequest) {
+                    override fun onRequestExpired(request: NativeRequest) {
                         runOnUiThread {
                             setDebugState(Status.Expired, "Native Request Expired")
                         }
                     }
-                }).build()
-
-        //Perform Native Ads request
-        nativeRequest!!.request(this)
+                })
+                .build().apply {
+                    // Perform Native Ads request
+                    request(this@RequestsKotlinExample)
+                }
     }
 
     private fun showRequestedNative() {
@@ -388,30 +390,29 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
                 toast("NativeRequest not requested or requested unsuccessfully")
             }
             else -> {
-                //Destroy previous NativeAd object
+                // Destroy previous NativeAd object
                 destroyCurrentNativeAd()
 
-                //Create new NativeAd
+                // Create new NativeAd
                 nativeAd = NativeAd(this).apply {
                     setListener(object : SimpleNativeListener() {
                         override fun onAdLoaded(ad: NativeAd) {
                             setDebugState(Status.Loaded, "Native Ads Loaded")
 
-                            //Show native Ads
+                            // Show native Ads
                             val nativeView = createNativeAdView(ad)
                             showAdView(nativeView)
                         }
 
                         override fun onAdLoadFailed(ad: NativeAd, error: BMError) {
-                            setDebugState(Status.LoadFail,
-                                          "Native Ads load failed: " + error.message)
+                            setDebugState(Status.LoadFail, "Native Ads load failed: ${error.message}")
 
-                            //Destroy current Native ad since we don't need it anymore
+                            // Destroy current Native ad since we don't need it anymore
                             destroyCurrentNativeAd()
                         }
                     })
 
-                    //Perform NativeAd load
+                    // Perform NativeAd load
                     load(nativeRequest)
                 }
             }
@@ -420,7 +421,7 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
 
     private fun createNativeAdView(nativeAd: NativeAd): View {
         val nativeView = LayoutInflater.from(this)
-                .inflate(R.layout.native_ad, adContainer, false) as NativeAdContentLayout
+                .inflate(R.layout.native_ad, binding.adContainer, false) as NativeAdContentLayout
         nativeView.bind(nativeAd)
         nativeView.registerViewForInteraction(nativeAd)
         nativeView.visibility = View.VISIBLE
@@ -428,10 +429,8 @@ class RequestsKotlinExample : BaseKotlinExampleActivity() {
     }
 
     private fun destroyCurrentNativeAd() {
-        nativeAd?.apply {
-            destroy()
-            nativeAd = null
-        }
+        nativeAd?.destroy()
+        nativeAd = null
     }
 
 }

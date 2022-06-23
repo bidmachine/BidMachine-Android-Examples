@@ -1,13 +1,13 @@
 buildscript {
-    ext.kotlin_version = "1.3.61"
-    ext.bidmachine_version = "1.9.4"
+    ext.bidmachine_version = "1.9.5"
     ext.bidmachine_adcolony_version = "$bidmachine_version.10"
     ext.bidmachine_amazon_version = "$bidmachine_version.6"
     ext.bidmachine_criteo_version = "$bidmachine_version.10"
-    ext.bidmachine_facebook_version = "$bidmachine_version.11"
+    ext.bidmachine_meta_audience_version = "$bidmachine_version.12"
     ext.bidmachine_my_target_version = "$bidmachine_version.8"
     ext.bidmachine_pangle_version = "$bidmachine_version.3"
     ext.bidmachine_tapjoy_version = "$bidmachine_version.8"
+    ext.bidmachine_vungle_version = "$bidmachine_version.1"
     ext.play_services_ads_identifier_version = "17.0.0"
 
     repositories {
@@ -16,8 +16,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:3.4.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle:4.1.3"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30"
     }
 }
 

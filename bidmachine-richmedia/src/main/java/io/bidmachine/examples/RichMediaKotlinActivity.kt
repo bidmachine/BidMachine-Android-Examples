@@ -1,58 +1,52 @@
 package io.bidmachine.examples
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
 import io.bidmachine.BidMachine
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
+import io.bidmachine.examples.databinding.ActivityRichMediaBinding
 import io.bidmachine.richmedia.RichMediaRequest
 import io.bidmachine.richmedia.RichMediaView
 import io.bidmachine.richmedia.SimpleRichMediaListener
 import io.bidmachine.utils.BMError
 
-class RichMediaKotlinActivity : BaseKotlinExampleActivity() {
+class RichMediaKotlinActivity : BaseKotlinExampleActivity<ActivityRichMediaBinding>() {
 
-    private lateinit var richMediaView: RichMediaView
+    override fun inflate(inflater: LayoutInflater) = ActivityRichMediaBinding.inflate(inflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //Initialise SDK
+        // Initialise SDK
         BidMachine.initialize(this, "5")
 
-        //Enable logs
+        // Enable logs
         BidMachine.setLoggingEnabled(true)
 
-        //Set activity content view
-        setContentView(R.layout.activity_rich_media)
-
-        //Set listener to perform Ads load
-        findViewById<Button>(R.id.bLoadAd).setOnClickListener {
+        // Set listener to perform Ads load
+        binding.bLoadAd.setOnClickListener {
             loadAd()
         }
-        findViewById<ImageButton>(R.id.bResumeRichMedia).setOnClickListener {
+        binding.bResumeRichMedia.setOnClickListener {
             resumeRichMedia()
         }
-        findViewById<ImageButton>(R.id.bPauseRichMedia).setOnClickListener {
+        binding.bPauseRichMedia.setOnClickListener {
             pauseRichMedia()
         }
-        findViewById<ImageButton>(R.id.bMuteRichMedia).setOnClickListener {
+        binding.bMuteRichMedia.setOnClickListener {
             muteRichMedia()
         }
-        findViewById<ImageButton>(R.id.bUnmuteRichMedia).setOnClickListener {
+        binding.bUnmuteRichMedia.setOnClickListener {
             unmuteRichMedia()
         }
 
-        //Find RichMediaView in hierarchy
-        richMediaView = findViewById(R.id.richMediaView)
-
-        //Set RichMedia Ads events listener
-        richMediaView.setListener(object : SimpleRichMediaListener() {
+        // Set RichMedia Ads events listener
+        binding.richMediaView.setListener(object : SimpleRichMediaListener() {
             override fun onAdLoaded(ad: RichMediaView) {
                 setDebugState(Status.Loaded, "RichMedia Ads Loaded")
 
-                //Make RichMediaView visible
+                // Make RichMediaView visible
                 ad.visibility = View.VISIBLE
             }
 
@@ -65,35 +59,34 @@ class RichMediaKotlinActivity : BaseKotlinExampleActivity() {
     private fun loadAd() {
         setDebugState(Status.Loading)
 
-        //Create RichMediaRequest
-        val richMediaRequest = RichMediaRequest.Builder()
-            .build()
+        // Create RichMediaRequest
+        val richMediaRequest = RichMediaRequest.Builder().build()
 
-        //Load RichMedia Ads
-        richMediaView.load(richMediaRequest)
+        // Load RichMedia Ads
+        binding.richMediaView.load(richMediaRequest)
     }
 
     private fun resumeRichMedia() {
-        richMediaView.resume()
+        binding.richMediaView.resume()
     }
 
     private fun pauseRichMedia() {
-        richMediaView.pause()
+        binding.richMediaView.pause()
     }
 
     private fun muteRichMedia() {
-        richMediaView.mute()
+        binding.richMediaView.mute()
     }
 
     private fun unmuteRichMedia() {
-        richMediaView.unmute()
+        binding.richMediaView.unmute()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        //Destroy Ads when you finish with it
-        richMediaView.destroy()
+        // Destroy Ads when you finish with it
+        binding.richMediaView.destroy()
     }
 
 }

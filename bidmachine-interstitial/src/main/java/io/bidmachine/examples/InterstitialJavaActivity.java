@@ -1,86 +1,68 @@
 package io.bidmachine.examples;
 
 import android.os.Bundle;
-import android.view.View;
+import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 
 import io.bidmachine.AdContentType;
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
+import io.bidmachine.examples.databinding.ActivityInterstitialBinding;
 import io.bidmachine.interstitial.InterstitialAd;
 import io.bidmachine.interstitial.InterstitialRequest;
 import io.bidmachine.interstitial.SimpleInterstitialListener;
 import io.bidmachine.utils.BMError;
 
-public class InterstitialJavaActivity extends BaseJavaExampleActivity {
+public class InterstitialJavaActivity extends BaseJavaExampleActivity<ActivityInterstitialBinding> {
 
     private InterstitialAd interstitialAd;
     private InterstitialAd videoAd;
-
     private InterstitialAd delayedShowInterstitialAd;
+
+    @NonNull
+    @Override
+    protected ActivityInterstitialBinding inflate(@NonNull LayoutInflater inflater) {
+        return ActivityInterstitialBinding.inflate(inflater);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Initialise SDK
+        // Initialise SDK
         BidMachine.initialize(this, "5");
 
-        //Enable logs
+        // Enable logs
         BidMachine.setLoggingEnabled(true);
 
-        //Set activity content view
-        setContentView(R.layout.activity_interstitial);
-
-        //Set listeners to perform Ads load
-        findViewById(R.id.btnShowInterstitial).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showInterstitial();
-            }
-        });
-        findViewById(R.id.btnShowVideo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showVideo();
-            }
-        });
-        findViewById(R.id.btnLoadInterstitial).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadInterstitial();
-            }
-        });
-        findViewById(R.id.btnShowLoadedInterstitial).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showLoadedInterstitial();
-            }
-        });
+        // Set listeners to perform Ads load
+        binding.bShowInterstitial.setOnClickListener(v -> showInterstitial());
+        binding.bShowVideo.setOnClickListener(v -> showVideo());
+        binding.bLoadInterstitial.setOnClickListener(v -> loadInterstitial());
+        binding.bShowLoadedInterstitial.setOnClickListener(v -> showLoadedInterstitial());
 
     }
 
     private void showInterstitial() {
         setDebugState(Status.Loading);
 
-        //Destroy previous loaded InterstitialAd
+        // Destroy previous loaded InterstitialAd
         destroyInterstitialAd();
 
-        //Create new InterstitialRequest
-        final InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
-                .build();
+        // Create new InterstitialRequest
+        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder().build();
 
-        //Create new InterstitialAd
+        // Create new InterstitialAd
         interstitialAd = new InterstitialAd(this);
 
-        //Set InterstitialAd events listener
+        // Set InterstitialAd events listener
         interstitialAd.setListener(new SimpleInterstitialListener() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd ad) {
                 setDebugState(Status.Loaded, "Interstitial Ads Loaded");
 
-                //Show Interstitial Ad
+                // Show Interstitial Ad
                 ad.show();
             }
 
@@ -88,7 +70,7 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
             public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
                 setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
 
-                //Destroy loaded ad since it not required any more
+                // Destroy loaded ad since it not required any more
                 destroyInterstitialAd();
             }
 
@@ -96,12 +78,12 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
             public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
                 setDebugState(Status.Closed, "Interstitial Ads Closed");
 
-                //Destroy loaded ad since it not required any more
+                // Destroy loaded ad since it not required any more
                 destroyInterstitialAd();
             }
         });
 
-        //Load InterstitialAd
+        // Load InterstitialAd
         interstitialAd.load(interstitialRequest);
     }
 
@@ -113,24 +95,24 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
     private void showVideo() {
         setDebugState(Status.Loading);
 
-        //Destroy previous loaded InterstitialAd for Video
+        // Destroy previous loaded InterstitialAd for Video
         destroyVideoAd();
 
-        //Create new InterstitialRequest for Video
-        final InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
-                .setAdContentType(AdContentType.Video) //Set required Interstitial content type
+        // Create new InterstitialRequest for Video
+        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
+                .setAdContentType(AdContentType.Video) // Set required Interstitial content type
                 .build();
 
-        //Create new InterstitialAd for Video
+        // Create new InterstitialAd for Video
         videoAd = new InterstitialAd(this);
 
-        //Set InterstitialAd for Video events listener
+        // Set InterstitialAd for Video events listener
         videoAd.setListener(new SimpleInterstitialListener() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd ad) {
                 setDebugState(Status.Loaded, "Interstitial Ads Loaded");
 
-                //Show Interstitial Ad for Video
+                // Show Interstitial Ad for Video
                 ad.show();
             }
 
@@ -138,7 +120,7 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
             public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
                 setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
 
-                //Destroy loaded ad since it not required any more
+                // Destroy loaded ad since it not required any more
                 destroyVideoAd();
             }
 
@@ -146,28 +128,27 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
             public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
                 setDebugState(Status.Closed, "Interstitial Ads Closed");
 
-                //Destroy loaded ad since it not required any more
+                // Destroy loaded ad since it not required any more
                 destroyVideoAd();
             }
         });
-        //Load InterstitialAd for Video
+        // Load InterstitialAd for Video
         videoAd.load(interstitialRequest);
     }
 
     private void loadInterstitial() {
         setDebugState(Status.Loading);
 
-        //Destroy previous loaded Interstitial Ads
+        // Destroy previous loaded Interstitial Ads
         destroyDelayedShowInterstitial();
 
-        //Create new InterstitialRequest
-        final InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
-                .build();
+        // Create new InterstitialRequest
+        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder().build();
 
-        //Create new InterstitialAd
+        // Create new InterstitialAd
         delayedShowInterstitialAd = new InterstitialAd(this);
 
-        //Set InterstitialAd events listener
+        // Set InterstitialAd events listener
         delayedShowInterstitialAd.setListener(new SimpleInterstitialListener() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd ad) {
@@ -178,7 +159,7 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
             public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
                 setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
 
-                //Destroy loaded ad since it not required any more
+                // Destroy loaded ad since it not required any more
                 destroyDelayedShowInterstitial();
             }
 
@@ -186,12 +167,12 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
             public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
                 setDebugState(Status.Closed, "Interstitial Ads Closed");
 
-                //Destroy loaded ad since it not required any more
+                // Destroy loaded ad since it not required any more
                 destroyDelayedShowInterstitial();
             }
         });
 
-        //Load InterstitialAd
+        // Load InterstitialAd
         delayedShowInterstitialAd.load(interstitialRequest);
     }
 
@@ -199,7 +180,7 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        //Destroy Ads when you finish with it
+        // Destroy Ads when you finish with it
         destroyInterstitialAd();
         destroyVideoAd();
         destroyDelayedShowInterstitial();
@@ -235,4 +216,5 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity {
             delayedShowInterstitialAd.show();
         }
     }
+
 }

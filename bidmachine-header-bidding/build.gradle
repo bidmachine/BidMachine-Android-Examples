@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 31
+
     defaultConfig {
         applicationId "io.bidmachine.examples"
         minSdkVersion 16
@@ -12,15 +12,25 @@ android {
         versionName "1.1.2"
         multiDexEnabled true
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
@@ -51,13 +61,15 @@ dependencies {
     // BidMachine Criteo network adapter
     implementation "io.bidmachine:ads.networks.criteo:$bidmachine_criteo_version"
     // BidMachine Facebook network adapter
-    implementation "io.bidmachine:ads.networks.facebook:$bidmachine_facebook_version"
+    implementation "io.bidmachine:ads.networks.meta_audience:$bidmachine_meta_audience_version"
     // BidMachine myTarget network adapter
     implementation "io.bidmachine:ads.networks.my_target:$bidmachine_my_target_version"
     // BidMachine Pangle network adapter
     implementation "io.bidmachine:ads.networks.pangle:$bidmachine_pangle_version"
     // BidMachine Tapjoy network adapter
     implementation "io.bidmachine:ads.networks.tapjoy:$bidmachine_tapjoy_version"
+    // BidMachine Vungle network adapter
+    implementation "io.bidmachine:ads.networks.vungle:$bidmachine_vungle_version"
 
     // Add Play Services Ads Identifier dependency
     implementation "com.google.android.gms:play-services-ads-identifier:$play_services_ads_identifier_version"

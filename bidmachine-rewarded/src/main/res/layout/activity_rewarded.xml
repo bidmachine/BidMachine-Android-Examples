@@ -8,7 +8,7 @@
     tools:context=".RewardedJavaActivity">
 
     <Button
-        android:id="@+id/btnShowRewarded"
+        android:id="@+id/bShowRewarded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Rewarded Ads"
@@ -24,14 +24,14 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/btnLoadRewarded"
+        android:id="@+id/bLoadRewarded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Load Rewarded Ads"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/btnShowLoadedRewarded"
+        android:id="@+id/bShowLoadedRewarded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Loaded Rewarded Ads"

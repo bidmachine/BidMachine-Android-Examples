@@ -1,6 +1,7 @@
 package io.bidmachine.examples
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import io.bidmachine.BidMachine
 import io.bidmachine.banner.BannerRequest
@@ -8,34 +9,33 @@ import io.bidmachine.banner.BannerSize
 import io.bidmachine.banner.BannerView
 import io.bidmachine.banner.SimpleBannerListener
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
+import io.bidmachine.examples.databinding.ActivityBannerBinding
 import io.bidmachine.utils.BMError
-import kotlinx.android.synthetic.main.activity_banner.*
 
-class BannerKotlinActivity : BaseKotlinExampleActivity() {
+class BannerKotlinActivity : BaseKotlinExampleActivity<ActivityBannerBinding>() {
+
+    override fun inflate(inflater: LayoutInflater) = ActivityBannerBinding.inflate(inflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //Initialise SDK
+        // Initialise SDK
         BidMachine.initialize(this, "5")
 
-        //Enable logs
+        // Enable logs
         BidMachine.setLoggingEnabled(true)
 
-        //Set activity content view
-        setContentView(R.layout.activity_banner)
-
-        //Set listener to perform Ads load
-        btnLoadAd.setOnClickListener {
+        // Set listener to perform Ads load
+        binding.bLoadAd.setOnClickListener {
             loadAd()
         }
 
-        //Set Banner Ads events listener
-        bannerView.setListener(object : SimpleBannerListener() {
+        // Set Banner Ads events listener
+        binding.bannerView.setListener(object : SimpleBannerListener() {
             override fun onAdLoaded(ad: BannerView) {
                 setDebugState(Status.Loaded, "Banner Ads Loaded")
 
-                //Make BannerView visible
+                // Make BannerView visible
                 ad.visibility = View.VISIBLE
             }
 
@@ -48,20 +48,20 @@ class BannerKotlinActivity : BaseKotlinExampleActivity() {
     private fun loadAd() {
         setDebugState(Status.Loading)
 
-        //Create Banner Ads request
+        // Create Banner Ads request
         val bannerRequest = BannerRequest.Builder()
                 .setSize(BannerSize.Size_320x50)
                 .build()
 
-        //Load Banner Ads
-        bannerView.load(bannerRequest)
+        // Load Banner Ads
+        binding.bannerView.load(bannerRequest)
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        //Destroy Ads when you finish with it
-        bannerView.destroy()
+        // Destroy Ads when you finish with it
+        binding.bannerView.destroy()
     }
 
 }

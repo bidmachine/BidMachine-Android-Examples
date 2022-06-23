@@ -1,64 +1,65 @@
 package io.bidmachine.examples;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
+import io.bidmachine.examples.databinding.ActivityNativeBinding;
 import io.bidmachine.nativead.NativeAd;
 import io.bidmachine.nativead.NativeRequest;
 import io.bidmachine.nativead.SimpleNativeListener;
-import io.bidmachine.nativead.view.NativeAdContentLayout;
 import io.bidmachine.utils.BMError;
 
-public class NativeJavaActivity extends BaseJavaExampleActivity {
+public class NativeJavaActivity extends BaseJavaExampleActivity<ActivityNativeBinding> {
 
-    private NativeAdContentLayout nativeAdContentLayout;
+    private NativeAd nativeAd;
+
+    @NonNull
+    @Override
+    protected ActivityNativeBinding inflate(@NonNull LayoutInflater inflater) {
+        return ActivityNativeBinding.inflate(inflater);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Initialise SDK
+        // Initialise SDK
         BidMachine.initialize(this, "5");
 
-        //Enable logs
+        // Enable logs
         BidMachine.setLoggingEnabled(true);
 
-        //Set activity content view
-        setContentView(R.layout.activity_native);
-
-        //Set listener to perform Ads load
-        findViewById(R.id.btnLoadAd).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadAd();
-            }
-        });
-
-        //Find NativeAdContentLayout in hierarchy
-        nativeAdContentLayout = findViewById(R.id.native_item);
+        // Set listener to perform Ads load
+        binding.bLoadAd.setOnClickListener(v -> loadAd());
     }
 
     private void loadAd() {
         setDebugState(Status.Loading);
 
-        //Create native request
+        // Destroy previous loaded NativeAd
+        destroyNativeAd();
+
+        // Create native request
         NativeRequest request = new NativeRequest.Builder().build();
 
-        //Load Native Ad
-        NativeAd nativeAd = new NativeAd(this);
+        // Create new NativeAd
+        nativeAd = new NativeAd(this);
+
+        // Set NativeAd events listener
         nativeAd.setListener(new SimpleNativeListener() {
             @Override
             public void onAdLoaded(@NonNull NativeAd nativeAd) {
                 setDebugState(Status.Loaded, "Native Ad is loaded");
 
-                //Show native Ads
-                nativeAdContentLayout.bind(nativeAd);
-                nativeAdContentLayout.registerViewForInteraction(nativeAd);
-                nativeAdContentLayout.setVisibility(View.VISIBLE);
+                // Show native Ads
+                binding.nativeAd.nativeAdContentLayout.bind(nativeAd);
+                binding.nativeAd.nativeAdContentLayout.registerViewForInteraction(nativeAd);
+                binding.nativeAd.nativeAdContentLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -66,6 +67,8 @@ public class NativeJavaActivity extends BaseJavaExampleActivity {
                 setDebugState(Status.LoadFail, "Native Ad is failed to load");
             }
         });
+
+        // Load NativeAd
         nativeAd.load(request);
     }
 
@@ -73,8 +76,17 @@ public class NativeJavaActivity extends BaseJavaExampleActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        //Destroy Ad when you finish with it
-        nativeAdContentLayout.destroy();
+        // Destroy Ad when you finish with it
+        binding.nativeAd.nativeAdContentLayout.destroy();
+
+        destroyNativeAd();
+    }
+
+    private void destroyNativeAd() {
+        if (nativeAd != null) {
+            nativeAd.destroy();
+            nativeAd = null;
+        }
     }
 
 }

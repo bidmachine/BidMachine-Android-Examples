@@ -1,8 +1,9 @@
 # Bid Machine SDK Android Examples
 
-## Documentation 
+## Documentation
 
-Check out our [developer site](https://wiki.appodeal.com/display/BID/BidMachine+Android+SDK+Documentation) for documentation on using the BidMachine Ads SDK
+Check out our [developer site](https://wiki.appodeal.com/display/BID/BidMachine+Android+SDK+Documentation) for
+documentation on using the BidMachine Ads SDK
 
 ## Examples:
 
