@@ -1,3 +1,5 @@
+rootProject.name = "BidMachine-Android-Examples"
+
 include ":bidmachine",
         ":bidmachine-banner",
         ":bidmachine-richmedia",

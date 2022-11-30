@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace "io.bidmachine.examples.base"
+
     compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 31
-        versionCode 4
-        versionName "1.0.3"
     }
 
     buildFeatures {

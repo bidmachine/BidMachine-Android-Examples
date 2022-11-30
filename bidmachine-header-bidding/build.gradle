@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace "io.bidmachine.examples"
+
     compileSdkVersion 31
 
     defaultConfig {

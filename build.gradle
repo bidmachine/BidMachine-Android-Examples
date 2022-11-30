@@ -1,5 +1,5 @@
 buildscript {
-    ext.bidmachine_version = "1.9.10"
+    ext.bidmachine_version = "2.1.5"
     ext.bidmachine_adcolony_version = "$bidmachine_version.11"
     ext.bidmachine_amazon_version = "$bidmachine_version.7"
     ext.bidmachine_criteo_version = "$bidmachine_version.10"
@@ -16,8 +16,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30"
+        classpath "com.android.tools.build:gradle:7.2.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20"
     }
 }
 
