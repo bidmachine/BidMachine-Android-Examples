@@ -43,13 +43,6 @@ repositories {
         url "https://artifactory.bidmachine.io/bidmachine"
     }
     mavenCentral()
-    maven {
-        name "Tapjoy's maven repo"
-        url "https://sdk.tapjoy.com/"
-    }
-    maven {
-        url "https://artifact.bytedance.com/repository/pangle"
-    }
 }
 
 dependencies {
@@ -62,8 +55,10 @@ dependencies {
     implementation "io.bidmachine:ads.networks.amazon:$bidmachine_amazon_version"
     // BidMachine Criteo network adapter
     implementation "io.bidmachine:ads.networks.criteo:$bidmachine_criteo_version"
-    // BidMachine Facebook network adapter
+    // BidMachine Meta network adapter
     implementation "io.bidmachine:ads.networks.meta_audience:$bidmachine_meta_audience_version"
+    // BidMachine Mintegral network adapter
+    implementation "io.bidmachine:ads.networks.mintegral:$bidmachine_mintegral_version"
     // BidMachine myTarget network adapter
     implementation "io.bidmachine:ads.networks.my_target:$bidmachine_my_target_version"
     // BidMachine Pangle network adapter
