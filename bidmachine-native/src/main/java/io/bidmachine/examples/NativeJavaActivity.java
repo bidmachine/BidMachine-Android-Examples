@@ -29,7 +29,7 @@ public class NativeJavaActivity extends BaseJavaExampleActivity<ActivityNativeBi
         super.onCreate(savedInstanceState);
 
         // Initialise SDK
-        BidMachine.initialize(this, "5");
+        BidMachine.initialize(this, SOURCE_ID);
 
         // Enable logs
         BidMachine.setLoggingEnabled(true);

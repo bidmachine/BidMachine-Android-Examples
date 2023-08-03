@@ -4,12 +4,12 @@ apply plugin: 'kotlin-android'
 android {
     namespace "io.bidmachine.examples"
 
-    compileSdkVersion 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "io.bidmachine.examples"
-        minSdkVersion 16
-        targetSdkVersion 31
+        minSdk 16
+        targetSdk 33
         versionCode 6
         versionName "1.1.6"
         multiDexEnabled true

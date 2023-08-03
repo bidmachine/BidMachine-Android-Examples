@@ -40,7 +40,7 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
         super.onCreate(savedInstanceState)
 
         // Initialise SDK
-        BidMachine.initialize(this, "5")
+        BidMachine.initialize(this, SOURCE_ID)
 
         // Enable logs
         BidMachine.setLoggingEnabled(true)
