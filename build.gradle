@@ -1,10 +1,10 @@
 buildscript {
-    ext.bidmachine_version = "2.3.3"
+    ext.bidmachine_version = "2.4.0"
     ext.bidmachine_adcolony_version = "$bidmachine_version.11"
     ext.bidmachine_amazon_version = "$bidmachine_version.12"
     ext.bidmachine_criteo_version = "$bidmachine_version.11"
-    ext.bidmachine_meta_audience_version = "$bidmachine_version.13"
-    ext.bidmachine_mintegral_version = "$bidmachine_version.4"
+    ext.bidmachine_meta_audience_version = "$bidmachine_version.14"
+    ext.bidmachine_mintegral_version = "$bidmachine_version.5"
     ext.bidmachine_my_target_version = "$bidmachine_version.11"
     ext.bidmachine_pangle_version = "$bidmachine_version.6"
     ext.bidmachine_tapjoy_version = "$bidmachine_version.10"
@@ -14,7 +14,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
@@ -26,7 +25,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
 }
 
