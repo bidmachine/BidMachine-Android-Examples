@@ -82,11 +82,6 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity<ActivityInterstitia
         }
     }
 
-    /**
-     * For Interstitial and Interstitial Video we use same class, for define display type you should
-     * set it in ad space settings, <a href="https://wiki.appodeal.com/display/BID/BidMachine+Android+SDK+Documentation#BidMachineAndroidSDKDocumentation-5.Interstitial">See documentation</a>
-     */
-
     private fun showVideo() {
         setDebugState(Status.Loading)
 

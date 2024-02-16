@@ -2,7 +2,7 @@
 
 ## Documentation
 
-Check out our [developer site](https://wiki.appodeal.com/display/BID/BidMachine+Android+SDK+Documentation) for
+Check out our [developer site](https://docs.bidmachine.io/docs/in-house-mediation-android) for
 documentation on using the BidMachine Ads SDK
 
 ## Examples:

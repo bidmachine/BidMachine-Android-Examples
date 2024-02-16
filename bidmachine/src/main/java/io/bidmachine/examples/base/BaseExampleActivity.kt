@@ -14,7 +14,7 @@ import io.bidmachine.examples.base.databinding.ActivityBaseBinding
 abstract class BaseExampleActivity<Binding : ViewBinding> : AppCompatActivity() {
 
     companion object {
-        const val SOURCE_ID = "1"
+        const val SOURCE_ID = "122"
 
         private const val BM_KOTLIN = "bm-example-kotlin"
     }
