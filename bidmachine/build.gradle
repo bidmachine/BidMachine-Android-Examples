@@ -45,5 +45,5 @@ dependencies {
     // Add Play Services Ads Identifier dependency
     implementation "com.google.android.gms:play-services-ads-identifier:$play_services_ads_identifier_version"
 
-    api "androidx.appcompat:appcompat:1.4.2"
+    api "androidx.appcompat:appcompat:1.6.1"
 }
