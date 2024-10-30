@@ -48,9 +48,10 @@ abstract class BaseExampleActivity<Binding : ViewBinding> : AppCompatActivity() 
         when (item.itemId) {
             R.id.menu_item_kotlin_example -> {
                 try {
-                    val packageInfo = packageManager.getPackageInfo(packageName,
-                                                                    PackageManager.GET_ACTIVITIES or PackageManager.GET_META_DATA)
-                    for (activityInfo in packageInfo.activities) {
+                    val activityInfos = packageManager.getPackageInfo(packageName,
+                                                                      PackageManager.GET_ACTIVITIES or PackageManager.GET_META_DATA)
+                            .activities ?: return false
+                    for (activityInfo in activityInfos) {
                         if (activityInfo.metaData != null && activityInfo.metaData.getBoolean(BM_KOTLIN)) {
                             val intent = Intent()
                             intent.setClassName(this, activityInfo.name)
