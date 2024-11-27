@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e11916</color>
-    <color name="colorPrimaryDark">#8b100e</color>
-    <color name="colorAccent">#e11916</color>
+
+    <color name="color_accent">@color/bid_machine_yellow_dark</color>
+    <color name="color_primary">@color/bid_machine_blue</color>
+    <color name="color_secondary">@color/bid_machine_gray</color>
+    <color name="color_secondary_container">#40223551</color>
+    <color name="color_text">#000000</color>
+
+    <color name="bid_machine_yellow_dark">#f08234</color>
+    <color name="bid_machine_blue">#223551</color>
+    <color name="bid_machine_blue_light">#446a92</color>
+    <color name="bid_machine_gray">#717171</color>
+
+    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="control_buttons">@color/color_primary</color>
+
 </resources>

@@ -1,14 +1,22 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="toolbarStyle">@style/AppToolbarStyle</item>
+    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSecondaryContainer">@color/color_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/color_primary</item>
+        <item name="colorOnSurface">@color/color_primary</item>
+        <item name="android:textColor">@color/color_text</item>
     </style>
 
-    <style name="AppToolbarStyle" parent="Widget.AppCompat.Toolbar">
-        <item name="android:background">@color/colorPrimaryDark</item>
+    <style name="AdRequestButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:padding">8dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:textColor">@color/bid_machine_blue_light</item>
+        <item name="strokeColor">@color/bid_machine_blue_light</item>
     </style>
 
 </resources>

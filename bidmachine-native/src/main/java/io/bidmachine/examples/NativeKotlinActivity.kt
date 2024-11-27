@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import io.bidmachine.BidMachine
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
+import io.bidmachine.examples.base.Status
 import io.bidmachine.examples.databinding.ActivityNativeBinding
 import io.bidmachine.nativead.NativeAd
 import io.bidmachine.nativead.NativeRequest

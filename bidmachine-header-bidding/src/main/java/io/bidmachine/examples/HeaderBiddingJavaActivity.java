@@ -14,13 +14,13 @@ import io.bidmachine.ads.networks.amazon.AmazonConfig;
 import io.bidmachine.ads.networks.criteo.CriteoConfig;
 import io.bidmachine.ads.networks.meta_audience.MetaAudienceConfig;
 import io.bidmachine.ads.networks.my_target.MyTargetConfig;
-import io.bidmachine.ads.networks.tapjoy.TapjoyConfig;
 import io.bidmachine.ads.networks.vungle.VungleConfig;
 import io.bidmachine.banner.BannerRequest;
 import io.bidmachine.banner.BannerSize;
 import io.bidmachine.banner.BannerView;
 import io.bidmachine.banner.SimpleBannerListener;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
+import io.bidmachine.examples.base.Status;
 import io.bidmachine.examples.databinding.ActivityHeaderBiddingBinding;
 import io.bidmachine.interstitial.InterstitialAd;
 import io.bidmachine.interstitial.InterstitialRequest;
@@ -120,12 +120,6 @@ public class HeaderBiddingJavaActivity extends BaseJavaExampleActivity<ActivityH
                                                                  "365991")
                                             .withMediationConfig(AdsFormat.RewardedVideo,
                                                                  "482205"),
-                                    // Configure Tapjoy network
-                                    new TapjoyConfig("tmyN5ZcXTMyjeJNJmUD5ggECAbnEGtJREmLDd0fvqKBXcIr7e1dvboNKZI4y")
-                                            .withMediationConfig(AdsFormat.InterstitialVideo,
-                                                                 "video_without_cap_pb")
-                                            .withMediationConfig(AdsFormat.RewardedVideo,
-                                                                 "rewarded_video_without_cap_pb"),
                                     // Configure Vungle network
                                     new VungleConfig("60cb5dadf2a364141bd2083c",
                                                      "561e8d956b8d90f61a003219")

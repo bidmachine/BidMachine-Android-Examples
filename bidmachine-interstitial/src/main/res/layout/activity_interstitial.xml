@@ -9,6 +9,7 @@
 
     <Button
         android:id="@+id/bShowInterstitial"
+        style="@style/AdRequestButton"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Show Interstitial"
@@ -16,6 +17,7 @@
 
     <Button
         android:id="@+id/bShowVideo"
+        style="@style/AdRequestButton"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Show Video"
@@ -32,6 +34,7 @@
 
     <Button
         android:id="@+id/bLoadInterstitial"
+        style="@style/AdRequestButton"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Load Interstitial"
@@ -39,6 +42,7 @@
 
     <Button
         android:id="@+id/bShowLoadedInterstitial"
+        style="@style/AdRequestButton"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Show Loaded Interstitial"

@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/content_padding"
+    android:paddingTop="@dimen/divider_padding">
 
     <Button
         android:id="@+id/bShowBanner"
-        android:layout_width="wrap_content"
+        style="@style/AdRequestButton"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:text="Show Banner"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/bShowInterstitial"
-        android:layout_width="wrap_content"
+        style="@style/AdRequestButton"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:text="Show Interstitial"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/bShowRewarded"
-        android:layout_width="wrap_content"
+        style="@style/AdRequestButton"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:text="Show Rewarded"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/bShowNative"
-        android:layout_width="wrap_content"
+        style="@style/AdRequestButton"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:text="Show Native"
         tools:ignore="HardcodedText" />
 
     <FrameLayout
         android:id="@+id/adContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
 
 </LinearLayout>

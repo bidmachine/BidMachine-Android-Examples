@@ -12,7 +12,6 @@ android {
         targetSdk 35
         versionCode 8
         versionName "1.2.1"
-        multiDexEnabled true
     }
 
     buildFeatures {
@@ -63,8 +62,6 @@ dependencies {
     implementation "io.bidmachine:ads.networks.my_target:$bidmachine_my_target_version"
     // BidMachine Pangle network adapter
     implementation "io.bidmachine:ads.networks.pangle:$bidmachine_pangle_version"
-    // BidMachine Tapjoy network adapter
-    implementation "io.bidmachine:ads.networks.tapjoy:$bidmachine_tapjoy_version"
     // BidMachine Vungle network adapter
     implementation "io.bidmachine:ads.networks.vungle:$bidmachine_vungle_version"
 

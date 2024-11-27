@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import io.bidmachine.AdContentType
 import io.bidmachine.BidMachine
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
+import io.bidmachine.examples.base.Status
 import io.bidmachine.examples.databinding.ActivityInterstitialBinding
 import io.bidmachine.interstitial.InterstitialAd
 import io.bidmachine.interstitial.InterstitialRequest
@@ -90,8 +91,8 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity<ActivityInterstitia
 
         // Create new InterstitialRequest for Video
         val interstitialRequest = InterstitialRequest.Builder()
-                .setAdContentType(AdContentType.Video) // Set required Interstitial content type
-                .build()
+            .setAdContentType(AdContentType.Video) // Set required Interstitial content type
+            .build()
 
         // Create new InterstitialAd for Video
         videoAd = InterstitialAd(this).apply {
@@ -188,9 +189,11 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity<ActivityInterstitia
             delayedShowInterstitialAd == null -> {
                 toast("Load Interstitial First")
             }
+
             delayedShowInterstitialAd?.isLoaded == false -> {
                 toast("Interstitial not Loaded yet")
             }
+
             else -> {
                 delayedShowInterstitialAd!!.show()
             }

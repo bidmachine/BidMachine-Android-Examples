@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import io.bidmachine.BidMachine
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
+import io.bidmachine.examples.base.Status
 import io.bidmachine.examples.databinding.ActivityRewardedBinding
 import io.bidmachine.rewarded.RewardedAd
 import io.bidmachine.rewarded.RewardedRequest
@@ -152,9 +153,11 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity<ActivityRewardedBinding
             delayedShowRewardedAd == null -> {
                 toast("Load Rewarded First")
             }
+
             delayedShowRewardedAd?.isLoaded == false -> {
                 toast("Rewarded not Loaded yet")
             }
+
             else -> {
                 delayedShowRewardedAd!!.show()
             }

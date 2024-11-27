@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:orientation="vertical"
+    android:paddingTop="@dimen/divider_padding"
     tools:context=".BannerJavaActivity">
 
     <Button
         android:id="@+id/bLoadAd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/AdRequestButton"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:text="Load Ads"
         tools:ignore="HardcodedText" />
 
     <io.bidmachine.banner.BannerView
         android:id="@+id/bannerView"
-        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray" />
-
+        android:layout_width="match_parent" />
 
 </LinearLayout>

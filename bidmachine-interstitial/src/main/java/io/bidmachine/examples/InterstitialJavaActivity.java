@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.bidmachine.AdContentType;
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
+import io.bidmachine.examples.base.Status;
 import io.bidmachine.examples.databinding.ActivityInterstitialBinding;
 import io.bidmachine.interstitial.InterstitialAd;
 import io.bidmachine.interstitial.InterstitialRequest;
@@ -16,8 +18,11 @@ import io.bidmachine.utils.BMError;
 
 public class InterstitialJavaActivity extends BaseJavaExampleActivity<ActivityInterstitialBinding> {
 
+    @Nullable
     private InterstitialAd interstitialAd;
+    @Nullable
     private InterstitialAd videoAd;
+    @Nullable
     private InterstitialAd delayedShowInterstitialAd;
 
     @NonNull

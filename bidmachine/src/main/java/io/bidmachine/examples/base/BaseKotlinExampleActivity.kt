@@ -10,7 +10,7 @@ abstract class BaseKotlinExampleActivity<Binding : ViewBinding> : BaseExampleAct
         menu.clear()
         menu.add(0, R.id.menu_item_java_example, 0, "GoAndroid!").apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-            setIcon(android.R.drawable.sym_def_app_icon)
+            setIcon(R.drawable.ic_android)
         }
         return super.onCreateOptionsMenu(menu)
     }

@@ -9,6 +9,7 @@ import io.bidmachine.banner.BannerSize
 import io.bidmachine.banner.BannerView
 import io.bidmachine.banner.SimpleBannerListener
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
+import io.bidmachine.examples.base.Status
 import io.bidmachine.examples.databinding.ActivityRequestsBinding
 import io.bidmachine.interstitial.InterstitialAd
 import io.bidmachine.interstitial.InterstitialRequest
@@ -109,31 +110,31 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
 
         // Create new Banner Ads request
         bannerRequest = BannerRequest.Builder()
-                .setSize(BannerSize.Size_320x50)
-                // Set Banner Ads request listener
-                .setListener(object : BannerRequest.AdRequestListener {
-                    override fun onRequestSuccess(request: BannerRequest, auctionResult: AuctionResult) {
-                        runOnUiThread {
-                            setDebugState(Status.Requested, "Banner Ad Requested")
-                        }
+            .setSize(BannerSize.Size_320x50)
+            // Set Banner Ads request listener
+            .setListener(object : BannerRequest.AdRequestListener {
+                override fun onRequestSuccess(request: BannerRequest, auctionResult: AuctionResult) {
+                    runOnUiThread {
+                        setDebugState(Status.Requested, "Banner Ad Requested")
                     }
-
-                    override fun onRequestFailed(request: BannerRequest, error: BMError) {
-                        runOnUiThread {
-                            setDebugState(Status.RequestFail, "Banner Request Failed: ${error.message}")
-                        }
-                    }
-
-                    override fun onRequestExpired(request: BannerRequest) {
-                        runOnUiThread {
-                            setDebugState(Status.Expired, "Banner Request Expired")
-                        }
-                    }
-                })
-                .build().apply {
-                    // Perform Banner Ads request
-                    request(this@RequestsKotlinExample)
                 }
+
+                override fun onRequestFailed(request: BannerRequest, error: BMError) {
+                    runOnUiThread {
+                        setDebugState(Status.RequestFail, "Banner Request Failed: ${error.message}")
+                    }
+                }
+
+                override fun onRequestExpired(request: BannerRequest) {
+                    runOnUiThread {
+                        setDebugState(Status.Expired, "Banner Request Expired")
+                    }
+                }
+            })
+            .build().apply {
+                // Perform Banner Ads request
+                request(this@RequestsKotlinExample)
+            }
     }
 
     private fun showRequestedBanner() {
@@ -141,12 +142,15 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
             bannerRequest == null -> {
                 toast("Please request Banner first")
             }
+
             bannerRequest?.isExpired == true -> {
                 toast("BannerRequest expired, request new one please")
             }
+
             bannerRequest?.auctionResult == null -> {
                 toast("BannerRequest not requested or requested unsuccessfully")
             }
+
             else -> {
                 // Destroy previous BannerView object
                 destroyCurrentBannerView()
@@ -186,30 +190,30 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
 
         // Create new Interstitial Ads request
         interstitialRequest = InterstitialRequest.Builder()
-                // Set Interstitial Ads request listener
-                .setListener(object : InterstitialRequest.AdRequestListener {
-                    override fun onRequestSuccess(request: InterstitialRequest, auctionResult: AuctionResult) {
-                        runOnUiThread {
-                            setDebugState(Status.Requested, "Interstitial Ad Requested")
-                        }
+            // Set Interstitial Ads request listener
+            .setListener(object : InterstitialRequest.AdRequestListener {
+                override fun onRequestSuccess(request: InterstitialRequest, auctionResult: AuctionResult) {
+                    runOnUiThread {
+                        setDebugState(Status.Requested, "Interstitial Ad Requested")
                     }
-
-                    override fun onRequestFailed(request: InterstitialRequest, bmError: BMError) {
-                        runOnUiThread {
-                            setDebugState(Status.RequestFail, "Interstitial Request Failed: ${bmError.message}")
-                        }
-                    }
-
-                    override fun onRequestExpired(request: InterstitialRequest) {
-                        runOnUiThread {
-                            setDebugState(Status.Expired, "Interstitial Request Expired")
-                        }
-                    }
-                })
-                .build().apply {
-                    // Perform Interstitial Ads request
-                    request(this@RequestsKotlinExample)
                 }
+
+                override fun onRequestFailed(request: InterstitialRequest, bmError: BMError) {
+                    runOnUiThread {
+                        setDebugState(Status.RequestFail, "Interstitial Request Failed: ${bmError.message}")
+                    }
+                }
+
+                override fun onRequestExpired(request: InterstitialRequest) {
+                    runOnUiThread {
+                        setDebugState(Status.Expired, "Interstitial Request Expired")
+                    }
+                }
+            })
+            .build().apply {
+                // Perform Interstitial Ads request
+                request(this@RequestsKotlinExample)
+            }
     }
 
     private fun showRequestedInterstitial() {
@@ -217,12 +221,15 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
             interstitialRequest == null -> {
                 toast("Please request Interstitial first")
             }
+
             interstitialRequest?.isExpired == true -> {
                 toast("InterstitialRequest expired, request new one please")
             }
+
             interstitialRequest?.auctionResult == null -> {
                 toast("InterstitialRequest not requested or requested unsuccessfully")
             }
+
             else -> {
                 // Destroy previous InterstitialAd object
                 destroyCurrentInterstitialAd()
@@ -269,30 +276,30 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
 
         // Create new Rewarded Ads request
         rewardedRequest = RewardedRequest.Builder()
-                // Set Rewarded Ads request listener
-                .setListener(object : RewardedRequest.AdRequestListener {
-                    override fun onRequestSuccess(request: RewardedRequest, auctionResult: AuctionResult) {
-                        runOnUiThread {
-                            setDebugState(Status.Requested, "Rewarded Ad Requested")
-                        }
+            // Set Rewarded Ads request listener
+            .setListener(object : RewardedRequest.AdRequestListener {
+                override fun onRequestSuccess(request: RewardedRequest, auctionResult: AuctionResult) {
+                    runOnUiThread {
+                        setDebugState(Status.Requested, "Rewarded Ad Requested")
                     }
-
-                    override fun onRequestFailed(request: RewardedRequest, bmError: BMError) {
-                        runOnUiThread {
-                            setDebugState(Status.RequestFail, "Rewarded Request Failed: ${bmError.message}")
-                        }
-                    }
-
-                    override fun onRequestExpired(request: RewardedRequest) {
-                        runOnUiThread {
-                            setDebugState(Status.Expired, "Rewarded Request Expired")
-                        }
-                    }
-                })
-                .build().apply {
-                    // Perform Rewarded Ads request
-                    request(this@RequestsKotlinExample)
                 }
+
+                override fun onRequestFailed(request: RewardedRequest, bmError: BMError) {
+                    runOnUiThread {
+                        setDebugState(Status.RequestFail, "Rewarded Request Failed: ${bmError.message}")
+                    }
+                }
+
+                override fun onRequestExpired(request: RewardedRequest) {
+                    runOnUiThread {
+                        setDebugState(Status.Expired, "Rewarded Request Expired")
+                    }
+                }
+            })
+            .build().apply {
+                // Perform Rewarded Ads request
+                request(this@RequestsKotlinExample)
+            }
     }
 
     private fun showRequestedRewarded() {
@@ -300,12 +307,15 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
             rewardedRequest == null -> {
                 toast("Please request Rewarded first")
             }
+
             rewardedRequest?.isExpired == true -> {
                 toast("RewardedRequest expired, request new one please")
             }
+
             rewardedRequest?.auctionResult == null -> {
                 toast("RewardedRequest not requested or requested unsuccessfully")
             }
+
             else -> {
                 // Destroy previous RewardedAd object
                 destroyCurrentRewardedAd()
@@ -352,30 +362,30 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
 
         // Create new Native Ads request
         nativeRequest = NativeRequest.Builder()
-                // Set Native Ads request listener
-                .setListener(object : NativeRequest.AdRequestListener {
-                    override fun onRequestSuccess(request: NativeRequest, auctionResult: AuctionResult) {
-                        runOnUiThread {
-                            setDebugState(Status.Requested, "Native Ad Requested")
-                        }
+            // Set Native Ads request listener
+            .setListener(object : NativeRequest.AdRequestListener {
+                override fun onRequestSuccess(request: NativeRequest, auctionResult: AuctionResult) {
+                    runOnUiThread {
+                        setDebugState(Status.Requested, "Native Ad Requested")
                     }
-
-                    override fun onRequestFailed(request: NativeRequest, bmError: BMError) {
-                        runOnUiThread {
-                            setDebugState(Status.RequestFail, "Native Request Failed: ${bmError.message}")
-                        }
-                    }
-
-                    override fun onRequestExpired(request: NativeRequest) {
-                        runOnUiThread {
-                            setDebugState(Status.Expired, "Native Request Expired")
-                        }
-                    }
-                })
-                .build().apply {
-                    // Perform Native Ads request
-                    request(this@RequestsKotlinExample)
                 }
+
+                override fun onRequestFailed(request: NativeRequest, bmError: BMError) {
+                    runOnUiThread {
+                        setDebugState(Status.RequestFail, "Native Request Failed: ${bmError.message}")
+                    }
+                }
+
+                override fun onRequestExpired(request: NativeRequest) {
+                    runOnUiThread {
+                        setDebugState(Status.Expired, "Native Request Expired")
+                    }
+                }
+            })
+            .build().apply {
+                // Perform Native Ads request
+                request(this@RequestsKotlinExample)
+            }
     }
 
     private fun showRequestedNative() {
@@ -383,12 +393,15 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
             nativeRequest == null -> {
                 toast("Please request Native first")
             }
+
             nativeRequest?.isExpired == true -> {
                 toast("NativeRequest expired, request new one please")
             }
+
             nativeRequest?.auctionResult == null -> {
                 toast("NativeRequest not requested or requested unsuccessfully")
             }
+
             else -> {
                 // Destroy previous NativeAd object
                 destroyCurrentNativeAd()
@@ -421,7 +434,7 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
 
     private fun createNativeAdView(nativeAd: NativeAd): View {
         val nativeView = LayoutInflater.from(this)
-                .inflate(R.layout.native_ad, binding.adContainer, false) as NativeAdContentLayout
+            .inflate(R.layout.native_ad, binding.adContainer, false) as NativeAdContentLayout
         nativeView.bind(nativeAd)
         nativeView.registerViewForInteraction(nativeAd)
         nativeView.visibility = View.VISIBLE

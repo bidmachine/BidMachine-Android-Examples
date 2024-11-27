@@ -7,7 +7,6 @@ buildscript {
     ext.bidmachine_mintegral_version = "$bidmachine_version.9"
     ext.bidmachine_my_target_version = "$bidmachine_version.16"
     ext.bidmachine_pangle_version = "$bidmachine_version.8"
-    ext.bidmachine_tapjoy_version = "$bidmachine_version.10"
     ext.bidmachine_vungle_version = "$bidmachine_version.6"
     ext.play_services_ads_identifier_version = "18.0.1"
 

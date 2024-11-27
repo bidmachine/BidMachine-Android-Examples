@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
+import io.bidmachine.examples.base.Status;
 import io.bidmachine.examples.databinding.ActivityNativeBinding;
 import io.bidmachine.nativead.NativeAd;
 import io.bidmachine.nativead.NativeRequest;
@@ -16,6 +18,7 @@ import io.bidmachine.utils.BMError;
 
 public class NativeJavaActivity extends BaseJavaExampleActivity<ActivityNativeBinding> {
 
+    @Nullable
     private NativeAd nativeAd;
 
     @NonNull

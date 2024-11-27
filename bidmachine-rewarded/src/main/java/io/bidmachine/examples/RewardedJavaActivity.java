@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
+import io.bidmachine.examples.base.Status;
 import io.bidmachine.examples.databinding.ActivityRewardedBinding;
 import io.bidmachine.rewarded.RewardedAd;
 import io.bidmachine.rewarded.RewardedRequest;
@@ -15,7 +17,9 @@ import io.bidmachine.utils.BMError;
 
 public class RewardedJavaActivity extends BaseJavaExampleActivity<ActivityRewardedBinding> {
 
+    @Nullable
     private RewardedAd rewardedAd;
+    @Nullable
     private RewardedAd delayedShowRewardedAd;
 
     @NonNull

@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:paddingHorizontal="@dimen/content_padding"
+    android:paddingTop="@dimen/divider_padding"
     tools:context=".RequestsKotlinExample">
 
     <LinearLayout
@@ -13,6 +15,7 @@
 
         <Button
             android:id="@+id/bRequestBanner"
+            style="@style/AdRequestButton"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="Request Banner"
@@ -20,7 +23,9 @@
 
         <Button
             android:id="@+id/bShowRequestedBanner"
+            style="@style/AdRequestButton"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_padding"
             android:layout_width="wrap_content"
             android:text="Show Banner"
             tools:ignore="HardcodedText" />
@@ -29,10 +34,12 @@
 
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/bRequestInterstitial"
+            style="@style/AdRequestButton"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="Request Interstitial"
@@ -40,7 +47,9 @@
 
         <Button
             android:id="@+id/bShowRequestedInterstitial"
+            style="@style/AdRequestButton"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_padding"
             android:layout_width="wrap_content"
             android:text="Show Interstitial"
             tools:ignore="HardcodedText" />
@@ -49,10 +58,12 @@
 
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/bRequestRewarded"
+            style="@style/AdRequestButton"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="Request Rewarded"
@@ -60,7 +71,9 @@
 
         <Button
             android:id="@+id/bShowRequestedRewarded"
+            style="@style/AdRequestButton"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_padding"
             android:layout_width="wrap_content"
             android:text="Show Rewarded"
             tools:ignore="HardcodedText" />
@@ -69,10 +82,12 @@
 
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/bRequestNative"
+            style="@style/AdRequestButton"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="Request Native"
@@ -80,7 +95,9 @@
 
         <Button
             android:id="@+id/bShowRequestedNative"
+            style="@style/AdRequestButton"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_padding"
             android:layout_width="wrap_content"
             android:text="Show Native"
             tools:ignore="HardcodedText" />

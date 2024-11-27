@@ -13,6 +13,7 @@ import io.bidmachine.banner.BannerSize;
 import io.bidmachine.banner.BannerView;
 import io.bidmachine.banner.SimpleBannerListener;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
+import io.bidmachine.examples.base.Status;
 import io.bidmachine.examples.databinding.ActivityRequestsBinding;
 import io.bidmachine.interstitial.InterstitialAd;
 import io.bidmachine.interstitial.InterstitialRequest;

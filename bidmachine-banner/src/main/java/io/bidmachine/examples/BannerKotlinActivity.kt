@@ -9,6 +9,7 @@ import io.bidmachine.banner.BannerSize
 import io.bidmachine.banner.BannerView
 import io.bidmachine.banner.SimpleBannerListener
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
+import io.bidmachine.examples.base.Status
 import io.bidmachine.examples.databinding.ActivityBannerBinding
 import io.bidmachine.utils.BMError
 
@@ -50,8 +51,8 @@ class BannerKotlinActivity : BaseKotlinExampleActivity<ActivityBannerBinding>() 
 
         // Create Banner Ads request
         val bannerRequest = BannerRequest.Builder()
-                .setSize(BannerSize.Size_320x50)
-                .build()
+            .setSize(BannerSize.Size_320x50)
+            .build()
 
         // Load Banner Ads
         binding.bannerView.load(bannerRequest)

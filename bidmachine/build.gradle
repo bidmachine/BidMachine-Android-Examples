@@ -37,13 +37,12 @@ repositories {
 }
 
 dependencies {
-    implementation "androidx.multidex:multidex:2.0.1"
+    api "androidx.appcompat:appcompat:1.6.1"
+    api "com.google.android.material:material:1.9.0"
 
     // Add BidMachine SDK dependency
     implementation "io.bidmachine:ads:$bidmachine_version"
 
     // Add Play Services Ads Identifier dependency
     implementation "com.google.android.gms:play-services-ads-identifier:$play_services_ads_identifier_version"
-
-    api "androidx.appcompat:appcompat:1.6.1"
 }
