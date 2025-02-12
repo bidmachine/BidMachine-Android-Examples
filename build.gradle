@@ -1,13 +1,13 @@
 buildscript {
-    ext.bidmachine_version = "3.1.1"
+    ext.bidmachine_version = "3.2.0"
     ext.bidmachine_adcolony_version = "$bidmachine_version.11"
-    ext.bidmachine_amazon_version = "$bidmachine_version.14"
-    ext.bidmachine_criteo_version = "$bidmachine_version.12"
+    ext.bidmachine_amazon_version = "$bidmachine_version.15"
+    ext.bidmachine_criteo_version = "$bidmachine_version.13"
     ext.bidmachine_meta_audience_version = "$bidmachine_version.16"
-    ext.bidmachine_mintegral_version = "$bidmachine_version.9"
-    ext.bidmachine_my_target_version = "$bidmachine_version.16"
-    ext.bidmachine_pangle_version = "$bidmachine_version.8"
-    ext.bidmachine_vungle_version = "$bidmachine_version.6"
+    ext.bidmachine_mintegral_version = "$bidmachine_version.11"
+    ext.bidmachine_my_target_version = "$bidmachine_version.17"
+    ext.bidmachine_pangle_version = "$bidmachine_version.9"
+    ext.bidmachine_vungle_version = "$bidmachine_version.7"
     ext.play_services_ads_identifier_version = "18.0.1"
 
     repositories {
