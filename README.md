@@ -2,7 +2,7 @@
 
 ## Documentation
 
-Check out our [developer site](https://docs.bidmachine.io/docs/in-house-mediation-android) for
+Check out our [developer site](https://developers.bidmachine.io/sdk/general/android/overview) for
 documentation on using the BidMachine Ads SDK
 
 ## Examples:
