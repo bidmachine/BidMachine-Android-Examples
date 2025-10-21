@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.bidmachine.AdPlacementConfig;
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.examples.base.Status;
@@ -50,8 +51,11 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity<ActivityReward
         // Destroy previous loaded RewardedAd
         destroyRewarded();
 
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.rewardedBuilder().build();
+
         // Create new RewardedRequest
-        RewardedRequest rewardedRequest = new RewardedRequest.Builder().build();
+        RewardedRequest rewardedRequest = new RewardedRequest.Builder(config).build();
 
         // Create new RewardedAd
         rewardedAd = new RewardedAd(this);
@@ -100,8 +104,11 @@ public class RewardedJavaActivity extends BaseJavaExampleActivity<ActivityReward
         // Destroy previous loaded RewardedAd
         destroyDelayedShowRewarded();
 
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.rewardedBuilder().build();
+
         // Create new RewardedRequest
-        RewardedRequest rewardedRequest = new RewardedRequest.Builder().build();
+        RewardedRequest rewardedRequest = new RewardedRequest.Builder(config).build();
 
         // Create new RewardedAd
         delayedShowRewardedAd = new RewardedAd(this);

@@ -7,10 +7,15 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
+
+import io.bidmachine.AdPlacementConfig;
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.examples.base.Status;
 import io.bidmachine.examples.databinding.ActivityNativeBinding;
+import io.bidmachine.MediaAssetType;
 import io.bidmachine.nativead.NativeAd;
 import io.bidmachine.nativead.NativeRequest;
 import io.bidmachine.nativead.SimpleNativeListener;
@@ -47,8 +52,17 @@ public class NativeJavaActivity extends BaseJavaExampleActivity<ActivityNativeBi
         // Destroy previous loaded NativeAd
         destroyNativeAd();
 
+        // Create media types list
+        List<MediaAssetType> mediaTypes = Arrays.asList(
+                MediaAssetType.Icon,
+                MediaAssetType.Image
+        );
+
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.nativeBuilder(mediaTypes).build();
+
         // Create native request
-        NativeRequest request = new NativeRequest.Builder().build();
+        NativeRequest request = new NativeRequest.Builder(config).build();
 
         // Create new NativeAd
         nativeAd = new NativeAd(this);

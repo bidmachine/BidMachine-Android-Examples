@@ -7,9 +7,13 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
+
+import io.bidmachine.AdPlacementConfig;
 import io.bidmachine.BidMachine;
+import io.bidmachine.BannerAdSize;
 import io.bidmachine.banner.BannerRequest;
-import io.bidmachine.banner.BannerSize;
 import io.bidmachine.banner.BannerView;
 import io.bidmachine.banner.SimpleBannerListener;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
@@ -19,6 +23,7 @@ import io.bidmachine.interstitial.InterstitialAd;
 import io.bidmachine.interstitial.InterstitialRequest;
 import io.bidmachine.interstitial.SimpleInterstitialListener;
 import io.bidmachine.models.AuctionResult;
+import io.bidmachine.MediaAssetType;
 import io.bidmachine.nativead.NativeAd;
 import io.bidmachine.nativead.NativeRequest;
 import io.bidmachine.nativead.SimpleNativeListener;
@@ -110,9 +115,11 @@ public class RequestsJavaActivity extends BaseJavaExampleActivity<ActivityReques
     private void requestBanner() {
         setDebugState(Status.Requesting);
 
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.bannerBuilder(BannerAdSize.Banner).build();
+
         // Create new Banner Ads request
-        bannerRequest = new BannerRequest.Builder()
-                .setSize(BannerSize.Size_320x50)
+        bannerRequest = new BannerRequest.Builder(config)
                 // Set Banner Ads request listener
                 .setListener(new BannerRequest.AdRequestListener() {
                     @Override
@@ -185,8 +192,11 @@ public class RequestsJavaActivity extends BaseJavaExampleActivity<ActivityReques
     private void requestInterstitial() {
         setDebugState(Status.Requesting);
 
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.interstitialBuilder().build();
+
         // Create new Interstitial Ads request
-        interstitialRequest = new InterstitialRequest.Builder()
+        interstitialRequest = new InterstitialRequest.Builder(config)
                 // Set Interstitial Ads request listener
                 .setListener(new InterstitialRequest.AdRequestListener() {
                     @Override
@@ -269,8 +279,11 @@ public class RequestsJavaActivity extends BaseJavaExampleActivity<ActivityReques
     private void requestRewarded() {
         setDebugState(Status.Requesting);
 
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.rewardedBuilder().build();
+
         // Create new Rewarded Ads request
-        rewardedRequest = new RewardedRequest.Builder()
+        rewardedRequest = new RewardedRequest.Builder(config)
                 // Set Rewarded Ads request listener
                 .setListener(new RewardedRequest.AdRequestListener() {
                     @Override
@@ -359,8 +372,17 @@ public class RequestsJavaActivity extends BaseJavaExampleActivity<ActivityReques
     private void requestNative() {
         setDebugState(Status.Requesting);
 
+        // Create media types list
+        List<MediaAssetType> mediaTypes = Arrays.asList(
+                MediaAssetType.Icon,
+                MediaAssetType.Image
+        );
+
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.nativeBuilder(mediaTypes).build();
+
         // Create new Native Ads request
-        nativeRequest = new NativeRequest.Builder()
+        nativeRequest = new NativeRequest.Builder(config)
                 // Set Native Ads request listener
                 .setListener(new NativeRequest.AdRequestListener() {
                     @Override

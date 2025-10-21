@@ -1,5 +1,5 @@
 buildscript {
-    ext.bidmachine_version = "3.4.0"
+    ext.bidmachine_version = "3.5.0"
     ext.bidmachine_amazon_version = "$bidmachine_version.17"
     ext.bidmachine_criteo_version = "$bidmachine_version.13"
     ext.bidmachine_meta_audience_version = "$bidmachine_version.17"

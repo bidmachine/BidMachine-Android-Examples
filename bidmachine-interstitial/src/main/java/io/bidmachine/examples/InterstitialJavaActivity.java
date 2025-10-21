@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.bidmachine.AdContentType;
+import io.bidmachine.AdPlacementConfig;
 import io.bidmachine.BidMachine;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.examples.base.Status;
@@ -55,8 +56,11 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity<ActivityIn
         // Destroy previous loaded InterstitialAd
         destroyInterstitialAd();
 
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.interstitialBuilder().build();
+
         // Create new InterstitialRequest
-        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder().build();
+        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder(config).build();
 
         // Create new InterstitialAd
         interstitialAd = new InterstitialAd(this);
@@ -98,10 +102,11 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity<ActivityIn
         // Destroy previous loaded InterstitialAd for Video
         destroyVideoAd();
 
+        // Create placement configuration for Video
+        AdPlacementConfig config = AdPlacementConfig.interstitialBuilder(AdContentType.Video).build();
+
         // Create new InterstitialRequest for Video
-        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder()
-                .setAdContentType(AdContentType.Video) // Set required Interstitial content type
-                .build();
+        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder(config).build();
 
         // Create new InterstitialAd for Video
         videoAd = new InterstitialAd(this);
@@ -142,8 +147,11 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity<ActivityIn
         // Destroy previous loaded Interstitial Ads
         destroyDelayedShowInterstitial();
 
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.interstitialBuilder().build();
+
         // Create new InterstitialRequest
-        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder().build();
+        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder(config).build();
 
         // Create new InterstitialAd
         delayedShowInterstitialAd = new InterstitialAd(this);

@@ -3,9 +3,10 @@ package io.bidmachine.examples
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import io.bidmachine.AdPlacementConfig
 import io.bidmachine.BidMachine
+import io.bidmachine.BannerAdSize
 import io.bidmachine.banner.BannerRequest
-import io.bidmachine.banner.BannerSize
 import io.bidmachine.banner.BannerView
 import io.bidmachine.banner.SimpleBannerListener
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
@@ -15,6 +16,7 @@ import io.bidmachine.interstitial.InterstitialAd
 import io.bidmachine.interstitial.InterstitialRequest
 import io.bidmachine.interstitial.SimpleInterstitialListener
 import io.bidmachine.models.AuctionResult
+import io.bidmachine.MediaAssetType
 import io.bidmachine.nativead.NativeAd
 import io.bidmachine.nativead.NativeRequest
 import io.bidmachine.nativead.SimpleNativeListener
@@ -108,9 +110,11 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
     private fun requestBanner() {
         setDebugState(Status.Requesting)
 
+        // Create placement configuration
+        val config = AdPlacementConfig.bannerBuilder(BannerAdSize.Banner).build()
+
         // Create new Banner Ads request
-        bannerRequest = BannerRequest.Builder()
-            .setSize(BannerSize.Size_320x50)
+        bannerRequest = BannerRequest.Builder(config)
             // Set Banner Ads request listener
             .setListener(object : BannerRequest.AdRequestListener {
                 override fun onRequestSuccess(request: BannerRequest, auctionResult: AuctionResult) {
@@ -188,8 +192,11 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
     private fun requestInterstitial() {
         setDebugState(Status.Requesting)
 
+        // Create placement configuration
+        val config = AdPlacementConfig.interstitialBuilder().build()
+
         // Create new Interstitial Ads request
-        interstitialRequest = InterstitialRequest.Builder()
+        interstitialRequest = InterstitialRequest.Builder(config)
             // Set Interstitial Ads request listener
             .setListener(object : InterstitialRequest.AdRequestListener {
                 override fun onRequestSuccess(request: InterstitialRequest, auctionResult: AuctionResult) {
@@ -274,8 +281,11 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
     private fun requestRewarded() {
         setDebugState(Status.Requesting)
 
+        // Create placement configuration
+        val config = AdPlacementConfig.rewardedBuilder().build()
+
         // Create new Rewarded Ads request
-        rewardedRequest = RewardedRequest.Builder()
+        rewardedRequest = RewardedRequest.Builder(config)
             // Set Rewarded Ads request listener
             .setListener(object : RewardedRequest.AdRequestListener {
                 override fun onRequestSuccess(request: RewardedRequest, auctionResult: AuctionResult) {
@@ -360,8 +370,14 @@ class RequestsKotlinExample : BaseKotlinExampleActivity<ActivityRequestsBinding>
     private fun requestNative() {
         setDebugState(Status.Requesting)
 
+        // Create media types list
+        val mediaTypes = listOf(MediaAssetType.Icon, MediaAssetType.Image)
+
+        // Create placement configuration
+        val config = AdPlacementConfig.nativeBuilder(mediaTypes).build()
+
         // Create new Native Ads request
-        nativeRequest = NativeRequest.Builder()
+        nativeRequest = NativeRequest.Builder(config)
             // Set Native Ads request listener
             .setListener(object : NativeRequest.AdRequestListener {
                 override fun onRequestSuccess(request: NativeRequest, auctionResult: AuctionResult) {

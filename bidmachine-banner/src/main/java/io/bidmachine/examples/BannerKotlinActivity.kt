@@ -3,9 +3,10 @@ package io.bidmachine.examples
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import io.bidmachine.AdPlacementConfig
 import io.bidmachine.BidMachine
+import io.bidmachine.BannerAdSize
 import io.bidmachine.banner.BannerRequest
-import io.bidmachine.banner.BannerSize
 import io.bidmachine.banner.BannerView
 import io.bidmachine.banner.SimpleBannerListener
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
@@ -49,9 +50,12 @@ class BannerKotlinActivity : BaseKotlinExampleActivity<ActivityBannerBinding>() 
     private fun loadAd() {
         setDebugState(Status.Loading)
 
+        // Create placement configuration
+        val config = AdPlacementConfig.bannerBuilder(BannerAdSize.Banner)
+            .build()
+
         // Create Banner Ads request
-        val bannerRequest = BannerRequest.Builder()
-            .setSize(BannerSize.Size_320x50)
+        val bannerRequest = BannerRequest.Builder(config)
             .build()
 
         // Load Banner Ads
