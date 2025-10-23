@@ -2,6 +2,7 @@ package io.bidmachine.examples
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import io.bidmachine.AdPlacementConfig
 import io.bidmachine.BidMachine
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.examples.base.Status
@@ -45,8 +46,11 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity<ActivityRewardedBinding
         // Destroy previous loaded RewardedAd
         destroyRewarded()
 
+        // Create placement configuration
+        val config = AdPlacementConfig.rewardedBuilder().build()
+
         // Create new RewardedRequest
-        val rewardedRequest = RewardedRequest.Builder().build()
+        val rewardedRequest = RewardedRequest.Builder(config).build()
 
         // Create new RewardedAd
         rewardedAd = RewardedAd(this).apply {
@@ -92,8 +96,11 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity<ActivityRewardedBinding
         // Destroy previous loaded RewardedAd
         destroyDelayedShowRewarded()
 
+        // Create placement configuration
+        val config = AdPlacementConfig.rewardedBuilder().build()
+
         // Create new RewardedRequest
-        val rewardedRequest = RewardedRequest.Builder().build()
+        val rewardedRequest = RewardedRequest.Builder(config).build()
 
         // Create new RewardedAd
         delayedShowRewardedAd = RewardedAd(this).apply {

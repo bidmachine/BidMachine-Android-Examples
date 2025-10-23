@@ -3,6 +3,7 @@ package io.bidmachine.examples
 import android.os.Bundle
 import android.view.LayoutInflater
 import io.bidmachine.AdContentType
+import io.bidmachine.AdPlacementConfig
 import io.bidmachine.BidMachine
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.examples.base.Status
@@ -50,8 +51,11 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity<ActivityInterstitia
         // Destroy previous loaded InterstitialAd
         destroyInterstitialAd()
 
+        // Create placement configuration
+        val config = AdPlacementConfig.interstitialBuilder().build()
+
         // Create new InterstitialRequest
-        val interstitialRequest = InterstitialRequest.Builder().build()
+        val interstitialRequest = InterstitialRequest.Builder(config).build()
 
         // Create new InterstitialAd
         interstitialAd = InterstitialAd(this).apply {
@@ -89,10 +93,11 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity<ActivityInterstitia
         // Destroy previous loaded InterstitialAd for Video
         destroyVideoAd()
 
+        // Create placement configuration for Video
+        val config = AdPlacementConfig.interstitialBuilder(AdContentType.Video).build()
+
         // Create new InterstitialRequest for Video
-        val interstitialRequest = InterstitialRequest.Builder()
-            .setAdContentType(AdContentType.Video) // Set required Interstitial content type
-            .build()
+        val interstitialRequest = InterstitialRequest.Builder(config).build()
 
         // Create new InterstitialAd for Video
         videoAd = InterstitialAd(this).apply {
@@ -130,8 +135,11 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity<ActivityInterstitia
         // Destroy previous loaded Interstitial Ads
         destroyDelayedShowInterstitial()
 
+        // Create placement configuration
+        val config = AdPlacementConfig.interstitialBuilder().build()
+
         // Create new InterstitialRequest
-        val interstitialRequest = InterstitialRequest.Builder().build()
+        val interstitialRequest = InterstitialRequest.Builder(config).build()
 
         // Create new InterstitialAd
         delayedShowInterstitialAd = InterstitialAd(this).apply {

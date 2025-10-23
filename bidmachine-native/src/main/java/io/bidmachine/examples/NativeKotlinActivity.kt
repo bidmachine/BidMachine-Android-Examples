@@ -3,10 +3,12 @@ package io.bidmachine.examples
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import io.bidmachine.AdPlacementConfig
 import io.bidmachine.BidMachine
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.examples.base.Status
 import io.bidmachine.examples.databinding.ActivityNativeBinding
+import io.bidmachine.MediaAssetType
 import io.bidmachine.nativead.NativeAd
 import io.bidmachine.nativead.NativeRequest
 import io.bidmachine.nativead.SimpleNativeListener
@@ -39,8 +41,11 @@ class NativeKotlinActivity : BaseKotlinExampleActivity<ActivityNativeBinding>() 
         // Destroy previous loaded NativeAd
         destroyNativeAd()
 
+        // Create placement configuration
+        val config = AdPlacementConfig.nativeBuilder(MediaAssetType.DEFAULT).build()
+
         // Create native request
-        val request = NativeRequest.Builder().build()
+        val request = NativeRequest.Builder(config).build()
 
         // Load Native Ad
         nativeAd = NativeAd(this).apply {

@@ -6,9 +6,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import io.bidmachine.AdPlacementConfig;
+import io.bidmachine.BannerAdSize;
 import io.bidmachine.BidMachine;
 import io.bidmachine.banner.BannerRequest;
-import io.bidmachine.banner.BannerSize;
 import io.bidmachine.banner.BannerView;
 import io.bidmachine.banner.SimpleBannerListener;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
@@ -57,9 +58,12 @@ public class BannerJavaActivity extends BaseJavaExampleActivity<ActivityBannerBi
     private void loadAd() {
         setDebugState(Status.Loading);
 
+        // Create placement configuration
+        AdPlacementConfig config = AdPlacementConfig.bannerBuilder(BannerAdSize.Banner)
+                .build();
+
         // Create banner request
-        BannerRequest request = new BannerRequest.Builder()
-                .setSize(BannerSize.Size_320x50)
+        BannerRequest request = new BannerRequest.Builder(config)
                 .build();
 
         // Load Banner Ads
