@@ -52,14 +52,8 @@ public class NativeJavaActivity extends BaseJavaExampleActivity<ActivityNativeBi
         // Destroy previous loaded NativeAd
         destroyNativeAd();
 
-        // Create media types list
-        List<MediaAssetType> mediaTypes = Arrays.asList(
-                MediaAssetType.Icon,
-                MediaAssetType.Image
-        );
-
         // Create placement configuration
-        AdPlacementConfig config = AdPlacementConfig.nativeBuilder(mediaTypes).build();
+        AdPlacementConfig config = AdPlacementConfig.nativeBuilder(MediaAssetType.DEFAULT).build();
 
         // Create native request
         NativeRequest request = new NativeRequest.Builder(config).build();

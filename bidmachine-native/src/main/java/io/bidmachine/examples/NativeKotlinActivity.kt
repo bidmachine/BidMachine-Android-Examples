@@ -41,11 +41,8 @@ class NativeKotlinActivity : BaseKotlinExampleActivity<ActivityNativeBinding>() 
         // Destroy previous loaded NativeAd
         destroyNativeAd()
 
-        // Create media types list
-        val mediaTypes = listOf(MediaAssetType.Icon, MediaAssetType.Image)
-
         // Create placement configuration
-        val config = AdPlacementConfig.nativeBuilder(mediaTypes).build()
+        val config = AdPlacementConfig.nativeBuilder(MediaAssetType.DEFAULT).build()
 
         // Create native request
         val request = NativeRequest.Builder(config).build()
