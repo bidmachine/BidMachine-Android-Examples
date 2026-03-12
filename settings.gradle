@@ -5,5 +5,4 @@ include ":bidmachine",
         ":bidmachine-interstitial",
         ":bidmachine-rewarded",
         ":bidmachine-native",
-        ":bidmachine-requests",
-        ":bidmachine-header-bidding"
+        ":bidmachine-requests"

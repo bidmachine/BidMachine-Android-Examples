@@ -1,12 +1,5 @@
 buildscript {
-    ext.bidmachine_version = "3.5.1"
-    ext.bidmachine_amazon_version = "$bidmachine_version.18"
-    ext.bidmachine_criteo_version = "$bidmachine_version.13"
-    ext.bidmachine_meta_audience_version = "$bidmachine_version.17"
-    ext.bidmachine_mintegral_version = "$bidmachine_version.14"
-    ext.bidmachine_my_target_version = "$bidmachine_version.19"
-    ext.bidmachine_pangle_version = "$bidmachine_version.13"
-    ext.bidmachine_vungle_version = "$bidmachine_version.9"
+    ext.bidmachine_version = "3.6.0"
     ext.play_services_ads_identifier_version = "18.2.0"
 
     repositories {

@@ -16,5 +16,3 @@ documentation on using the BidMachine Ads SDK
 #### Native: [Java](bidmachine-native/src/main/java/io/bidmachine/examples/NativeJavaActivity.java)|[Kotlin](bidmachine-native/src/main/java/io/bidmachine/examples/NativeKotlinActivity.kt)
 
 #### Request Ads without load: [Java](bidmachine-requests/src/main/java/io/bidmachine/examples/RequestsJavaActivity.java)|[Kotlin](bidmachine-requests/src/main/java/io/bidmachine/examples/RequestsKotlinExample.kt)
-
-#### 3rd party networks integration: [Java](bidmachine-header-bidding/src/main/java/io/bidmachine/examples/HeaderBiddingJavaActivity.java)|[Kotlin](bidmachine-header-bidding/src/main/java/io/bidmachine/examples/HeaderBiddingKotlinActivity.kt)
