@@ -1,5 +1,5 @@
 buildscript {
-    ext.bidmachine_version = "3.6.1"
+    ext.bidmachine_version = "3.7.0"
     ext.play_services_ads_identifier_version = "18.2.0"
 
     repositories {
