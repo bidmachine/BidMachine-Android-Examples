@@ -2,138 +2,66 @@ package io.bidmachine.examples
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import io.bidmachine.AdPlacementConfig
+import io.bidmachine.Ad
+import io.bidmachine.AdLoadCallback
+import io.bidmachine.BMError
 import io.bidmachine.BidMachine
+import io.bidmachine.BidMachineInstance
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.examples.base.Status
 import io.bidmachine.examples.databinding.ActivityRewardedBinding
-import io.bidmachine.rewarded.RewardedAd
-import io.bidmachine.rewarded.RewardedRequest
-import io.bidmachine.rewarded.SimpleRewardedListener
-import io.bidmachine.utils.BMError
+import io.bidmachine.format.rewardedad.RewardedAd
+import io.bidmachine.format.rewardedad.RewardedListener
 
 class RewardedKotlinActivity : BaseKotlinExampleActivity<ActivityRewardedBinding>() {
 
+    private var bidMachineInstance: BidMachineInstance? = null
     private var rewardedAd: RewardedAd? = null
-    private var delayedShowRewardedAd: RewardedAd? = null
 
     override fun inflate(inflater: LayoutInflater) = ActivityRewardedBinding.inflate(inflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialise SDK
-        BidMachine.initialize(this, SOURCE_ID)
-
         // Enable logs
         BidMachine.setLoggingEnabled(true)
 
-        // Set listeners to perform Ads load
-        binding.bShowRewarded.setOnClickListener {
-            showRewarded()
-        }
+        // Initialize SDK
+        bidMachineInstance = BidMachine.initialize(
+            context = this,
+            sourceId = SOURCE_ID
+        )
+
+        // Set listeners to perform Ads load and show
         binding.bLoadRewarded.setOnClickListener {
-            loadRewarded()
+            loadAd()
         }
-        binding.bShowLoadedRewarded.setOnClickListener {
-            showLoadedRewarded()
-        }
-    }
-
-    private fun showRewarded() {
-        setDebugState(Status.Loading)
-
-        // Destroy previous loaded RewardedAd
-        destroyRewarded()
-
-        // Create placement configuration
-        val config = AdPlacementConfig.rewardedBuilder().build()
-
-        // Create new RewardedRequest
-        val rewardedRequest = RewardedRequest.Builder(config).build()
-
-        // Create new RewardedAd
-        rewardedAd = RewardedAd(this).apply {
-
-            // Set RewardedAd events listener
-            setListener(object : SimpleRewardedListener() {
-                override fun onAdLoaded(ad: RewardedAd) {
-                    setDebugState(Status.Loaded, "Rewarded Ads Loaded")
-
-                    // Show RewardedAd
-                    ad.show()
-                }
-
-                override fun onAdLoadFailed(ad: RewardedAd, error: BMError) {
-                    setDebugState(Status.LoadFail, "Rewarded Ads Load Failed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyRewarded()
-                }
-
-                override fun onAdClosed(ad: RewardedAd, finished: Boolean) {
-                    setDebugState(Status.Closed, "Rewarded Ads Closed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyRewarded()
-                }
-
-                override fun onAdRewarded(ad: RewardedAd) {
-                    setDebugState(Status.Rewarded, "Rewarded Ads Rewarded")
-
-                    // Here you can start you reward process
-                }
-            })
-
-            // Load Rewarded Ads
-            load(rewardedRequest)
+        binding.bShowRewarded.setOnClickListener {
+            showAd()
         }
     }
 
-    private fun loadRewarded() {
+    private fun loadAd() {
         setDebugState(Status.Loading)
 
-        // Destroy previous loaded RewardedAd
-        destroyDelayedShowRewarded()
+        bidMachineInstance?.loadRewarded(adLoadCallback = RewardedAdLoadCallback())
+            ?: toast("Initialize BidMachine first!")
+    }
 
-        // Create placement configuration
-        val config = AdPlacementConfig.rewardedBuilder().build()
+    private fun showAd() {
+        val rewardedAd: RewardedAd? = rewardedAd
+        when {
+            rewardedAd == null -> {
+                toast("Load Rewarded First")
+            }
 
-        // Create new RewardedRequest
-        val rewardedRequest = RewardedRequest.Builder(config).build()
+            !(rewardedAd as Ad).canShow() -> {
+                toast("Rewarded can't be shown")
+            }
 
-        // Create new RewardedAd
-        delayedShowRewardedAd = RewardedAd(this).apply {
-
-            // Set RewardedAd events listener
-            setListener(object : SimpleRewardedListener() {
-                override fun onAdLoaded(ad: RewardedAd) {
-                    setDebugState(Status.Loaded, "Rewarded Ads Loaded")
-                }
-
-                override fun onAdLoadFailed(ad: RewardedAd, error: BMError) {
-                    setDebugState(Status.LoadFail, "Rewarded Ads Load Failed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyDelayedShowRewarded()
-                }
-
-                override fun onAdClosed(ad: RewardedAd, finished: Boolean) {
-                    setDebugState(Status.Closed, "Rewarded Ads Closed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyDelayedShowRewarded()
-                }
-
-                override fun onAdRewarded(ad: RewardedAd) {
-                    setDebugState(Status.Rewarded, "Rewarded Ads Rewarded")
-
-                    // Here you can start you reward process
-                }
-            })
-
-            // Load Rewarded
-            load(rewardedRequest)
+            else -> {
+                rewardedAd.show()
+            }
         }
     }
 
@@ -141,34 +69,102 @@ class RewardedKotlinActivity : BaseKotlinExampleActivity<ActivityRewardedBinding
         super.onDestroy()
 
         // Destroy Ads when you finish with it
-        destroyRewarded()
-        destroyDelayedShowRewarded()
+        destroyRewardedAd()
     }
 
-    private fun destroyRewarded() {
-        rewardedAd?.destroy()
+    // canShow() and destroy() are called through the Ad interface,
+    // since Kotlin can't resolve them directly on RewardedAd in BidMachine 4.0.0
+    private fun destroyRewardedAd() {
+        (rewardedAd as Ad?)?.destroy()
         rewardedAd = null
     }
 
-    private fun destroyDelayedShowRewarded() {
-        delayedShowRewardedAd?.destroy()
-        delayedShowRewardedAd = null
+
+    private inner class RewardedAdLoadCallback : AdLoadCallback<RewardedAd> {
+
+        override fun onAdLoaded(ad: RewardedAd) {
+            setDebugState(
+                status = Status.Loaded,
+                message = "Rewarded Ads Loaded"
+            )
+
+            // Destroy previous loaded RewardedAd
+            destroyRewardedAd()
+
+            // Keep a reference to RewardedAd: you need it to show the ad,
+            // listen to its events and destroy it when you're done
+            rewardedAd = ad
+            ad.setListener(RewardedAdListener())
+        }
+
+        override fun onAdLoadFailed(bmError: BMError) {
+            setDebugState(
+                status = Status.LoadFail,
+                message = "Rewarded Ads Load Failed"
+            )
+        }
+
     }
 
-    private fun showLoadedRewarded() {
-        when {
-            delayedShowRewardedAd == null -> {
-                toast("Load Rewarded First")
-            }
+    private inner class RewardedAdListener : RewardedListener {
 
-            delayedShowRewardedAd?.isLoaded == false -> {
-                toast("Rewarded not Loaded yet")
-            }
-
-            else -> {
-                delayedShowRewardedAd!!.show()
-            }
+        override fun onAdPresented(ad: RewardedAd) {
+            toast("Rewarded Ads Presented")
         }
+
+        override fun onAdShowFailed(ad: RewardedAd, bmError: BMError) {
+            setDebugState(
+                status = Status.ShowFail,
+                message = "Rewarded Ads Show Failed"
+            )
+
+            // Destroy ad since it not required any more
+            destroyRewardedAd()
+        }
+
+        override fun onAdImpression(ad: RewardedAd) {
+            setDebugState(
+                status = Status.Impression,
+                message = "Rewarded Ads Impression"
+            )
+        }
+
+        override fun onAdClicked(ad: RewardedAd) {
+            setDebugState(
+                status = Status.Clicked,
+                message = "Rewarded Ads Clicked"
+            )
+        }
+
+        override fun onAdExpired(ad: RewardedAd) {
+            setDebugState(
+                status = Status.Expired,
+                message = "Rewarded Ads Expired"
+            )
+
+            // Destroy ad since it not required any more
+            destroyRewardedAd()
+        }
+
+        override fun onAdRewarded(ad: RewardedAd) {
+            setDebugState(
+                status = Status.Rewarded,
+                message = "Rewarded Ads Rewarded"
+            )
+
+            // Here you can start you reward process
+        }
+
+        override fun onAdClosed(ad: RewardedAd) {
+            setDebugState(
+                status = Status.Closed,
+                message = "Rewarded Ads Closed"
+            )
+
+            // Destroy ad since it not required any more
+            destroyRewardedAd()
+        }
+
     }
 
 }

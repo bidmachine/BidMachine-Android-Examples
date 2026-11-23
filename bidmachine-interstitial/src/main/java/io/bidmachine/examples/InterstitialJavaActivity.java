@@ -6,25 +6,22 @@ import android.view.LayoutInflater;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.bidmachine.AdContentType;
-import io.bidmachine.AdPlacementConfig;
+import io.bidmachine.AdLoadCallback;
+import io.bidmachine.BMError;
 import io.bidmachine.BidMachine;
+import io.bidmachine.BidMachineInstance;
 import io.bidmachine.examples.base.BaseJavaExampleActivity;
 import io.bidmachine.examples.base.Status;
 import io.bidmachine.examples.databinding.ActivityInterstitialBinding;
-import io.bidmachine.interstitial.InterstitialAd;
-import io.bidmachine.interstitial.InterstitialRequest;
-import io.bidmachine.interstitial.SimpleInterstitialListener;
-import io.bidmachine.utils.BMError;
+import io.bidmachine.format.interstitialad.InterstitialAd;
+import io.bidmachine.format.interstitialad.InterstitialListener;
 
 public class InterstitialJavaActivity extends BaseJavaExampleActivity<ActivityInterstitialBinding> {
 
     @Nullable
-    private InterstitialAd interstitialAd;
+    private BidMachineInstance bidMachineInstance = null;
     @Nullable
-    private InterstitialAd videoAd;
-    @Nullable
-    private InterstitialAd delayedShowInterstitialAd;
+    private InterstitialAd interstitialAd = null;
 
     @NonNull
     @Override
@@ -36,152 +33,37 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity<ActivityIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialise SDK
-        BidMachine.initialize(this, SOURCE_ID);
-
         // Enable logs
         BidMachine.setLoggingEnabled(true);
 
-        // Set listeners to perform Ads load
-        binding.bShowInterstitial.setOnClickListener(v -> showInterstitial());
-        binding.bShowVideo.setOnClickListener(v -> showVideo());
-        binding.bLoadInterstitial.setOnClickListener(v -> loadInterstitial());
-        binding.bShowLoadedInterstitial.setOnClickListener(v -> showLoadedInterstitial());
+        // Initialize SDK
+        bidMachineInstance = BidMachine.initialize(this, SOURCE_ID);
 
+        // Set listeners to perform Ads load and show
+        binding.bLoadInterstitial.setOnClickListener(v -> loadAd());
+        binding.bShowInterstitial.setOnClickListener(v -> showAd());
     }
 
-    private void showInterstitial() {
+    private void loadAd() {
         setDebugState(Status.Loading);
 
-        // Destroy previous loaded InterstitialAd
-        destroyInterstitialAd();
-
-        // Create placement configuration
-        AdPlacementConfig config = AdPlacementConfig.interstitialBuilder().build();
-
-        // Create new InterstitialRequest
-        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder(config).build();
-
-        // Create new InterstitialAd
-        interstitialAd = new InterstitialAd(this);
-
-        // Set InterstitialAd events listener
-        interstitialAd.setListener(new SimpleInterstitialListener() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd ad) {
-                setDebugState(Status.Loaded, "Interstitial Ads Loaded");
-
-                // Show Interstitial Ad
-                ad.show();
-            }
-
-            @Override
-            public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
-                setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
-
-                // Destroy loaded ad since it not required any more
-                destroyInterstitialAd();
-            }
-
-            @Override
-            public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
-                setDebugState(Status.Closed, "Interstitial Ads Closed");
-
-                // Destroy loaded ad since it not required any more
-                destroyInterstitialAd();
-            }
-        });
-
-        // Load InterstitialAd
-        interstitialAd.load(interstitialRequest);
+        BidMachineInstance bidMachineInstance = this.bidMachineInstance;
+        if (bidMachineInstance != null) {
+            bidMachineInstance.loadInterstitial(new InterstitialAdLoadCallback());
+        } else {
+            toast("Initialize BidMachine first!");
+        }
     }
 
-    private void showVideo() {
-        setDebugState(Status.Loading);
-
-        // Destroy previous loaded InterstitialAd for Video
-        destroyVideoAd();
-
-        // Create placement configuration for Video
-        AdPlacementConfig config = AdPlacementConfig.interstitialBuilder(AdContentType.Video).build();
-
-        // Create new InterstitialRequest for Video
-        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder(config).build();
-
-        // Create new InterstitialAd for Video
-        videoAd = new InterstitialAd(this);
-
-        // Set InterstitialAd for Video events listener
-        videoAd.setListener(new SimpleInterstitialListener() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd ad) {
-                setDebugState(Status.Loaded, "Interstitial Ads Loaded");
-
-                // Show Interstitial Ad for Video
-                ad.show();
-            }
-
-            @Override
-            public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
-                setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
-
-                // Destroy loaded ad since it not required any more
-                destroyVideoAd();
-            }
-
-            @Override
-            public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
-                setDebugState(Status.Closed, "Interstitial Ads Closed");
-
-                // Destroy loaded ad since it not required any more
-                destroyVideoAd();
-            }
-        });
-        // Load InterstitialAd for Video
-        videoAd.load(interstitialRequest);
-    }
-
-    private void loadInterstitial() {
-        setDebugState(Status.Loading);
-
-        // Destroy previous loaded Interstitial Ads
-        destroyDelayedShowInterstitial();
-
-        // Create placement configuration
-        AdPlacementConfig config = AdPlacementConfig.interstitialBuilder().build();
-
-        // Create new InterstitialRequest
-        InterstitialRequest interstitialRequest = new InterstitialRequest.Builder(config).build();
-
-        // Create new InterstitialAd
-        delayedShowInterstitialAd = new InterstitialAd(this);
-
-        // Set InterstitialAd events listener
-        delayedShowInterstitialAd.setListener(new SimpleInterstitialListener() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd ad) {
-                setDebugState(Status.Loaded, "Interstitial Ads Loaded");
-            }
-
-            @Override
-            public void onAdLoadFailed(@NonNull InterstitialAd ad, @NonNull BMError error) {
-                setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
-
-                // Destroy loaded ad since it not required any more
-                destroyDelayedShowInterstitial();
-            }
-
-            @Override
-            public void onAdClosed(@NonNull InterstitialAd ad, boolean finished) {
-                setDebugState(Status.Closed, "Interstitial Ads Closed");
-
-                // Destroy loaded ad since it not required any more
-                destroyDelayedShowInterstitial();
-            }
-        });
-
-        // Load InterstitialAd
-        delayedShowInterstitialAd.load(interstitialRequest);
+    private void showAd() {
+        InterstitialAd interstitialAd = this.interstitialAd;
+        if (interstitialAd == null) {
+            toast("Load Interstitial First");
+        } else if (!interstitialAd.canShow()) {
+            toast("Interstitial can't be shown");
+        } else {
+            interstitialAd.show();
+        }
     }
 
     @Override
@@ -190,39 +72,80 @@ public class InterstitialJavaActivity extends BaseJavaExampleActivity<ActivityIn
 
         // Destroy Ads when you finish with it
         destroyInterstitialAd();
-        destroyVideoAd();
-        destroyDelayedShowInterstitial();
     }
 
     private void destroyInterstitialAd() {
+        InterstitialAd interstitialAd = this.interstitialAd;
         if (interstitialAd != null) {
             interstitialAd.destroy();
-            interstitialAd = null;
+            this.interstitialAd = null;
         }
     }
 
-    private void destroyVideoAd() {
-        if (videoAd != null) {
-            videoAd.destroy();
-            videoAd = null;
+
+    private class InterstitialAdLoadCallback implements AdLoadCallback<InterstitialAd> {
+
+        @Override
+        public void onAdLoaded(@NonNull InterstitialAd ad) {
+            setDebugState(Status.Loaded, "Interstitial Ads Loaded");
+
+            // Destroy previous loaded InterstitialAd
+            destroyInterstitialAd();
+
+            // Keep a reference to InterstitialAd: you need it to show the ad,
+            // listen to its events and destroy it when you're done
+            interstitialAd = ad;
+            ad.setListener(new InterstitialAdListener());
         }
+
+        @Override
+        public void onAdLoadFailed(@NonNull BMError bmError) {
+            setDebugState(Status.LoadFail, "Interstitial Ads Load Failed");
+        }
+
     }
 
-    private void destroyDelayedShowInterstitial() {
-        if (delayedShowInterstitialAd != null) {
-            delayedShowInterstitialAd.destroy();
-            delayedShowInterstitialAd = null;
-        }
-    }
+    private class InterstitialAdListener implements InterstitialListener {
 
-    private void showLoadedInterstitial() {
-        if (delayedShowInterstitialAd == null) {
-            toast("Load Interstitial First");
-        } else if (!delayedShowInterstitialAd.isLoaded()) {
-            toast("Interstitial not Loaded yet");
-        } else {
-            delayedShowInterstitialAd.show();
+        @Override
+        public void onAdPresented(@NonNull InterstitialAd ad) {
+            toast("Interstitial Ads Presented");
         }
+
+        @Override
+        public void onAdShowFailed(@NonNull InterstitialAd ad, @NonNull BMError bmError) {
+            setDebugState(Status.ShowFail, "Interstitial Ads Show Failed");
+
+            // Destroy ad since it not required any more
+            destroyInterstitialAd();
+        }
+
+        @Override
+        public void onAdImpression(@NonNull InterstitialAd ad) {
+            setDebugState(Status.Impression, "Interstitial Ads Impression");
+        }
+
+        @Override
+        public void onAdClicked(@NonNull InterstitialAd ad) {
+            setDebugState(Status.Clicked, "Interstitial Ads Clicked");
+        }
+
+        @Override
+        public void onAdExpired(@NonNull InterstitialAd ad) {
+            setDebugState(Status.Expired, "Interstitial Ads Expired");
+
+            // Destroy ad since it not required any more
+            destroyInterstitialAd();
+        }
+
+        @Override
+        public void onAdClosed(@NonNull InterstitialAd ad) {
+            setDebugState(Status.Closed, "Interstitial Ads Closed");
+
+            // Destroy ad since it not required any more
+            destroyInterstitialAd();
+        }
+
     }
 
 }

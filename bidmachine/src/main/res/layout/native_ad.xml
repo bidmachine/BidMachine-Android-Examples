@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.bidmachine.nativead.view.NativeAdContentLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.bidmachine.format.nativead.view.NativeAdContentLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nativeAdContentLayout"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:visibility="gone"
+    app:adBadgeViewId="@+id/adBadgeView"
+    app:adChoiceViewId="@+id/adChoiceView"
+    app:advertiserViewId="@+id/tvAdvertiser"
+    app:bodyViewId="@+id/tvDescription"
     app:callToActionViewId="@+id/bCta"
-    app:descriptionViewId="@+id/tvDescription"
     app:iconViewId="@+id/ivIcon"
     app:mediaViewId="@+id/mediaView"
-    app:providerViewId="@+id/providerView"
-    app:ratingViewId="@+id/ratingBar"
+    app:starRatingViewId="@+id/ratingBar"
     app:titleViewId="@+id/tvTitle">
 
     <RelativeLayout
@@ -51,17 +53,24 @@
                         android:layout_width="0dp"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/tvAd"
+                    <FrameLayout
+                        android:id="@+id/adBadgeView"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:layout_width="wrap_content"
-                        android:text="Ad"
-                        android:textSize="14sp"
-                        tools:ignore="HardcodedText" />
+                        android:layout_width="wrap_content" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvAdvertiser"
+                    android:ellipsize="end"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="match_parent"
+                    android:maxLines="1"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/tvDescription"
@@ -104,14 +113,14 @@
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/providerView"
+            android:id="@+id/adChoiceView"
             android:layout_alignBottom="@id/nativeAd"
             android:layout_alignLeft="@id/nativeAd"
             android:layout_alignStart="@id/nativeAd"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content" />
 
-        <io.bidmachine.nativead.view.NativeMediaView
+        <FrameLayout
             android:id="@+id/mediaView"
             android:layout_below="@+id/nativeAd"
             android:layout_height="wrap_content"
@@ -119,4 +128,4 @@
 
     </RelativeLayout>
 
-</io.bidmachine.nativead.view.NativeAdContentLayout>
+</io.bidmachine.format.nativead.view.NativeAdContentLayout>

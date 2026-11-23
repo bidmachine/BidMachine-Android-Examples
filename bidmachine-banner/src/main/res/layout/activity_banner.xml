@@ -16,9 +16,8 @@
         android:text="Load Ads"
         tools:ignore="HardcodedText" />
 
-    <io.bidmachine.banner.BannerView
-        android:id="@+id/bannerView"
-        android:background="@android:color/darker_gray"
+    <FrameLayout
+        android:id="@+id/adContainer"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
 

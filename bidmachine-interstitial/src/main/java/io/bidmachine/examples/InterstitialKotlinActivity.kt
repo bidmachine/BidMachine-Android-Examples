@@ -2,169 +2,66 @@ package io.bidmachine.examples
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import io.bidmachine.AdContentType
-import io.bidmachine.AdPlacementConfig
+import io.bidmachine.Ad
+import io.bidmachine.AdLoadCallback
+import io.bidmachine.BMError
 import io.bidmachine.BidMachine
+import io.bidmachine.BidMachineInstance
 import io.bidmachine.examples.base.BaseKotlinExampleActivity
 import io.bidmachine.examples.base.Status
 import io.bidmachine.examples.databinding.ActivityInterstitialBinding
-import io.bidmachine.interstitial.InterstitialAd
-import io.bidmachine.interstitial.InterstitialRequest
-import io.bidmachine.interstitial.SimpleInterstitialListener
-import io.bidmachine.utils.BMError
+import io.bidmachine.format.interstitialad.InterstitialAd
+import io.bidmachine.format.interstitialad.InterstitialListener
 
 class InterstitialKotlinActivity : BaseKotlinExampleActivity<ActivityInterstitialBinding>() {
 
+    private var bidMachineInstance: BidMachineInstance? = null
     private var interstitialAd: InterstitialAd? = null
-    private var videoAd: InterstitialAd? = null
-    private var delayedShowInterstitialAd: InterstitialAd? = null
 
     override fun inflate(inflater: LayoutInflater) = ActivityInterstitialBinding.inflate(inflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialise SDK
-        BidMachine.initialize(this, SOURCE_ID)
-
         // Enable logs
         BidMachine.setLoggingEnabled(true)
 
-        // Set listeners to perform Ads load
-        binding.bShowInterstitial.setOnClickListener {
-            showInterstitial()
-        }
-        binding.bShowVideo.setOnClickListener {
-            showVideo()
-        }
+        // Initialize SDK
+        bidMachineInstance = BidMachine.initialize(
+            context = this,
+            sourceId = SOURCE_ID
+        )
+
+        // Set listeners to perform Ads load and show
         binding.bLoadInterstitial.setOnClickListener {
-            loadInterstitial()
+            loadAd()
         }
-        binding.bShowLoadedInterstitial.setOnClickListener {
-            showLoadedInterstitial()
-        }
-    }
-
-    private fun showInterstitial() {
-        setDebugState(Status.Loading)
-
-        // Destroy previous loaded InterstitialAd
-        destroyInterstitialAd()
-
-        // Create placement configuration
-        val config = AdPlacementConfig.interstitialBuilder().build()
-
-        // Create new InterstitialRequest
-        val interstitialRequest = InterstitialRequest.Builder(config).build()
-
-        // Create new InterstitialAd
-        interstitialAd = InterstitialAd(this).apply {
-            setListener(object : SimpleInterstitialListener() {
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    setDebugState(Status.Loaded, "Interstitial Ads Loaded")
-
-                    // Show Interstitial Ad
-                    ad.show()
-                }
-
-                override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                    setDebugState(Status.LoadFail, "Interstitial Ads Load Failed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyInterstitialAd()
-                }
-
-                override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
-                    setDebugState(Status.Closed, "Interstitial Ads Closed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyInterstitialAd()
-                }
-            })
-
-            // Load InterstitialAd
-            load(interstitialRequest)
+        binding.bShowInterstitial.setOnClickListener {
+            showAd()
         }
     }
 
-    private fun showVideo() {
+    private fun loadAd() {
         setDebugState(Status.Loading)
 
-        // Destroy previous loaded InterstitialAd for Video
-        destroyVideoAd()
-
-        // Create placement configuration for Video
-        val config = AdPlacementConfig.interstitialBuilder(AdContentType.Video).build()
-
-        // Create new InterstitialRequest for Video
-        val interstitialRequest = InterstitialRequest.Builder(config).build()
-
-        // Create new InterstitialAd for Video
-        videoAd = InterstitialAd(this).apply {
-            setListener(object : SimpleInterstitialListener() {
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    setDebugState(Status.Loaded, "Interstitial Ads Loaded")
-
-                    // Show Interstitial Ad for Video
-                    ad.show()
-                }
-
-                override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                    setDebugState(Status.LoadFail, "Interstitial Ads Load Failed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyInterstitialAd()
-                }
-
-                override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
-                    setDebugState(Status.Closed, "Interstitial Ads Closed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyInterstitialAd()
-                }
-            })
-
-            // Load InterstitialAd for Video
-            load(interstitialRequest)
-        }
+        bidMachineInstance?.loadInterstitial(adLoadCallback = InterstitialAdLoadCallback())
+            ?: toast("Initialize BidMachine first!")
     }
 
-    private fun loadInterstitial() {
-        setDebugState(Status.Loading)
+    private fun showAd() {
+        val interstitialAd: InterstitialAd? = interstitialAd
+        when {
+            interstitialAd == null -> {
+                toast("Load Interstitial First")
+            }
 
-        // Destroy previous loaded Interstitial Ads
-        destroyDelayedShowInterstitial()
+            !(interstitialAd as Ad).canShow() -> {
+                toast("Interstitial can't be shown")
+            }
 
-        // Create placement configuration
-        val config = AdPlacementConfig.interstitialBuilder().build()
-
-        // Create new InterstitialRequest
-        val interstitialRequest = InterstitialRequest.Builder(config).build()
-
-        // Create new InterstitialAd
-        delayedShowInterstitialAd = InterstitialAd(this).apply {
-            setListener(object : SimpleInterstitialListener() {
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    setDebugState(Status.Loaded, "Interstitial Ads Loaded")
-                }
-
-                override fun onAdLoadFailed(ad: InterstitialAd, error: BMError) {
-                    setDebugState(Status.LoadFail, "Interstitial Ads Load Failed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyDelayedShowInterstitial()
-                }
-
-                override fun onAdClosed(ad: InterstitialAd, finished: Boolean) {
-                    setDebugState(Status.Closed, "Interstitial Ads Closed")
-
-                    // Destroy loaded ad since it not required any more
-                    destroyDelayedShowInterstitial()
-                }
-            })
-
-            // Load InterstitialAd
-            load(interstitialRequest)
+            else -> {
+                interstitialAd.show()
+            }
         }
     }
 
@@ -173,39 +70,92 @@ class InterstitialKotlinActivity : BaseKotlinExampleActivity<ActivityInterstitia
 
         // Destroy Ads when you finish with it
         destroyInterstitialAd()
-        destroyVideoAd()
-        destroyDelayedShowInterstitial()
     }
 
+    // canShow() and destroy() are called through the Ad interface,
+    // since Kotlin can't resolve them directly on InterstitialAd in BidMachine 4.0.0
     private fun destroyInterstitialAd() {
-        interstitialAd?.destroy()
+        (interstitialAd as Ad?)?.destroy()
         interstitialAd = null
     }
 
-    private fun destroyVideoAd() {
-        videoAd?.destroy()
-        videoAd = null
-    }
 
-    private fun destroyDelayedShowInterstitial() {
-        delayedShowInterstitialAd?.destroy()
-        delayedShowInterstitialAd = null
-    }
+    private inner class InterstitialAdLoadCallback : AdLoadCallback<InterstitialAd> {
 
-    private fun showLoadedInterstitial() {
-        when {
-            delayedShowInterstitialAd == null -> {
-                toast("Load Interstitial First")
-            }
+        override fun onAdLoaded(ad: InterstitialAd) {
+            setDebugState(
+                status = Status.Loaded,
+                message = "Interstitial Ads Loaded"
+            )
 
-            delayedShowInterstitialAd?.isLoaded == false -> {
-                toast("Interstitial not Loaded yet")
-            }
+            // Destroy previous loaded InterstitialAd
+            destroyInterstitialAd()
 
-            else -> {
-                delayedShowInterstitialAd!!.show()
-            }
+            // Keep a reference to InterstitialAd: you need it to show the ad,
+            // listen to its events and destroy it when you're done
+            interstitialAd = ad
+            ad.setListener(InterstitialAdListener())
         }
+
+        override fun onAdLoadFailed(bmError: BMError) {
+            setDebugState(
+                status = Status.LoadFail,
+                message = "Interstitial Ads Load Failed"
+            )
+        }
+
+    }
+
+    private inner class InterstitialAdListener : InterstitialListener {
+
+        override fun onAdPresented(ad: InterstitialAd) {
+            toast("Interstitial Ads Presented")
+        }
+
+        override fun onAdShowFailed(ad: InterstitialAd, bmError: BMError) {
+            setDebugState(
+                status = Status.ShowFail,
+                message = "Interstitial Ads Show Failed"
+            )
+
+            // Destroy ad since it not required any more
+            destroyInterstitialAd()
+        }
+
+        override fun onAdImpression(ad: InterstitialAd) {
+            setDebugState(
+                status = Status.Impression,
+                message = "Interstitial Ads Impression"
+            )
+        }
+
+        override fun onAdClicked(ad: InterstitialAd) {
+            setDebugState(
+                status = Status.Clicked,
+                message = "Interstitial Ads Clicked"
+            )
+        }
+
+        override fun onAdExpired(ad: InterstitialAd) {
+            setDebugState(
+                status = Status.Expired,
+                message = "Interstitial Ads Expired"
+            )
+
+            // Destroy ad since it not required any more
+            destroyInterstitialAd()
+        }
+
+        override fun onAdClosed(ad: InterstitialAd) {
+            setDebugState(
+                status = Status.Closed,
+                message = "Interstitial Ads Closed"
+            )
+
+            // Destroy ad since it not required any more
+            destroyInterstitialAd()
+        }
+
     }
 
 }
