@@ -8,31 +8,6 @@
     tools:context=".InterstitialJavaActivity">
 
     <Button
-        android:id="@+id/bShowInterstitial"
-        style="@style/AdRequestButton"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Show Interstitial"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/bShowVideo"
-        style="@style/AdRequestButton"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Show Video"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_width="wrap_content"
-        android:text="If you want control when display ad:"
-        android:textStyle="bold|italic"
-        tools:ignore="HardcodedText" />
-
-    <Button
         android:id="@+id/bLoadInterstitial"
         style="@style/AdRequestButton"
         android:layout_height="wrap_content"
@@ -41,11 +16,11 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/bShowLoadedInterstitial"
+        android:id="@+id/bShowInterstitial"
         style="@style/AdRequestButton"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Show Loaded Interstitial"
+        android:text="Show Interstitial"
         tools:ignore="HardcodedText" />
 
 </LinearLayout>

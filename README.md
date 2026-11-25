@@ -1,4 +1,4 @@
-# Bid Machine SDK Android Examples
+# BidMachine SDK Android Examples
 
 ## Documentation
 
@@ -14,5 +14,3 @@ documentation on using the BidMachine Ads SDK
 #### Rewarded Video: [Java](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedJavaActivity.java)|[Kotlin](bidmachine-rewarded/src/main/java/io/bidmachine/examples/RewardedKotlinActivity.kt)
 
 #### Native: [Java](bidmachine-native/src/main/java/io/bidmachine/examples/NativeJavaActivity.java)|[Kotlin](bidmachine-native/src/main/java/io/bidmachine/examples/NativeKotlinActivity.kt)
-
-#### Request Ads without load: [Java](bidmachine-requests/src/main/java/io/bidmachine/examples/RequestsJavaActivity.java)|[Kotlin](bidmachine-requests/src/main/java/io/bidmachine/examples/RequestsKotlinExample.kt)

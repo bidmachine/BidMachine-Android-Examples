@@ -4,5 +4,4 @@ include ":bidmachine",
         ":bidmachine-banner",
         ":bidmachine-interstitial",
         ":bidmachine-rewarded",
-        ":bidmachine-native",
-        ":bidmachine-requests"
+        ":bidmachine-native"
