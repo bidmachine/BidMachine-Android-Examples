@@ -1,4 +1,4 @@
-# Bid Machine SDK Android Examples
+# BidMachine SDK Android Examples
 
 ## Documentation
 
